@@ -1,0 +1,2398 @@
+<!--For Extension info, read How to make extensions.txt in Extension folder-->
+<!--Transmitter V6.10-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="title" content="LioranBoard Transmitter">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description"
+    content="LioranBoard component which allows LioranBoard to connect to Twitch and its extensions.">
+  <meta name="keywords" content="LioranBoard, Transmitter, Twitch, Stream">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="language" content="English">
+  <title>LioranBoard Transmitter</title>
+  <link rel="shortcut icon" type="image/x-icon"
+    href="https://raw.githubusercontent.com/LioranBoard/LioranBoard-2-Transmitter/main/favicon_ce.ico" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/christinna9031/LioranBoard-Files@main/lib/bootstrap.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <style>
+    body {
+  font-family: 'Lato', sans-serif;
+}
+h1 {
+font-size: calc(1.2em + 1vw);
+}
+a {
+  color: #ffac7c;
+  text-decoration: underline;
+}
+a:hover {
+  color: #ff6810;
+  text-decoration: underline;
+}
+.tslCollapse, .tslCollapse:hover, .tslCollapse a {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+.tslCollapse.collapsed:before {
+  content:'Show Options \01F847' ;
+  width:15px;
+}
+.tslCollapse:before {
+  content:'Hide Options \01F845' ;
+  width:15px;
+}
+.LBTestTriggers .form-check-input[type=checkbox] {
+  vertical-align: text-bottom;
+}
+#footer .tslCollapse.collapsed:before {
+  content:'Show Installed Extensions \01F847' ;
+  width:15px;
+}
+#footer .tslCollapse:before {
+  content:'Hide Installed Extensions \01F845' ;
+  width:15px;
+}
+
+#LBreceiverlog, #LBpubsublog {
+  background:rgb(10, 11, 26);
+  padding:5px 15px;
+  display:block;
+  position: relative;
+  float: left;
+  text-align: left;
+  max-height: 50%;
+  overflow-y: auto;
+}
+
+#debugLogContent, #debugLog {
+  border:none;
+  background-color:rgba(0,0,0,0);
+  box-shadow:none;
+}
+#debugLog .nav-link {
+  padding: .2rem 1rem;
+}
+#LBPubSub, #LBreceiver {
+  overflow: hidden;
+  padding:5px;
+  margin:2px;
+  padding: 1px 
+}
+samp {
+  width: 200px;
+  word-break: break-all;
+  white-space: normal;
+}
+
+input{
+ padding:0px;
+ margin:1px 1px
+}
+button{
+ padding:2px 5px;
+ margin:3px 0;
+ box-shadow:2 2px #c5c5c5
+}
+button:active{
+ background-color:#797979;
+ color:#fff;
+ box-shadow:0 0 rgb(223, 223, 223);
+ transform:translateY(1px)
+}
+.nav {
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.nav-pills .nav-link {
+  font-family: Arial;
+  padding: .4em .6em .1em .6em;
+  margin: 2px 1px 0px 1px!important;
+  background: rgb(175,177,184);
+  background-color: linear-gradient(0deg, rgba(175,177,184,1) 15%, rgba(203,203,213,1) 61%);
+  font-weight: bold;
+  color:rgb(31, 32, 54);
+  border-radius: 5px 5px 0px 0px;
+  text-shadow: 0px 1px 2px rgb(195, 195, 195);
+  transition: 0.01s;
+}
+.nav-pills > li > .nav-link.active {
+   background-image: linear-gradient(to bottom, #E28B3B, #B96C23);
+   color: rgb(255, 255, 255);
+   border: 1px solid #8F8C8C;
+   text-shadow: 1px 1px 3px rgb(0 0 0 / 100%);
+ }
+ 
+ .tab-content {
+   background-color: rgba(39, 55, 110, 0.5);
+   box-shadow: 0.5rem 0.5rem 0.5rem #00000080;
+   min-height:50px;
+   width:100%;
+   border-radius:3px;
+   overflow:hidden;
+   padding:20px;
+ }
+ .draggable-source--is-dragging {
+   opacity: 0;
+ }
+
+@media (max-width: 576px) {
+  .nav-pills .nav-link {
+      border-radius: 5px 5px 0px 0px;
+      font-weight:bold;
+      padding: .2em .4em .1em .4em;
+      font-size: 0.92em 
+ }
+  button{
+     font-size:0.93em;
+      padding:2px 5px;
+     margin:3px 0;
+     box-shadow:2 2px #c5c5c5
+ }
+ button:active{
+     background-color:#797979;
+     color:#fff;
+     box-shadow:0 0 rgb(223, 223, 223);
+     transform:translateY(1px)
+ }
+}
+
+.notabs>.tab-pane {
+  display: block !important;
+  opacity: 1 !important;
+}
+.notabs button, .notabs input{
+ color:#fff;
+ background-color:#4c4c4c;
+ border-color:#464546
+}
+.connected{
+ color:#4ad84a
+}
+.disconnected{
+ color:#fb4848
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="text-center">LioranBoard Transmitter </h1>
+<!-- Connection Info -->
+<div class="row justify-content-center">
+  <div class="col col-auto">
+    <svg id="toclient_circle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-circle-fill d-md-none me-1" viewBox="0 0 16 16">
+        <circle cx="8" cy="8" r="8"/>
+      </svg>
+    <span>LioranBoard</span><span class="d-none d-md-inline-flex me-1">: </span><span id="toclient" class="disconnected d-none d-md-inline-flex">Not connected.</span>
+  </div>
+  <div class="col col-auto">
+    <svg id="topubsub_circle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-circle-fill d-md-none me-1" viewBox="0 0 16 16">
+        <circle cx="8" cy="8" r="8"/>
+      </svg>
+    <span>Pubsub</span><span class="d-none d-md-inline-flex me-1">: </span><span class="disconnected d-none d-md-inline-flex" id="topubsub">Not connected.</span>
+  </div>
+</div> <br>
+<!--Tabs -->
+<div class="row justify-content-center g-0">
+    <ul class="nav nav-pills mb-0" id="extensions-tab" role="tablist">
+</div>  
+ <!-- Tab Content -->
+ <div class="tab-content" id="extensions-tabContent">
+<div class="tab-pane" id="content-basic" role="tabpanel" title="Status" data-type="default">
+  <div class='row pt-3'>
+    <h5>Transmitter Connection</h5>
+    <div class="col">
+      <div class="row">
+        <label for="inputPassword" class="col-sm-5 col-form-label">IP Address:</label>
+        <div class="col-sm-4 w-auto">
+          <input type="text" id="nIPbox" name="nIPbox" value='127.0.0.1' class="form-control form-control-sm">
+        </div>
+      </div>
+      <div class="row">
+        <label for="inputPassword" class="col-sm-5 col-form-label">Port:</label>
+        <div class="col-sm-4 w-auto">
+          <input type="number" min="0" max="65535" id="nPortBox" name="nPortBox" value=9425
+            class="form-control form-control-sm">
+        </div>
+      </div>
+      <div class="row">
+        <label for="inputPassword" class="col-sm-5 col-form-label">Password (optional):</label>
+        <div class="col-sm-4 w-auto">
+          <input id="nPassBox" type="password" name="nPassBox" size="20" value='' class="form-control form-control-sm">
+        </div>
+      </div>
+      <div class="mt-1 row">
+        <button type="button" id="cnctbutton" class="btn btn-primary btn-sm mb-2 w-auto ms-3"
+          onclick="connectbutton()">Connect</button>
+      </div>
+    </div>
+  </div>
+  <div class='row pt-3'>
+    <h5>Appearance</h5>
+    <div class="col col-md-auto"><button type="button" class="btn btn-primary btn-sm mb-2 w-auto me-2"
+        onclick="TSLNoTabs()">No Tabs</button><button type="button" class="btn btn-primary btn-sm mb-2 w-auto"
+        onclick="TSLTabs()">Show Tabs</button></div>
+  </div>
+  <div class='row pt-3 d-block'>
+    <h5>Message Logging</h5>
+    <div class='pl-5 ml-5'>
+       <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="dbgReceiver" onclick="LBDebugLog(this)" >
+          <label class="form-check-label"for="flexSwitchCheckDefault">LioranBoard</label>
+       </div>
+       <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="dbgPubsub" onclick="LBDebugLog(this)">
+          <label class="form-check-label" for="flexSwitchCheckDefault">PubSub</label>
+       </div>
+       <ul class="nav nav-tabs mt-3" id="debugLog" role="tablist">
+          <li class="nav-item" role="presentation">
+             <button class="nav-link active" id="LBreceiver-tab" data-bs-toggle="tab" data-bs-target="#LBreceiver" type="button" role="tab" aria-controls="LBreceiver" aria-selected="true">LioranBoard</button>
+          </li>
+          <li class="nav-item" role="presentation">
+             <button class="nav-link" id="LBPubSub-tab" data-bs-toggle="tab" data-bs-target="#LBPubSub" type="button" role="tab" aria-controls="LBPubSub" aria-selected="false">PubSub</button>
+          </li>
+       </ul>
+       <div class="tab-content p-0 " id="debugLogContent">
+          <!--LB Receiver Log-->
+          <div class="tab-pane fade show active" id="LBreceiver" role="tabpanel" aria-labelledby="LBreceiver-tab" >
+             <div id="LBreceiverlog" class="col col-10 text-wrap">Logging is disabled.</div>
+          </div>
+          <!--LB Pubsub Log-->
+          <div class="tab-pane fade" id="LBPubSub" role="tabpanel" aria-labelledby="LBPubSub-tab">
+             <div id="LBpubsublog" class="col col-10 text-wrap">Logging is disabled.</div>
+          </div>
+       </div>
+    </div>
+ </div>
+</div>
+<!--Your external script will be inserted here-->
+<!--<script src="example.js"></script>-->
+<!--INSERT PART 1-->
+<!--Twitch Triggers-->
+<div class="tab-pane" id="content-triggers" role="tabpanel" title="Twitch Triggers" data-type="default">
+   <form id="LBTestTwitchFollow" class="LBTestTriggers">
+      <button type="submit" class="btn btn-primary btn-sm me-1">Test Follower</button>
+   </form>
+   <form id="LBTestTwitchSubs" class="LBTestTriggers">
+      <button type="submit" class="btn btn-primary btn-sm me-1">Test Sub</button>
+      <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#hidesubs" role="button" aria-expanded="false"
+         aria-controls="hidesubs"></a>
+      <div class="collapse" id="hidesubs">
+         <input type="radio" class="form-check-input" id="tier1" name="tier" value="Tier 1" checked>
+         Tier 1
+         <input type="radio" class="form-check-input" id="tier2" name="tier" value="Tier 2">
+         Tier 2
+         <input type="radio" class="form-check-input" id="tier3" name="tier" value="Tier 3">
+         Tier 3
+         <input type="radio" class="form-check-input" id="prime" name="tier" value="Prime">
+         Prime <br>
+         <input type="checkbox" class="form-check-input" id="subgift" value="subgift">
+         SubGift
+         <input type="checkbox" class="form-check-input" id="anongift" value="anongift">
+         AnonGift
+         <input type="number" min="0" max="100" id="submonths" value=1> Months <br>
+         Message:
+         <input type="text" id="submessage" size="20">
+      </div>
+      <div>
+   </form>
+   <form id="LBTestTwitchSubGift" class="LBTestTriggers">
+      <button type="submit" class="btn btn-primary btn-sm me-1">Test Subs Gift Amount</button>
+      Amount:
+      <input type="number" min="1" max="99" id="subGiftAmount" value=1>
+</div>
+</form>
+<form id="LBTestTwitchBits" class="LBTestTriggers">
+   <button type="submit" class="btn btn-primary btn-sm me-1">Test Bits</button>
+   <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#hidebits" role="button" aria-expanded="false"
+      aria-controls="hidebits"></a>
+   <div class='collapse' id="hidebits">
+      Amount of bits:
+      <input type="number" min="0" max="999" id="bitsamount" value=10>
+      Total bits:
+      <input type="number" min="0" max="999" id="bitstotal" value=100><br />
+      Message:
+      <input type="text" id="bitsmessage" size="20" style="margin:5px 0px;" value='Hello World!'>
+   </div>
+</form>
+<form id="LBTestTwitchPoints" class="LBTestTriggers">
+   <div><button type="submit" class="btn btn-primary btn-sm me-1">Test Channel Points</button>
+      <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#hidepoints" role="button" aria-expanded="false"
+         aria-controls="hidebits"></a>
+   </div>
+   <div class="collapse" id="hidepoints">
+      Redeem Name:
+      <input type="text" id="channelPointsName" size="10" style="margin:5px 0px" value="Test Reward"> <input
+         type="checkbox" class="form-check-input" id="channelPointsInput"> User Input Required <br>
+      Redeem Message:
+      <input type="text" id="channelPointsMsg" size="20"> <br>
+      Redeem Cost:
+      <input type="number" min="0" max="9999" id="channelPointsCost" size="5" value=50>
+   </div>
+</form>
+<form id="LBTestTwitchRaid" class="LBTestTriggers">
+   <div><button type="submit" class="btn btn-primary btn-sm me-1">Test Raid</button>
+      Amount:
+      <input type="number" min="0" max="999" id="raidAmount" value=5>
+   </div>
+</form>
+<form id="LBTestTwitchHost" class="LBTestTriggers">
+   <div><button type="submit" class="btn btn-primary btn-sm me-1">Test Host</button>
+      Amount:
+      <input type="number" min="0" max="999" id="hostamount" value=5> <br>
+   </div>
+</form>
+
+<form id="LBTestTwitchPoll" class="LBTestTriggers form-inline">
+      <div class="form-group d-flex align-items-center">
+      <button type="submit" class="btn btn-primary btn-sm me-2">Test Poll</button>
+      <select class="form-select-sm w-auto me-2" style="height:30px" aria-label="Poll Type" id="pollType">
+         <option value="begin" selected>Created</option>
+         <option value="progress">Voted</option>
+         <option value="end">Ended</option>
+         <option value="archive">Archived</option>
+       </select>
+       <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#hidepoll" role="button" aria-expanded="false"
+       aria-controls="hidebits"></a>
+   </div>
+   <div class="collapse mb-1" id="hidepoll">
+      Choice amount:
+      <input type="number" min="2" max="5" id="pollChoiceAmount" value=3> <br>
+      Duration:
+      <input type="number" min="1" max="3600" id="pollDuration" value=60> <br>
+      <input type="checkbox" class="form-check-input" id="pollAllowBits"> Allow Bits <input type="checkbox"
+         class="form-check-input" id="pollAllowPoints"> Allow Channel Points
+   </div>
+</form>
+
+<form id="LBTestTwitchPrediction" class="LBTestTriggers form-inline">
+   <div class="form-group d-flex align-items-center">
+   <button type="submit" class="btn btn-primary btn-sm me-2">Test Prediction</button>
+   <select class="form-select-sm w-auto me-2" style="height:30px" aria-label="Poll Type" id="predictType">
+      <option value="begin" selected>Created</option>
+      <option value="progress">Voted</option>
+      <option value="end">Locked</option>
+      <option value="archive">Resolved</option>
+    </select>
+    <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#hideprediction" role="button" aria-expanded="false"
+    aria-controls="hidebits"></a>
+</div>
+<div class="collapse mb-1" id="hideprediction">
+   Outcome amount:
+   <input type="number" min="2" max="10" id="predictChoiceAmount" value=3> <br>
+   Duration:
+   <input type="number" min="1" max="3600" id="predictionDuration" value=60> <br>
+</div>
+</form>
+
+<form id="LBTestTwitchHypeTrain" class="LBTestTriggers form-inline">
+   <div class="form-group d-flex align-items-center">
+   <button type="submit" class="btn btn-primary btn-sm me-2">Test Hype Train</button>
+   <select class="form-select-sm w-auto me-2" style="height:30px" aria-label="Hype Train Type" id="hypeTrainType">
+      <option value="approaching" selected>Approaching</option>
+      <option value="started">Started</option>
+      <option value="updated">Updated</option>
+      <option value="updated">Progressed</option>
+      <option value="levelup">Leveled Up</option>
+      <option value="ended">Ended</option>
+      <option value="cdexpired">Cooldown Expired</option>
+    </select>
+    <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#hidehypetrain" role="button" aria-expanded="false"
+    aria-controls="hidebits"></a>
+</div>
+<div class="collapse mb-1" id="hidehypetrain">
+   Current level:
+   <input type="number" min="2" max="50" id="hypeTrainLevel" value=3> <br>
+   (Updated/Progressed) Display Name:
+   <input type="text" size="20" id="hypeTrainName"> <br>
+   (Updated/Progressed) Source:
+   <select class="form-select-sm w-auto me-2" style="height:30px" aria-label="Hype Train Source" id="hypeTrainSource">
+      <option value="BITS" selected>BITS</option>
+      <option value="SUBS">SUBS</option>
+    </select>
+   Amount:
+   <input type="number" min="1" max="10000" id="hypeTrainAmount" value=100> <br>
+   (Ended) Ending reason:
+   <select class="form-select-sm w-auto me-2" style="height:30px" aria-label="Hype Train Ended Reason" id="hypeTrainEndReason">
+      <option value="COMPLETED" selected>COMPLETED</option>
+      <option value="EXPIRED">EXPIRED</option>
+    </select> <br>
+</div>
+</form>
+
+
+<form id="LBTestTwitchChat" class="LBTestTriggers">
+   <div><button type="submit" class="btn btn-primary btn-sm me-1">Test Chat Message </button>
+      <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#hidechatmsg" role="button" aria-expanded="false"
+         aria-controls="hidechatmsg"></a>
+   </div>
+   <div class="collapse" id="hidechatmsg">
+      Username: <input type="text" id="chatName" size="10" value=""> <br> Message: <input type="text" id="chatMsg"
+         size="20" style="margin:5px 0px" ; value="Hello World"> <input type="checkbox" class="form-check-input"
+         id="chatFirstTime"> 1st <br>
+      <input type="checkbox" class="form-check-input" id="chatBroadcaster"> Broadcaster <input type="checkbox"
+         class="form-check-input" id="chatMod"> Mod <input type="checkbox" class="form-check-input" id="chatSub">
+      Subscriber <input type="checkbox" class="form-check-input" id="chatVip"> VIP <input type="checkbox"
+         class="form-check-input" id="chatFounder"> Founder <br>
+      Subscriber Tier:
+      <select id="chatMsgSubTier">
+         <option value="1">1</option>
+         <option value="2">2</option>
+         <option value="3">3</option>
+      </select>
+      Month: <input type="number" min=0 max=12 maxlength="2"
+         oninput="javascript: if (parseInt(this.value) > parseInt(this.max)) this.value = this.max;"
+         id="chatMsgSubMonth" value=1>
+   </div>
+</form>
+</div>
+<!--YouTube Triggers-->
+<div class="tab-pane" id="content-yttriggers" role="tabpanel" title="YouTube Triggers" data-type="default">
+    <div>
+        <h5>YouTube Live Test Triggers</h5>
+    </div>
+    <div class="align-middle align-items-center">
+        <button style="margin-right:10px;" type="button" class="btn btn-primary btn-sm" id="ytLiveTestSub"
+            onclick="YTLiveTestEvent(this)">Test Subscriber</button><button style="margin-right:10px;" type="button"
+            class="btn btn-primary btn-sm" id="ytLiveTestMember" onclick="YTLiveTestEvent(this)">Test
+            Member</button><br>
+        <div class="btn-group align-items-center">
+            <button style="margin-right:10px;" type="button" class="btn btn-primary btn-sm" id="ytLiveTestMilestone"
+                onclick="YTLiveTestEvent(this)">Test Member Renewal</button>
+            <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#YTLiveHideMilestone" role="button"
+                aria-expanded="false" aria-controls="HideMilestone"></a>
+        </div> <br>
+        <div class="collapse" id="YTLiveHideMilestone">
+            <div class="form-check ps-0 d-flex align-items-center">
+                <label class="form-check-label me-1">Level name:</label>
+                <input type="text" class="form-control form-control-sm w-auto  me-2" id="YTLiveMilestoneLevel">
+                <label class="form-check-label me-1">Months:</label>
+                <input type="number" class="form-control form-control-sm w-auto" min="1" max="99"
+                    id="YTLiveMilestoneMonth">
+            </div>
+            <div class="form-check ps-0 d-flex align-items-center">
+                <label class="form-check-label me-1">Message:</label>
+                <textarea type="text" rows="1" class="form-control form-control-sm w-75"
+                    id="YTLiveMilestoneMsg"></textarea>
+            </div>
+        </div>
+        <div class="btn-group align-items-center">
+            <button style="margin-right:10px;" type="button" class="btn btn-primary btn-sm" id="ytLiveTestSuperChat"
+                onclick="YTLiveTestEvent(this)">Test Super Chat</button>
+            <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#YTLiveHideSuperChat" role="button"
+                aria-expanded="false" aria-controls="HideSuperChat"></a>
+        </div> <br>
+        <div class="collapse" id="YTLiveHideSuperChat">
+            <div class="form-check ps-0 d-flex align-items-center">
+                <label class="form-check-label me-1">Amount:</label>
+                <input type="number" min="1" max="100000" class="form-control form-control-sm w-auto  me-2"
+                    id="YTLiveSuperChatAmount">
+                <label class="form-check-label me-1">Tier:</label>
+                <input type="number" class="form-control form-control-sm w-auto" min="1" max="9"
+                    id="YTLiveSuperChatTier">
+            </div>
+            <div class="form-check ps-0 d-flex align-items-center">
+                <label class="form-check-label me-1">Message:</label>
+                <textarea type="text" rows="1" class="form-control form-control-sm w-75"
+                    id="YTLiveSuperChatMsg"></textarea>
+            </div>
+        </div>
+        <div class="btn-group align-items-center">
+            <button style="margin-right:10px;" type="button" class="btn btn-primary btn-sm" id="ytLiveTestSuperSticker"
+                onclick="YTLiveTestEvent(this)">Test Super Sticker</button>
+            <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#YTLiveHideSuperSticker" role="button"
+                aria-expanded="false" aria-controls="HideSuperSticker"></a>
+        </div> <br>
+        <div class="collapse" id="YTLiveHideSuperSticker">
+            <div class="form-check ps-0 d-flex align-items-center">
+                <label class="form-check-label me-1">Amount:</label>
+                <input type="number" min="1" max="100000" class="form-control form-control-sm w-auto  me-2"
+                    id="YTLiveSuperStickerAmount">
+            </div>
+        </div>
+        <div class="btn-group align-items-center">
+            <button style="margin-right:10px;" type="button" class="btn btn-primary btn-sm" id="ytLiveTestChatMessage"
+                onclick="YTLiveTestEvent(this)">Test Chat Message</button>
+            <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#YTLiveHideChatMessage" role="button"
+                aria-expanded="false" aria-controls="HideChatMessage"></a>
+        </div> <br>
+        <div class="collapse" id="YTLiveHideChatMessage">
+            <div class="form-check ps-0 d-flex align-items-center">
+                <label class="form-check-label me-1">Display Name:</label>
+                <input type="text" class="form-control form-control-sm w-auto me-2" id="YTLiveChatMessageName">
+            </div>
+            <div class="form-check ps-0 d-flex align-items-center">
+                <label class="form-check-label me-1">Message:</label>
+                <textarea type="text" rows="1" class="form-control form-control-sm w-75"
+                    id="YTLiveChatMessageMsg"></textarea>
+            </div>
+            <input type="checkbox" id="YTLiveChatMessageBroadcaster"> Broadcaster
+            <input type="checkbox" id="YTLiveChatMessageMod"> Mod
+            <input type="checkbox" id="YTLiveChatMessageMember"> Member
+            <input type="checkbox" id="YTLiveChatMessageVerified"> Verified
+        </div>
+    </div>
+</div>
+</div>
+<div class="row justify-content-center mt-3 px-2 mb-5" id="footer"> <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#installedextensions" role="button" aria-expanded="false" aria-controls="installedextensions"></a>
+  <span class='collapse' id="installedextensions"></span>
+  <span id ='extensions-tab-buttons' class="mt-2">
+  <button id="extensionsshow" class="btn btn-primary btn-sm me-1">Show All Tabs</button> <button id="extensionshide" class="btn btn-primary btn-sm me-1">Hide All Tabs</button> <button id="extensionsresetorder" class="btn btn-primary btn-sm me-1">Reset Tab Order</button> <button onclick="location.reload()" class="btn btn-primary btn-sm me-1">Refresh</button></span>
+</div>
+
+
+  </div>
+</body>
+<script>
+  /** LB2 Helper Functions
+ * You can call them with LB.{helperfunction}
+ * Use promises if you want to get a reply back from LB
+ * No promise example: LB.setVariable(myVariable, 'some value', 'someButtonID')
+ * Promise example: LB.getVariable(myVariable, 'someButtonID').then(reply=>console.log(reply))
+ */
+function LBCommands() {
+  const LBSendCommand = {
+    /**
+     * Get a variable from LB
+     * @param {string} name - name of the variable
+     * @param {string} buttonId - button ID for local variable, default = global variable
+     */
+    async getVariable(name, buttonId = 'global') {
+      return sendToLB('GetVariable', {
+        Variable: name,
+        ButtonId: buttonId,
+      });
+    },
+
+    /**
+     * Set a variable in LB
+     * @param {string} name - name of the variable
+     * @param {(string|number|object|array|null)} value - new value of the variable
+     * @param {string} buttonId - button ID for local variable, default = global variable
+     */
+    async setVariable(name, value, buttonId = 'global') {
+      return sendToLB('SetVariable', {
+        Variable: name,
+        Value: value,
+        ButtonId: buttonId,
+      });
+    },
+
+    /**
+     * Send a popup message to LB
+     * @param {string} msg - message to send
+     */
+    async popUp(msg) {
+      return sendToLB('PopupMessage', {
+        Message: msg,
+      });
+    },
+
+    /**
+     * Send a yellow notification message to LB
+     * @param {string} msg - message to send
+     */
+    async alert(msg) {
+      return sendToLB('AlertMessage', {
+        Message: msg,
+      });
+    },
+
+    /**
+     * send extension command to LB
+     * @param {string} name - name of the extension command
+     * @param {string} color - box color, accepts hex/dec colors (include # for hex), default 3355443
+     * @param {string} height - height of the box in pixels, 52 for regular or 80 for resizable box, default 52
+     * @param {Object} boxes
+     * - one object per box, key = boxVariable, value = array of box params
+     * - boxVariable = variable to save the box value under
+     * - boxName = name of the box shown in the user interface
+     * - boxType = type of the box, 0 = resizable, 2 = checkbox (true/false), 14 = regular box, 15 = variable box, 18 = select box, see extension guide for more
+     * - defaultValue = default value of the variable
+     * - (optional) sizeModifier = horizontal box size, 1 is normal
+     * - (optional) [] selectOptions = array of options for the user to select (when using Select box type)
+     * @param {[boxName: string, boxType: number, defaultValue: (string | number), sizeModifier: (number|undefined), selectOptions: Array|undefined]} boxes.boxVariable
+     * */
+    async extCommand(name, color = 3355443, height = 52, boxes) {
+      const ext = new LBConstructExtCommand(name, color, height);
+
+      for (const [key, value] of Object.entries(boxes)) {
+        ext.addBox(key, value);
+      }
+
+      return sendToLB('SendExtensionCommands', {
+        Data: [ext],
+      });
+    },
+
+    /**
+     * Close LioranBoard connection to Transmitter.
+     */
+    async close() {
+      return sendToLB('Close');
+    },
+
+    /**
+     * Get deck and button updates
+     * @param {boolean} enabled - enable or disable updates
+     */
+    async stayInformed(enabled) {
+      return sendToLB('SetStayInformed', {
+        Enabled: enabled,
+      });
+    },
+
+    /**
+     * Request an array of all decks
+     * - Replies with an array ["Deck1 Name","Unique ID",crc32,"Deck2 Name","Unique ID",crc32,...]
+     * - Use crc32 value to verify deck you saved localy is the same
+     */
+    async getDeckList() {
+      return sendToLB('GetDeckList');
+    },
+
+    /**
+     * Request a deck params
+     * @param {string} id - Unique deck ID retrieved from getDeckList
+     * - Replies with an object containing a full deck
+     */
+    async getDeck(id) {
+      return sendToLB('GetDeck', {
+        UniqueId: id,
+      });
+    },
+
+    /**
+     * Retrieve an image in base64
+     * @param {string} fileName - image file name without the path (image.png)
+     * - Replies with an object containing the Base64 string of the image
+     */
+    async getImage(fileName) {
+      return sendToLB('GetImage', {
+        FileName: fileName,
+      });
+    },
+
+    /**
+     * Retrieves CRC32 of a file
+     * @param {string} fileName - file name without the path (image.png)
+     */
+    async getSum(fileName) {
+      return sendToLB('GetSum', {
+        Name: fileName,
+      });
+    },
+
+    /**
+     * Retrieves all currently active buttons
+     * - Replies with an array of button param objects
+     */
+    async getActiveButtons() {
+      return sendToLB('GetOngoingButtons');
+    },
+
+    /**
+     * Retrieves params of all linked Twitch accounts
+     */
+    async getTwitchList() {
+      return sendToLB('GetTwitchList');
+    },
+
+    /**
+     * Sends a trigger
+     * @param {number} type - type of trigger
+     * - trigger types: 0 Twitch chat, 1 Twitch Sub, 2 Twitch Gift, 3 Twitch redeem
+     * 4 Twitch Raid, 5 Twitch Bits, 6 Twitch Follower, 7 Hotkey
+     * 8 Timer, 9 OBS Trigger, 10 lioranboard, 11 twitch moderation, 12 extension trigger
+     * @param {object} data - whatever data is required for the trigger, see manual
+     */
+    async trigger(type, data) {
+      return sendToLB('SendTrigger', {
+        Type: type,
+        Data: data,
+      });
+    },
+
+    /**
+     * Sends a test trigger that will automatically include channel ID for from_channel_id pull value
+     * @param {number} type - type of trigger
+     * - trigger types: 0 Twitch chat, 1 Twitch Sub, 2 Twitch Gift, 3 Twitch redeem
+     * 4 Twitch Raid, 5 Twitch Bits, 6 Twitch Follower, 7 Hotkey
+     * 8 Timer, 9 OBS Trigger, 10 lioranboard, 11 twitch moderation, 12 extension trigger
+     * @param {object} data - whatever data is required for the trigger, see manual
+     */
+    async testTrigger(type, data) {
+      return sendToLB('SendTestTrigger', {
+        Type: type,
+        Data: data,
+      });
+    },
+
+    /**
+     * Triggers a button
+     * @param {string} id - button ID to trigger
+     */
+    async triggerButton(id) {
+      return sendToLB('TriggerButton', {
+        ButtonId: id,
+      });
+    },
+
+    /**
+     * Releases a button
+     * @param {string} id - button ID to release
+     */
+    async releaseButton(id) {
+      return sendToLB('ReleaseButton', {
+        ButtonId: id,
+      });
+    },
+
+    /**
+     * Modifies a button
+     * @param {string} id - button ID to modify
+     * @param {number|undefined} color - decimal button color (BGR)
+     * @param {string|undefined} text - button text
+     * @param {string|undefined} image - button image file name
+     * @param {number|undefined} border - border size, 0-7
+     * - leave parameters empty to reset button back to default values
+     */
+    async modifyButton(id, color, text = '', image, border) {
+      return sendToLB('ModifyButton', {
+        ButtonId: id,
+        Data: {
+          color: color || undefined,
+          text: text || undefined,
+          image: image || undefined,
+          border: border || undefined,
+        },
+      });
+    },
+
+    /**
+     * Retrieves all currently modified buttons
+     * - object of button objects that are currently modified
+     */
+    async getModifiedButtons() {
+      return sendToLB('GetModifications');
+    },
+
+    /**
+     * Sends an extension trigger
+     * @param {string} trigger - name of the trigger
+     * @param {object} data - object containing all trigger pull data
+     */
+    async triggerExt(trigger, data = {}) {
+      return sendToLB('ExtensionTrigger', {
+        Trigger: trigger,
+        Data: data,
+      });
+    },
+
+    /**
+     * Deletes a variable
+     * @param {string} name - name of the variable
+     * @param {string} buttonId - button ID for local variable, default = global variable
+     */
+    async deleteVariable(name, buttonId = 'global') {
+      return sendToLB('DeleteVariable', {
+        Variable: name,
+        ButtonId: buttonId,
+      });
+    },
+
+    /**
+     * Inserts an array value
+     * @param {string} arrayName - name of the array
+     * @param {number} index - index to insert the new item at
+     * @param {string|number|object|array} value - item value
+     * @param {string} buttonId - button id, default is global
+     */
+    async insertArray(arrayName, index, value, buttonId = 'global') {
+      return sendToLB('InsertArrayValue', {
+        Array: arrayName,
+        Slot: index,
+        Value: value,
+        ButtonId: buttonId,
+      });
+    },
+
+    /**
+     * Deletes an array value at specified index
+     * @param {string} arrayName - name of the array
+     * @param {number} index - index of the item to delete
+     * @param {string} buttonId - button id, default is global
+     */
+    async deleteArray(arrayName, slot, buttonId = 'global') {
+      return sendToLB('DeleteArraySlot', {
+        Array: arrayName,
+        Slot: slot,
+        ButtonId: buttonId,
+      });
+    },
+
+    /**
+     * Sends a notification (tray icon bubble) message to LBn
+     * @param {string} msg - message to show
+     */
+    async notification(msg) {
+      return sendToLB('NotificationMessage', {
+        Message: msg,
+      });
+    },
+  };
+
+  async function sendToLB(command, data) {
+    const res = await lioranboardclient.send(command, data);
+    return res;
+  } // construct extension command object
+
+  class LBConstructExtCommand {
+    constructor(name, color, height) {
+      let p = 0;
+      this.name = name;
+      this.color = color;
+      this.height = height;
+
+      this.addBox = (boxVar, params) => {
+        this[`ud_t${p}`] = boxVar;
+        this[`ud_n${p}`] = params[0];
+        this[`ud${p}`] = params[1];
+        this[`ud_d${p}`] = params[2];
+        this[`ud_m${p}`] = params[3] || undefined;
+        this[`ud_o${p}`] = params[4] || undefined;
+        p += 1;
+      };
+    }
+  }
+
+  return LBSendCommand;
+}
+
+  // Twitch client ID to use for Twitch API requests
+  let TWITCH_CLIENT_ID = "tpqy40pm79e00s63cqusqepvhwqz1n";
+  // init object with all available LB command methods
+  const LB = new LBCommands()
+  // Expose websocket client, pubsub client and logIt function for global access
+  let lioranboardclient
+  let pubsubserver
+  let logIt
+  let i_force = "";
+  // LioranBoard global object with variables
+  const LBVars = {
+    LBdebug: JSON.parse(localStorage.getItem('LBdebug')) || {},
+    pubsubinterval: null,
+    twitchList: {},
+    force_close: false,
+    box_newline: 0,
+    box_checkbox: 2,
+    box_keyboard: 7,
+    box_compare: 8,
+    box_math: 9,
+    cbox_sound: 10,
+    box_slider: 11,
+    box_normal: 14,
+    box_variable: 15,
+    box_color: 17,
+    box_selectvalue: 18,
+    box_selectstring: 19,
+    box_selectstringwritable: 20,
+    box_loadfile: 22,
+    box_imagefile: 23
+  }
+
+  // define LioranBoard connection on load and try to immediately connect
+  window.addEventListener('load', function () {
+    lioranboardclient = new LBWebSocket()
+    load_connection();
+    connecttoboard();
+    LBTestTriggers();
+  }, false);
+
+  // modify UI on load
+window.addEventListener('load', LBLoadTabsUI, false);
+function LBLoadTabsUI() {
+  const tabList = {};
+  let tabSortList = JSON.parse(localStorage.getItem('tabsSortList')) || [];
+  const newtabSortList = [];
+  const tabsVisibility = JSON.parse(localStorage.getItem('tabsVisibility')) || [];
+  let lastActiveTab = localStorage.getItem('tabsActive') || 'content-basic';
+  lastActiveTab = (document.getElementById(lastActiveTab)) ? lastActiveTab : 'content-basic';
+  const installedExt = document.querySelector('#installedextensions');
+  const ul = document.getElementById('extensions-tab');
+  const parent = document.getElementById('extensions-tabContent');
+  const contentLi = parent.querySelectorAll('.tab-pane');
+  const contentAll = [].slice.call(contentLi).filter((n) => n.parentNode.closest('.tab-pane') === parent.closest('.tab-pane'));
+  const defaultContent = contentAll.filter((e) => e.dataset.type === 'default');
+  const addedContent = contentAll.filter((e) => e.dataset.type !== 'default');
+  const content = defaultContent.concat(addedContent.reverse());
+  const activeTab = document.getElementById(lastActiveTab);
+  activeTab.className = 'tab-pane active';
+
+  // create tabs and checkboxes
+  content.forEach((e) => {
+    createExtensionTab(e);
+    createExtensionBox(e);
+  });
+  SortTabs();
+
+  tabSortList = newtabSortList;
+  localStorage.setItem('tabsSortList', JSON.stringify(newtabSortList));
+
+  // add drag and sort functionality to tabs
+  const draggable = new Draggable.Sortable(ul, {
+    draggable: 'li',
+    distance: 1,
+    sortAnimation: {
+      duration: 200,
+      easingFunction: 'ease-in-out',
+    },
+    plugins: [Draggable.Plugins.SortAnimation],
+  });
+
+  // save a new sort order
+  draggable.on('sortable:sorted', (e) => {
+    const sortArr = JSON.parse(localStorage.getItem('tabsSortList'));
+    sortArr.splice(e.newIndex, 0, sortArr.splice(e.oldIndex, 1)[0]);
+    localStorage.setItem('tabsSortList', JSON.stringify(sortArr));
+  });
+
+  // change and save tab visibility
+  document.querySelector('#installedextensions').onclick = (ev) => {
+    if (ev.target.value) {
+      const id = ev.target.id.slice(8);
+      const li = document.querySelector(`[aria-controls="${id}"]`);
+
+      if (ev.target.checked) {
+        li.classList.remove('d-none');
+      } else {
+        li.classList.add('d-none');
+      }
+      SaveExttabsVisibility();
+    }
+  };
+
+  // show all tabs
+  document.querySelector('#extensionsshow').onclick = () => {
+    localStorage.removeItem('tabsVisibility');
+    location.reload();
+  };
+
+  // hide all tabs
+  document.querySelector('#extensionshide').onclick = () => {
+    const tabsVisiblity = {};
+    document.querySelectorAll('#installedextensions input[type=checkbox]').forEach((e) => {
+      const id = e.id.slice(8);
+      tabsVisiblity[id] = false;
+    });
+    localStorage.setItem('tabsVisibility', JSON.stringify(tabsVisiblity));
+    window.location.reload();
+  };
+
+  // reset tab order
+  document.querySelector('#extensionsresetorder').onclick = () => {
+    localStorage.removeItem('tabsSortList');
+    window.location.reload();
+  };
+
+  // save active tab
+  ul.querySelectorAll('button').forEach((btn) => btn.onclick = (btn) => {
+    localStorage.setItem('tabsActive', btn.target.id.slice(0, -4));
+  });
+
+  // create all tabs
+  function createExtensionTab(e) {
+    const { title } = e;
+    const { id } = e;
+    const li = document.createElement('li');
+    const button = document.createElement('button');
+    const hide = (typeof tabsVisibility[id] !== 'undefined' && tabsVisibility[id] === false) ? 'd-none' : '';
+    const active = (lastActiveTab === id) ? 'active' : '';
+    li.setAttributes({ class: 'nav-item', role: 'presentation', draggable: 'true' });
+    button.setAttributes({
+      class: `nav-link draggable-source ${active} ${hide}`, id: `${id}-tab`, 'data-bs-toggle': 'pill', 'data-bs-target': `#${id}`, type: 'button', role: 'tab', 'aria-controls': id, 'aria-selected': 'false', draggable: 'true',
+    });
+    button.innerHTML = title;
+    li.appendChild(button);
+    tabList[id] = li;
+  }
+
+  // create all tab check boxes
+  function createExtensionBox(e) {
+    const checkbox = document.createElement('input');
+    const text = document.createElement('span');
+    text.innerHTML = `${e.title}  `;
+    checkbox.type = 'checkbox';
+    checkbox.id = `checkbox${e.id}`;
+    checkbox.checked = !((typeof tabsVisibility[e.id] !== 'undefined' && tabsVisibility[e.id] === false));
+    text.prepend(checkbox);
+    installedExt.appendChild(text);
+  }
+
+  // sort tabs
+  function SortTabs() {
+    let i = 0;
+    do {
+      const childId = tabSortList[i] || Object.keys(tabList)[0];
+      try {
+        ul.appendChild(tabList[childId]);
+        newtabSortList.push(childId);
+      } catch (e) { console.log(e); }
+      delete tabList[childId];
+      i += 1;
+    } while (Object.keys(tabList).length > 0);
+  }
+
+  // save tabs visiblity
+  function SaveExttabsVisibility() {
+    const tabsVisiblity = JSON.parse(localStorage.getItem('tabsVisibility')) || {};
+    document.querySelectorAll('#installedextensions input[type=checkbox]').forEach((e) => {
+      const id = e.id.slice(8);
+      tabsVisiblity[id] = e.checked;
+    });
+    localStorage.setItem('tabsVisibility', JSON.stringify(tabsVisiblity));
+  }
+}
+
+// switch to no tabs UI
+function TSLNoTabs() {
+  document.getElementById('extensions-tab').className = 'd-none d-flex';
+  document.getElementById('extensions-tabContent').className = 'notabs';
+  document.getElementById('extensions-tab-buttons').className = 'd-none mt-2';
+}
+
+// switch to tabs UI
+function TSLTabs() {
+  document.getElementById('extensions-tab').className = 'nav nav-pills mb-3';
+  document.getElementById('extensions-tabContent').className = 'tab-content';
+  document.getElementById('extensions-tab-buttons').className = 'mt-2';
+}
+
+// change connection status UI
+function ConnectionStatus(id, status, text, fill) {
+  document.getElementById(id).className = `${status} d-none d-md-inline-flex`;
+  document.getElementById(id).innerHTML = ` ${text}`;
+  document.getElementById(`${id}_circle`).setAttribute('fill', fill);
+}
+
+// helper function to set multiple element attributes at once
+Element.prototype.setAttributes = function (obj) {
+  for (const prop in obj) {
+    this.setAttribute(prop, obj[prop]);
+  }
+};
+  // Fake Triggers testing
+async function LBTestTriggers() {
+  const processTrigger = {
+    LBTestTwitchSubs(form, notUsed, gifted = false, gifterName = '') {
+      const type = 1;
+      const subtype = form.subgift.checked
+        ? 2
+        : form.anongift.checked
+          ? 4
+          : gifted
+            ? 2
+            : 1;
+      const context = form.subgift.checked
+        ? 'subgift'
+        : form.anongift.checked
+          ? 'anonsubgift'
+          : gifted
+            ? 'subgift'
+            : 'resub';
+      const month = parseInt(form.submonths.value) || 1;
+      const name = gifted
+        ? gifterName
+        : form.anongift.checked
+          ? ['Anonymous User']
+          : generateName();
+      const giftedName = subtype !== 1 ? generateName(name[0]) : [''];
+      const message = form.submessage.value || generateMessage();
+      const tiers = form.querySelectorAll('input[name="tier"]');
+      let selectedTier;
+      let selectedTierD;
+
+      for (const tier of tiers) {
+        if (tier.checked) {
+          selectedTier = tier.value;
+        }
+      }
+
+      const selecterTierNum = selectedTier === 'Tier 1'
+        ? 1
+        : selectedTier === 'Tier 2'
+          ? 2
+          : selectedTier === 'Tier 3'
+            ? 4
+            : 8;
+      const msg = subtype !== 1
+        ? `${name[0]} gifted a sub to ${giftedName[0]} (test trigger)!`
+        : `${name[0]} subscribed for ${month} months! (test trigger)`;
+      const data = {
+        tier: selecterTierNum,
+        month,
+        subtype,
+        communitygift: gifted ? 1 : 0,
+      };
+      const pullData = {
+        user_name: name[0].toLowerCase(),
+        display_name: name[0],
+        user_id: name[1],
+        gifted_user_name: giftedName[0].toLowerCase(),
+        gifted_display_name: giftedName[0],
+        gifted_user_id: giftedName[1],
+        tier: selectedTier,
+        context,
+        message,
+        month,
+        community_gift: gifted ? 1 : 0,
+      };
+      sendTriggerToLB(type, msg, data, pullData);
+    },
+
+    LBTestTwitchSubGift(form) {
+      const subForm = document.getElementById('LBTestTwitchSubs');
+      if (subForm.prime.checked) subForm.tier1.checked = true;
+      if (subForm.anongift.checked === false) subForm.subgift.checked = true;
+      const tiers = subForm.querySelectorAll('input[name="tier"]');
+      let selectedTier;
+
+      for (const tier of tiers) {
+        if (tier.checked) {
+          selectedTier = tier.value;
+        }
+      }
+
+      const selecterTierNum = selectedTier === 'Tier 1'
+        ? 1
+        : selectedTier === 'Tier 2'
+          ? 2
+          : selectedTier === 'Tier 3'
+            ? 4
+            : 1;
+      const gifterName = subForm.anongift.checked
+        ? ['Anonymous User']
+        : generateName();
+      const amount = parseInt(form.subGiftAmount.value) || 1;
+      const pullData = {
+        user_name: gifterName[0].toLowerCase(),
+        display_name: gifterName[0],
+        user_id: gifterName[1],
+        amount,
+        tier: selectedTier,
+      };
+      sendTriggerToLB(
+        2,
+        `${gifterName[0]} has gifted ${amount} subs!`,
+        {
+          tier: selecterTierNum,
+          amount,
+        },
+        pullData,
+      );
+
+      for (let i = 0; i < amount; i++) {
+        setTimeout(() => {
+          this.LBTestTwitchSubs(subForm, null, true, gifterName);
+        }, 1000 + i * 10);
+      }
+    },
+
+    LBTestTwitchBits(form, pullData) {
+      const amount = parseInt(form.bitsamount.value) || 50;
+      const totalAmount = parseInt(form.bitstotal.value) || amount + 100;
+      const message = form.bitsmessage.value || generateMessage();
+      pullData.addvalues({
+        amount,
+        total_amount: totalAmount,
+        message,
+      });
+      sendTriggerToLB(
+        5,
+        `${pullData.user_name} donated ${amount} bits (test trigger)!`,
+        {
+          amount,
+        },
+        pullData,
+      );
+    },
+
+    LBTestTwitchPoints(form, pullData) {
+      const channelID = generateName[1];
+      const redeemName = form.channelPointsName.value || 'Test Reward';
+      const userInput = form.channelPointsInput.checked;
+      const message = userInput
+        ? form.channelPointsMsg.value || generateMessage()
+        : '';
+      const cost = parseInt(form.channelPointsCost.value) || 50;
+      const image = 'https://static-cdn.jtvnw.net/custom-reward-images/default-4.png';
+      const rewardId = generateUUID();
+      const redeemId = generateUUID();
+      pullData.addvalues({
+        channel_id: channelID,
+        redeem_name: redeemName,
+        message,
+        cost,
+        image,
+        reward_id: rewardId,
+        redeem_id: redeemId,
+      });
+      sendTriggerToLB(
+        3,
+        `${pullData.display_name} has redeemed ${redeemName}!`,
+        {
+          redeemname: redeemName,
+          message,
+        },
+        pullData,
+      );
+    },
+
+    LBTestTwitchRaid(form, pullData) {
+      const amount = parseInt(form.raidAmount.value) || 5;
+      pullData.addvalues({
+        amount,
+      });
+      sendTriggerToLB(
+        4,
+        `${pullData.display_name} is raiding you with ${amount} viewers (test trigger)!`,
+        {
+          amount,
+        },
+        pullData,
+      );
+    },
+
+    LBTestTwitchHost(form, pullData) {
+      const amount = parseInt(form.hostamount.value) || 5;
+      pullData.addvalues({
+        amount,
+      });
+      sendTriggerToLB(
+        14,
+        `${pullData.display_name} is hosting you with ${amount} viewers (test trigger)!`,
+        {
+          amount,
+        },
+        pullData,
+      );
+    },
+
+    LBTestTwitchPrediction(form) {
+      const predictSelect = form.predictType;
+      const amount = form.predictChoiceAmount.value || getRandomInt(2, 10);
+      const duration = form.predictionDuration.value || getRandomInt(60, 600);
+      const type = predictSelect[predictSelect.selectedIndex].text || 'Created';
+      const typeNum = type === 'Created' ? 0 : type === 'Voted' ? 1 : type === 'Locked' ? 2 : 3;
+      const baseData = {
+        duration: parseInt(duration),
+        outcome_amount: parseInt(amount),
+        vote_total: type !== 'Created' ? getRandomInt(10, 300) : 0,
+        event: type,
+        prediction_id: '1621385a-1f26-4197-82fc-6352003a69db',
+        prediction_name: 'My Test Prediction',
+        winning_outcome: type === 'Resolved' ? `e960f614-d379-494a-8b45-0c7500978${getRandomInt(0, amount - 1)}ea` : '',
+      };
+      const pullData = populateWithOutcomeInfo(baseData, amount, type);
+
+      sendTriggerToLB(
+        15,
+        `Prediction ${type} Test trigger sent!`,
+        {
+          type: typeNum,
+        },
+        pullData,
+      );
+    },
+
+    LBTestTwitchPoll(form) {
+      const pollSelect = form.pollType;
+      const amount = form.pollChoiceAmount.value || getRandomInt(2, 5);
+      const duration = form.pollDuration.value || getRandomInt(60, 600);
+      const type = pollSelect[pollSelect.selectedIndex].text || 'Created';
+      const typeNum = type === 'Created' ? 0 : type === 'Voted' ? 1 : type === 'Ended' ? 2 : 3;
+      const allowBits = !!pollAllowBits.checked;
+      const allowPoints = !!pollAllowPoints.checked;
+      // total votes is 0 if the poll was just Created, else get random amount based on choices amount
+      const voteTotal = (type !== 'Created') ? getRandomInt(amount, amount * 50) : 0;
+      const baseData = {
+        duration: parseInt(duration),
+        event: type,
+        poll_id: '9dd6a7a7-78f4-46ef-b674-e2864ad7fa07',
+        poll_name: 'My Test Poll',
+        choice_amount: parseInt(amount),
+        vote_total: voteTotal,
+        vote_total_base: 0,
+        vote_total_bits: 0,
+        vote_total_points: 0,
+        top_vote_list: Array.from(Array(amount).keys()),
+      };
+      const pullData = populateWithChoiceInfo(baseData, amount, type, allowBits, allowPoints, voteTotal);
+
+      sendTriggerToLB(
+        16,
+        `Poll ${type} Test trigger sent!`,
+        {
+          type: typeNum,
+        },
+        pullData,
+      );
+    },
+    async LBTestTwitchHypeTrain(form) {
+      const hypeSelect = form.hypeTrainType;
+      const type = hypeSelect[hypeSelect.selectedIndex].text;
+      const currentLevel = form.hypeTrainLevel.value || 1;
+      const currentGoal = getRandomInt(1000, 2000);
+      const goalProgres = getRandomInt(100, currentGoal - 50);
+      const typeNums = {
+        Approaching: 0, Started: 1, Updated: 2, 'Leveled Up': 3, Ended: 4, 'Cooldown Expired': 5, Progressed: 6,
+      };
+      const typeNum = typeNums[type];
+      let baseObj = {};
+      // base LB trigger values are the same for the following types
+      if (typeNum == 1 || typeNum == 3 || typeNum == 6) {
+        baseObj = {
+          current_level: parseInt(currentLevel),
+          current_goal: currentGoal,
+          goal_progress: goalProgres,
+          total_progress: goalProgres,
+
+        };
+      }
+
+      const hypeTrainId = `${getRandomInt(10, 99)}b8f628-5075-4213-95ac-6ceeac9426fe`;
+
+      // this reward object is added to approaching events
+      // not sure if it changes depending on the broadcaster
+      const level_one_rewards = [{
+        id: 'emotesv2_3114c3d12dc44f53810140f632128b54',
+        reward_level: 0.0,
+        group_id: '',
+        token: 'HypeSleep',
+        type: 'EMOTE',
+        set_id: '1a8f0108-5aee-4125-8067-d39e983e934b',
+      }, {
+        id: 'emotesv2_7d457ecda087479f98501f80e23b5a04',
+        reward_level: 0.0,
+        group_id: 1,
+        token: 'HypePat',
+        type: 'EMOTE',
+        set_id: '1a8f0108-5aee-4125-8067-d39e983e934b',
+      }, {
+        id: 'emotesv2_e7a6e7e24a844e709c4d93c0845422e1',
+        reward_level: 0.0,
+        group_id: '',
+        token: 'HypeLUL',
+        type: 'EMOTE',
+        set_id: '1a8f0108-5aee-4125-8067-d39e983e934b',
+      }, {
+        id: 'emotesv2_e2a11d74a4824cbf9a8b28079e5e67dd',
+        reward_level: 0.0,
+        group_id: '',
+        token: 'HypeCool',
+        type: 'EMOTE',
+        set_id: '1a8f0108-5aee-4125-8067-d39e983e934b',
+      }, {
+        id: 'emotesv2_036fd741be4141198999b2ca4300668e',
+        reward_level: 0.0,
+        group_id: '',
+        token: 'HypeLove1',
+        type: 'EMOTE',
+        set_id: '1a8f0108-5aee-4125-8067-d39e983e934b',
+      }];
+
+      const progress = {
+        remaining_seconds: typeNum !== 1 ? getRandomInt(10, 299) : 299,
+        total: goalProgres,
+        value: goalProgres,
+        goal: currentGoal,
+        level: {
+          impressions: getRandomInt(100, 900),
+          rewards: level_one_rewards,
+          value: parseInt(currentLevel),
+          goal: currentGoal,
+        },
+      };
+
+      // types of all participations
+      const particTypes = ['BITS.CHEER', 'BITS.EXTENSION', 'BITS.POLL', 'SUBS.TIER_2_SUB', 'SUBS.TIER_2_GIFTED_SUB', 'SUBS.TIER_1_GIFTED_SUB', 'SUBS.TIER_1_SUB', 'SUBS.TIER_3_SUB', 'SUBS.TIER_3_GIFTED_SUB'];
+      let data;
+
+      switch (type) {
+        default:
+          data = {};
+          break;
+        case 'Approaching': {
+          // participants is an array of user IDs
+          const participants = Array(getRandomInt(2, 10)).fill(generateName()[1]);
+          data = {
+            approaching_hype_train_id: hypeTrainId,
+            channel_id: generateName()[1],
+            goal: 3,
+            is_boost_train: 0,
+            participants,
+            level_one_rewards,
+            creator_color: '639315',
+            // array of one single value? can it be more? probably..
+            events_remaining_durations: [getRandomInt(50, 300)],
+          };
+        }
+          break;
+        case 'Started': {
+          // started and updated at will be the same
+          const started = Date.now();
+          data = {
+            id: hypeTrainId,
+            channel_id: generateName()[1],
+            started_at: started,
+            updated_at: started,
+            expires_at: started + 300000,
+            ended_at: null,
+            ending_reason: null,
+            participations: {
+              // get two random participation types and generate their values
+              [particTypes[getRandomInt(0, 2)]]: getRandomInt(1, 1000),
+              [particTypes[getRandomInt(3, 8)]]: getRandomInt(1, 10),
+            },
+            conductors: {},
+            // this is supposed to return very long complex object, leaving blank for tests
+            config: {},
+            progress,
+            is_boost_train: 0,
+          };
+        }
+          break;
+        case 'Progressed': {
+          const sourceSelect = form.hypeTrainSource;
+          const source = sourceSelect[sourceSelect.selectedIndex].text;
+          const [name, userID] = await getNameFromInput(form.hypeTrainName);
+          data = {
+            sequence_id: 2174,
+            user_profile_image_url: 'https://static-cdn.jtvnw.net/custom-reward-images/default-4.png',
+            user_id: userID,
+            user_display_name: name,
+            user_login: name.toLowerCase(),
+            source,
+            progress,
+            is_boost_train: 0,
+            quantity: parseInt(form.hypeTrainAmount.value) || 10,
+          };
+        }
+          break;
+        case 'Updated': {
+          const [name, userID] = await getNameFromInput(form.hypeTrainName);
+          const sourceSelect = form.hypeTrainSource;
+          const source = sourceSelect[sourceSelect.selectedIndex].text;
+          const particType = source === 'BITS' ? particTypes[getRandomInt(0, 2)] : particTypes[getRandomInt(3, 8)];
+          const particTypeValue = parseInt(form.hypeTrainAmount.value) || 10;
+          baseObj = {
+              display_name: name,
+              user_name: name.toLowerCase(),
+              user_id: userID,
+            };
+          data = {
+            participations: {
+              [particType]: particTypeValue,
+            },
+            source,
+            user: {
+              profile_image_url: 'https://static-cdn.jtvnw.net/custom-reward-images/default-4.png',
+              id: userID,
+              display_name: name,
+              login: name.toLowerCase(),
+            },
+          };
+        }
+          break;
+        case 'Leveled Up':
+          data = {
+            progress,
+            time_to_expire: Date.now() + getRandomInt(10000, 300000),
+            is_boost_train: 0,
+          };
+          break;
+        case 'Ended': {
+          const reasonSelect = form.hypeTrainEndReason;
+          const reason = reasonSelect[reasonSelect.selectedIndex].text;
+          baseObj = {
+            ending_reason: reason,
+          };
+          data = {
+            ending_reason: reason,
+            ended_at: Date.now(),
+            is_boost_train: 0,
+          };
+        }
+          break;
+        case 'Cooldown Expired': {
+          // not sure what Pubsub sends for this event
+          data = {};
+        }
+      }
+
+      baseObj.type = typeNum;
+      baseObj.data = data;
+
+      sendTriggerToLB(
+        17,
+        `Hype Train ${type} Test trigger sent!`,
+        { type: typeNum },
+        baseObj,
+      );
+    },
+
+    async LBTestTwitchChat(form) {
+      const [name, userID] = await getNameFromInput(form.chatName);
+      const message = form.chatMsg.value || generateMessage();
+      const channel = Math.floor(Math.random() * 1000000000);
+      const color = '#189A8D';
+      const emoteList = '304822798:0-9/304682444:11-19';
+      const firstTime = form.chatFirstTime.checked;
+      const badge = [];
+      if (form.chatBroadcaster.checked) badge.push('broadcaster/1');
+      if (form.chatMod.checked) badge.push('moderator/1');
+      if (form.chatVip.checked) badge.push('vip/1');
+      if (form.chatFounder.checked) badge.push('founder/1');
+      if (form.chatSub.checked) {
+        const tier = parseInt(form.chatMsgSubTier.value);
+        let month = form.chatMsgSubMonth.value != 1
+          ? parseInt(form.chatMsgSubMonth.value)
+          : 0;
+        month = month > 3 && month < 6
+          ? (month = 3)
+          : month > 6 && month < 9
+            ? (month = 6)
+            : month > 9 && month < 12
+              ? (month = 9)
+              : month;
+        const subBadge = tier === 1
+          ? `subscriber/${month}`
+          : tier === 2
+            ? `subscriber/${2000 + month}`
+            : `subscriber/${3000 + month}`;
+        badge.push(subBadge);
+      }
+
+      const pullData = {
+        user_name: name.toLowerCase(),
+        display_name: name,
+        user_id: parseInt(userID),
+        message,
+        emote_list: emoteList,
+        badge_list: badge,
+        channel,
+        name_color: color,
+        first_time: firstTime,
+      };
+      LB.trigger(0, {
+        message,
+        broadcaster: form.chatBroadcaster.checked,
+        moderator: form.chatMod.checked,
+        sub: form.chatSub.checked,
+        vip: form.chatVip.checked,
+        founder: form.chatFounder.checked,
+        trigger_data: pullData,
+      });
+    },
+
+    LBTestTwitchFollow(form, pullData) {
+      sendTriggerToLB(
+        6,
+        `${pullData.display_name} followed you!`,
+        {},
+        pullData,
+      );
+    },
+  };
+
+  class ConstructPullData {
+    constructor(type) {
+      const name = generateName();
+      this.user_name = type !== 'LBTestTwitchHost' ? name[0].toLowerCase() : undefined;
+      this.display_name = type !== 'LBTestTwitchBits' ? name[0] : undefined;
+      this.user_id = type !== 'LBTestTwitchHost'
+        ? name[1]
+        : undefined;
+
+      this.addvalues = (params) => {
+        Object.assign(this, params);
+      };
+    }
+  }
+
+  const forms = document.querySelectorAll('.LBTestTriggers');
+  Array.prototype.slice.call(forms).forEach((form) => {
+    form.addEventListener(
+      'submit',
+      (e) => {
+        e.preventDefault();
+        const pullData = new ConstructPullData(form.id);
+        processTrigger[form.id](form, pullData);
+      },
+      false,
+    );
+  });
+
+  async function getNameFromInput(input) {
+    let name; let userID;
+    if (input.value.length > 0) {
+      name = input.value;
+      userID = await getUserID(name)
+        .catch((e) => name = e);
+    } else {
+      [name, userID] = generateName();
+    }
+    return [name, userID];
+  }
+
+  async function getUserID(username) {
+    const defaultID = 76159058;
+    const response = await fetch(`https://decapi.me/twitch/id/${username}`)
+      .catch(() => { throw defaultID; });
+    const tryToGetID = await response.text();
+    if (tryToGetID.indexOf('User not found') === -1) return tryToGetID;
+    return defaultID;
+  }
+
+  function generateName(name = '') {
+    const names = [
+      ['Melonax', 41809329],
+      ['RamsReef', 91464575],
+      ['Wellzish', 461898318],
+      ['Andilippi', 47504449],
+      ['Cyanidesugar', 76159058],
+      ['Silverlink', 489730],
+      ['wolbee', 72573038],
+      ['Davidihewlett', 116807809],
+      ['DearAsMax', 478335805],
+      ['Estudiando_Ajedrez', 184806573],
+      ['RoadieGamer', 450427842],
+      ['chrizzz_1508', 88246295],
+      ['MisterK_Qc', 475765680],
+      ['Falinere', 144606537],
+      ['Landie', 78949799],
+      ['Phat32', 24565497],
+      ['mofalkmusic', 443568234],
+      ['NikiYanagi', 528140333],
+    ];
+    const randomName = names[Math.floor(Math.random() * names.length)];
+    if (name !== randomName) return randomName;
+    return generateName(name);
+  }
+
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * ((max + 1) - min) + min);
+  }
+
+  // split a total amount into several parts
+  function* splitNParts(num, parts) {
+    let sumParts = 0;
+    for (let i = 0; i < parts - 1; i++) {
+      const pn = Math.ceil(Math.random() * (num - sumParts));
+      yield pn;
+      sumParts += pn;
+    }
+    yield num - sumParts;
+  }
+
+  function populateWithChoiceInfo(obj, amount, type, allowBits, allowPoints, voteTotal) {
+    // split total votes into parts for each choice
+    const choiceVotesSplit = [...splitNParts(voteTotal, amount)];
+    const topVotes = { ...choiceVotesSplit };
+    const topVotesSorted = Object.keys(topVotes).sort((a, b) => parseInt(topVotes[b]) - parseInt(topVotes[a]));
+    obj.top_vote_list = topVotesSorted;
+
+    for (let i = 0; i < amount; i++) {
+      const choiceInfo = {};
+      const choiceInfoVotes = {};
+      const choiceInfoTokens = {};
+      const baseValue = 0;
+      // fill all possible fields with 0 base value
+      ['percentage', 'total_voters'].forEach((val) => choiceInfo[val] = baseValue);
+      ['base', 'bits', 'channel_points', 'total'].forEach((val) => choiceInfoVotes[val] = baseValue);
+      ['bits', 'channel_points'].forEach((val) => choiceInfoTokens[val] = baseValue);
+      choiceInfo.choice_id = `ddb2f066-1e36-4099-a71b-50621f90b${i}cd`;
+      choiceInfo.title = `Test Choice ${i + 1}`;
+      if (type !== 'Created' && choiceVotesSplit[i] !== 0) {
+        // split into base, bits and points votes amount based on total choice votes
+        const choiceVotesTypeSplit = (allowBits && allowPoints) ? [...splitNParts(choiceVotesSplit[i], 3)] : (allowBits || allowPoints) ? [...splitNParts(choiceVotesSplit[i], 0), 0] : [choiceVotesSplit[i], 0, 0];
+        choiceInfo.percentage = parseInt((choiceVotesSplit[i] / voteTotal) * 100);
+        // total voters will be the same as total votes if no bits or points are enabled
+        choiceInfo.total_voters = (allowBits || allowPoints) ? getRandomInt(choiceVotesSplit[i], choiceVotesSplit[i] / 10) : choiceVotesSplit[i];
+        // populate the different vote types based on if bits and points are enabled or not
+        choiceInfoVotes.total = choiceVotesSplit[i];
+        choiceInfoVotes.base = choiceVotesTypeSplit[0];
+        choiceInfoVotes.bits = allowBits ? choiceVotesTypeSplit[1] : 0;
+        choiceInfoVotes.channel_points = allowPoints ? choiceVotesTypeSplit[2] || choiceVotesTypeSplit[1] : 0;
+        // tokens are when someone votes with 5 channel points, they get 1 vote and 5 tokens?
+        choiceInfoTokens.bits = allowBits ? choiceInfoVotes.bits * 5 : 0;
+        choiceInfoTokens.channel_points = allowPoints ? choiceInfoVotes.channel_points * 10 : 0;
+        // add up all the base, bits and channel points botes
+        obj.vote_total_base += choiceInfoVotes.base;
+        obj.vote_total_bits += choiceInfoVotes.bits;
+        obj.vote_total_points += choiceInfoVotes.channel_points;
+      }
+      choiceInfo.votes = choiceInfoVotes;
+      choiceInfo.tokens = choiceInfoTokens;
+      obj[`choice_${i + 1}_info`] = choiceInfo;
+    }
+    return obj;
+  }
+
+  function populateWithOutcomeInfo(obj, amount, type) {
+    const voteTotal = (type !== 'Created') ? getRandomInt(amount, amount * 50) : 0;
+    // split total votes into parts for each outcome
+    const outcomeVotesSplit = [...splitNParts(voteTotal, amount)];
+    // create all outcome objects
+    for (let i = 0; i < amount; i++) {
+      const total_points = outcomeVotesSplit[i];
+      // total users are less or equal total votes
+      const total_user = total_points !== 0 ? getRandomInt(Math.ceil(total_points / 10), total_points) : 0;
+      // avoid having NaN if 0
+      const percentage = total_points !== 0 ? parseInt((total_points / voteTotal) * 100) : 0;
+      const outcome = {
+        total_points, percentage, total_user, id: `e960f614-d379-494a-8b45-0c7500978${i}ea`, name: `Test Choice ${i + 1}`,
+      };
+      obj[`outcome_${i + 1}_info`] = outcome;
+    }
+    obj.vote_total = voteTotal;
+    return obj;
+  }
+
+  function generateMessage() {
+    const messages = [
+      'Hello World!',
+      "Love your stream, you are a very genuine guy and you're not affraid to say it how it is. But, I would just prefer if you didn't give your opinion, just saying.",
+      "Alright, I'll be honest with ya, Bob. My name's not Kirk. It's Skywalker. Luke Skywalker.",
+      'Well, that never happened in any of the simulations.',
+      'You know, you blow up one sun and suddenly everyone expects you to walk on water.',
+      "How's a needle in my butt gonna get water out of my ears?",
+      'If you immediately know the candle light is fire, then the meal was cooked a long time ago.',
+      'All that glitters is not gold. Fair is foul, and foul is fair Hover through the fog and filthy air. These violent delights have violent ends. Hell is empty and all the devils are here. By the pricking of my thumbs, Something wicked this way comes. Open, locks, Whoever knocks!',
+    ];
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    return randomMessage;
+  }
+
+  function generateUUID() {
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) => (
+      c
+        ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+    ).toString(16));
+  }
+
+  function sendTriggerToLB(
+    type,
+    message = 'Test trigger fired.',
+    data = {},
+    triggerData,
+  ) {
+    data.trigger_data = triggerData;
+    LB.testTrigger(type, data);
+    LB.alert(message);
+  }
+}
+
+  function YTLiveTestEvent(e) {
+  class ConstructPullData {
+    constructor() {
+      [this.display_name, this.user_id, this.picture_url] = generateName();
+      this.addvalues = (params) => {
+        Object.assign(this, params);
+      };
+    }
+  }
+
+  const pullData = new ConstructPullData(e.id);
+
+  switch (e.id) {
+    default:
+      break;
+    case 'ytLiveTestSub':
+
+      sendTriggerToLB(
+        19,
+        `YouTube Subscription Test triggered by ${pullData.display_name}`,
+        {},
+        pullData,
+      );
+      break;
+    case 'ytLiveTestMember':
+
+      pullData.addvalues({
+        channel_url: `https://www.youtube.com/channel/${pullData.user_id}`,
+        chat_id: 'e5LT2xEURi9BQzf2rLe5eB3325081929219850',
+        level_name: 'Some level name',
+      });
+
+      sendTriggerToLB(
+        22,
+        `YouTube Member Test triggered by ${pullData.display_name}`,
+        {},
+        pullData,
+      );
+
+      break;
+    case 'ytLiveTestMilestone': {
+      const months = document.getElementById('YTLiveMilestoneMonth').value || Math.ceil(Math.random() * 10);
+      const level_name = document.getElementById('YTLiveMilestoneLevel').value || 'Some level name';
+      const message = document.getElementById('YTLiveMilestoneMsg').value || generateMessage();
+
+      pullData.addvalues({
+        channel_url: `https://www.youtube.com/channel/${pullData.user_id}`,
+        chat_id: 'e5LT2xEURi9BQzf2rLe5eB3325081929219850',
+        level_name,
+        message,
+        months,
+      });
+
+      sendTriggerToLB(
+        22,
+        `YouTube Member Renewal Test triggered by ${pullData.display_name}`,
+        {},
+        pullData,
+      );
+    }
+      break;
+    case 'ytLiveTestSuperChat': {
+      const amount = parseInt(document.getElementById('YTLiveSuperChatAmount').value) || Math.ceil(Math.random() * 1000000);
+      const tier = document.getElementById('YTLiveSuperChatTier').value || Math.ceil(Math.random() * 5);
+      const message = document.getElementById('YTLiveSuperChatMsg').value || generateMessage();
+
+      pullData.addvalues({
+        channel_url: `https://www.youtube.com/channel/${pullData.user_id}`,
+        chat_id: 'e5LT2xEURi9BQzf2rLe5eB3325081929219850',
+        amount,
+        amount_as_string: `${amount}`,
+        currency: 'USD',
+        message,
+        tier,
+      });
+
+      sendTriggerToLB(
+        20,
+        `YouTube Super Chat Test triggered by ${pullData.display_name}`,
+        { amount },
+        pullData,
+      );
+    }
+      break;
+    case 'ytLiveTestSuperSticker': {
+      const amount = parseInt(document.getElementById('YTLiveSuperStickerAmount').value) || Math.ceil(Math.random() * 1000000);
+
+      pullData.addvalues({
+        channel_url: `https://www.youtube.com/channel/${pullData.user_id}`,
+        chat_id: 'e5LT2xEURi9BQzf2rLe5eB3325081929219850',
+        amount,
+        amount_as_string: `${amount}`,
+        currency: 'USD',
+        sticker_id: 'pearfect_hey_you_v2',
+        sticker_text: 'Pear character turning around waving his hand, saying Hey you while lowering his glasses',
+      });
+
+      sendTriggerToLB(
+        21,
+        `YouTube Super Sticker Test triggered by ${pullData.display_name}`,
+        { amount },
+        pullData,
+      );
+    }
+      break;
+    case 'ytLiveTestChatMessage': {
+      const message = document.getElementById('YTLiveChatMessageMsg').value || generateMessage();
+      pullData.addvalues({
+        display_name: document.getElementById('YTLiveChatMessageName').value || pullData.display_name,
+        channel_url: `https://www.youtube.com/channel/${pullData.user_id}`,
+        chat_id: 'e5LT2xEURi9BQzf2rLe5eB3325081929219850',
+        message: message.replace(/"/g, "'"),
+        is_broadcaster: YTLiveChatMessageBroadcaster.checked,
+        is_moderator: YTLiveChatMessageMod.checked,
+        is_member: YTLiveChatMessageVerified.checked,
+        is_verified: YTLiveChatMessageMember.checked,
+      });
+
+      sendTriggerToLB(
+        18,
+        `YouTube Chat Message Test triggered by ${pullData.display_name}`,
+        {
+          broadcaster: YTLiveChatMessageBroadcaster.checked,
+          moderator: YTLiveChatMessageMod.checked,
+          verified: YTLiveChatMessageVerified.checked,
+          sponsor: YTLiveChatMessageMember.checked,
+          message,
+        },
+        pullData,
+      );
+    }
+      break;
+  }
+
+  function generateMessage() {
+    const message = ['Hello World!', "Alright, I'll be honest with ya, Bob. My name's not Kirk. It's Skywalker. Luke Skywalker.", 'Well, that never happened in any of the simulations.', 'You know, you blow up one sun and suddenly everyone expects you to walk on water.', "How's a needle in my butt gonna get water out of my ears?", 'If you immediately know the candle light is fire, then the meal was cooked a long time ago.', "So it's possible there's an alternate version of myself out there that actually understands what the hell you're talkin' about?", 'It costs nearly a billion dollars just to turn the lights on around here'];
+    const randomMsg = message[Math.floor(Math.random() * message.length)];
+    return randomMsg;
+  }
+
+  function generateName() {
+    const names = [
+      ['RoadieGamer', 'UCvuULk4cLyoXHuraLDUkEpA', 'https://yt3.ggpht.com/9Mg_T4R3Po1LMKod4RcLL82x6NiZj4xFt1ztuX6hmJhvp_gAlSmExejepwLuH2V7Wj8klJbG=s88-c-k-c0x00ffffff-no-rj'],
+      ['SilverLink', 'UCnXFNHXAmerjr5RLvlX4ojw', 'https://yt3.ggpht.com/96qVz0pLVJHB5NVCYdjLYAWNvcEl4zXH9UukPh3F_gv2a7aTdkIg6SQ2-L4fLGnSXhz_WN5GvA=s88-c-k-c0x00ffffff-no-rj'],
+      ['Rams Reef', 'UCeSb7sLzpb7OVVzGe07AcHA', 'https://yt3.ggpht.com/ytc/AKedOLRpXf-yfyFyrfOJ9rdrCDDSR6PbMDgn1v0fs912=s88-c-k-c0x00ffffff-no-rj'],
+      ['Cyanidesugar', 'UCnifImIxwoE9BalbaWlRuVg', 'https://yt3.ggpht.com/ytc/AKedOLRqNadDTDkEa-Nlz8UCNVvxK9hykksk1XVXhjgD=s88-c-k-c0x00ffffff-no-rj'],
+      ['Wolbee', 'UC6e9OkB4njOHdN7jn9QYNRg', 'https://yt3.ggpht.com/_LK_RuWL5-mx2rK8foKYfNmpFlCRjkgbDChTUoxBf8xDwh9hgDqDDT5mmKJ-risI4qjIuYTe3w=s88-c-k-c0x00ffffff-no-rj'],
+      ['chrizzz_1508', 'UCgs5H0txAV59us-H_xaysFw', 'https://yt3.ggpht.com/dMFvS0Z4jqWi9nuHW_Oin7xTwITC0pog7XJ9aIH7XKKkk4OjoBw_EH1J_iGy4X67X52A58gypQ=s88-c-k-c0x00ffffff-no-rj'],
+      ['Mr.Rubber Ducky', 'UCM-wHpDJhBXQXO4Pq4SnusA', 'https://yt3.ggpht.com/q5SJkgteZVlcNNZQLUvCb5kirAEMkZPK2ADMeEY5sc97PpGngkx-mHiNOb9_bRyv46QKkIE_5w=s88-c-k-c0x00ffffff-no-rj'],
+      ['Falinere', 'UCDf53fZZjoMIq-T0yOxEAIA', 'https://yt3.ggpht.com/ytc/AKedOLSC7rJLJF4kHQYguvZA37NLrVgGb_OQAJb6uCBkIQ=s88-c-k-c0x00ffffff-no-rj'],
+      ['Waldo & Friends', 'UCwxgRi2IFqlYVTneamjrESA', 'https://yt3.ggpht.com/ytc/AKedOLQDlThoavf6_zR7WmRUM4GB0Bg_t8QpJ2jbEi8D=s88-c-k-c0x00ffffff-no-rj'],
+      ['Landie', 'UC1FayVR82EazSlBS37sosrw', 'https://yt3.ggpht.com/ytc/AKedOLTgoUIiOsrTEEsGJEXgyQ1MkXmVOFrOjnUARQc_iw=s88-c-k-c0x00ffffff-no-rj'],
+      ['Flipstream', 'UCEKVFoETu3cCBjqV8v4Z6uQ', 'https://yt3.ggpht.com/ScwqNhrC8CSzp3J6Nr2rGgFupPa4BrN3Kuq3gUJkYtqJxTbXPYv0alhk8qlaIa6oUOCGoDvo=s88-c-k-c0x00ffffff-no-rj'],
+      ['griddark', 'UCn9zd0-RuMBZKE7u_myGtgA', 'https://yt3.ggpht.com/ytc/AKedOLSoo-kdU6msTEX46Wn7Q_TxGgzYgaO1hsvCzydz5Q=s88-c-k-c0x00ffffff-no-rj'],
+      ['JimmyPotatoTV', 'UClxlbZo0-zHZcBIMOr4M4cQ', 'https://yt3.ggpht.com/ytc/AKedOLQVW4K8CXv4e_vDORLji4_2avIgYQ9FQkRpuXcv=s88-c-k-c0x00ffffff-no-rj'],
+      ['Lyfesaver', 'UCqrv6kYkEfA2Rw_XGI3klWg', 'https://yt3.ggpht.com/ytc/AKedOLR5iCHlcCIkUSfcf-j4HcgV-Mh3V5rb3E7PfQae=s88-c-k-c0x00ffffff-no-rj'],
+      ['MisterK', 'UCQFLW-RwDB7y4KE55Kqnsyg', 'https://yt3.ggpht.com/WHMcGQDTARCDKQyfIK4-K7Pm5xYVpp29A9D7qjIK9HQW1qDmNvHzc1Gk742FuVqCfYnbIn2Gjw=s88-c-k-c0x00ffffff-no-rj'],
+      ['Sebas', 'UCQxIfBhgKD7YN2Gp8txd8GA', 'https://yt3.ggpht.com/ytc/AKedOLS6O3rx4NMuVngFSN_5mktw5LyT424zsS_jQIWd=s88-c-k-c0x00ffffff-no-rj'],
+    ];
+    const randomName = names[Math.floor(Math.random() * names.length)];
+    return randomName;
+  }
+
+  function generateMessage() {
+    const messages = [
+      'Hello World!',
+      "Alright, I'll be honest with ya, Bob. My name's not Kirk. It's Skywalker. Luke Skywalker.",
+      'Well, that never happened in any of the simulations.',
+      'You know, you blow up one sun and suddenly everyone expects you to walk on water.',
+      "How's a needle in my butt gonna get water out of my ears?",
+      'If you immediately know the candle light is fire, then the meal was cooked a long time ago.',
+      'In the middle of my backswing!?',
+      'If I am to remain in this body, I must shave my head.',
+      "I remembered something. There's a man. He is bald and wears a short sleeve shirt. And somehow, he is important to me… I think his name is… Homer.",
+      'Alright, we came here in peace, we expect to go in one... piece.',
+      'It costs nearly a billion dollars just to turn the lights on around here',
+      "You wouldn't believe the things you can make from the common, simple items lying around your planet... which reminds me, you're going to need a new microwave.",
+      'Welcome, ye knights of the round table, men of honor, followers of the path of righteousness. Only those with wealth of knowledge and truth of spirit shall be given access to the underworld, the storehouse of riches of Ambrosius Aurelianus. Prove ye worthy, and all shall be revealed.',
+    ];
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    return randomMessage;
+  }
+
+  function sendTriggerToLB(
+    type,
+    message = 'Test trigger fired.',
+    data = {},
+    triggerData,
+  ) {
+    data.trigger_data = triggerData;
+    LB.trigger(type, data);
+    LB.alert(message);
+  }
+}
+
+  // load LB connection params from storage
+function load_connection() {
+  const ls = JSON.parse(localStorage.getItem('lsParams')) || {};
+  nIPbox.value = ls.ip || '127.0.0.1';
+  nPortBox.value = ls.port || 9425;
+  nPassBox.value = ls.pass || '';
+}
+
+// manually connect/disconnect from LB via button
+function connectbutton() {
+  let _lioranboardclient;
+
+  const p = LBVars;
+
+  if (
+    (_lioranboardclient = lioranboardclient) !== null
+    && _lioranboardclient !== void 0
+    && _lioranboardclient._connected
+  ) {
+    p.force_close = true;
+    lioranboardclient.send('Close');
+    lioranboardclient.disconnect();
+    ConnectionStatus('toclient', 'disconnected', 'Connection Closed', 'red');
+    document.querySelector('#cnctbutton').innerText = 'Disconnecting';
+  } else {
+    console.log('LioranBoard Manual Connection.');
+
+    try {
+      clearTimeout(p.waiting_to_connect);
+    } catch (e) {}
+
+    connecttoboard();
+  }
+}
+
+// Connect to LB and listen for events
+function connecttoboard() {
+  LBDebugLog(dbgReceiver);
+
+  try {
+    clearTimeout(p.waiting_to_connect);
+  } catch (e) {}
+
+  const p = LBVars;
+
+  // CONNECT TO LIORANBOARD
+  lioranboardclient.connect({
+    address: `${nIPbox.value || '127.0.0.1'}:${nPortBox.value || 9425}`,
+    password: `${nPassBox.value || ''}`,
+    name: 'Transmitter',
+  });
+
+  // CONNECTION OPENED
+  lioranboardclient.on('ConnectionOpened', () => {
+    document.querySelector('#cnctbutton').innerText = 'Disconnect';
+    console.log('LioranBoard Connection opened!');
+  });
+  lioranboardclient.on('error', (err) => {
+    lioranboardclient.disconnect();
+  });
+
+  // AUTH SUCCESSFUL
+  lioranboardclient.on('AuthenticationSuccess', async () => {
+    // Send all extension commands to LB
+    sendExtensionCommands(); // Get Twitch list and connect to Pubsub
+
+    await LB.getTwitchList().then((data) => {
+      TWITCH_CLIENT_ID = data.twitch_list.clientId ? data.twitch_list.clientId : TWITCH_CLIENT_ID
+      p.twitchList = data.twitch_list;
+      connectPubSubserver();
+    });
+
+    // Save connection params to storage
+    const ls = {
+      ip: nIPbox.value,
+      port: nPortBox.value,
+      pass: nPassBox.value,
+    };
+    localStorage.setItem('lsParams', JSON.stringify(ls));
+
+    // set current browser as global variable
+    LB.setVariable('browser_name', browser);
+
+    ConnectionStatus('toclient', 'connected', 'Connected', 'green');
+    console.log('LioranBoard Authentication successsful!');
+  });
+
+  // CONNECTION CLOSED
+  lioranboardclient.on('ConnectionClosed', () => {
+    try {
+      clearTimeout(p.waiting_to_connect);
+    } catch (e) {}
+
+    lioranboardclient.removeAllListeners();
+
+    // Attempt to force disconnect from PubSub
+    try {
+      pubsubserver.close();
+    } catch (e) {}
+
+    // Attempt to reconnect if not manual disconnect
+    if (!p.force_close) {
+      ConnectionStatus(
+        'toclient',
+        'disconnected',
+        'Disconnected, attempting to reconnect.',
+        'red',
+      );
+      console.log('LioranBoard disconnected. Attempting to reconnect in 2s.');
+      p.waiting_to_connect = setTimeout(() => {
+        connecttoboard();
+      }, 2000);
+    } else {
+      console.log('LioranBoard disconnected by user.');
+      ConnectionStatus('toclient', 'disconnected', 'Connection Closed', 'red');
+    }
+
+    p.force_close = false;
+    document.querySelector('#cnctbutton').innerText = 'Connect';
+  });
+
+  // CONNECTION ERROR
+  lioranboardclient.on('ConnectionError', (e) => {
+    // Try to force close the connection
+    try {
+      lioranboard.disconnect();
+    } catch (e) {}
+
+    console.log('LioranBoard Connection error');
+  });
+
+  // RELOAD TRANSMITTER
+  lioranboardclient.on('ResetPlease', () => {
+    location.reload();
+  });
+
+  // EXECUTE COMMAND
+  lioranboardclient.on('ExecuteCommand', (json) => {
+    LBExtensionReceived(json.CommandName, json.Data);
+  });
+}
+
+// Get Browser Name
+
+const browser = (function () {
+  const test = function (regexp) { return regexp.test(window.navigator.userAgent); };
+  switch (true) {
+    case test(/OBS/i): return 'OBS';
+    case test(/edg/i): return 'Microsoft Edge';
+    case test(/trident/i): return 'Microsoft Internet Explorer';
+    case test(/firefox|fxios/i): return 'Mozilla Firefox';
+    case test(/opr\//i): return 'Opera';
+    case test(/ucbrowser/i): return 'UC Browser';
+    case test(/samsungbrowser/i): return 'Samsung Browser';
+    case test(/chrome|chromium|crios/i): return 'Google Chrome';
+    case test(/safari/i): return 'Apple Safari';
+    default: return 'Other';
+  }
+}());
+
+  function sendExtensionCommands() {
+// You LioranBoard extension commands will be inserted here
+/*INSERT PART 2*/
+}
+
+  // Connect to PubSub
+function connectPubSubserver() {
+  const p = LBVars;
+
+  // Do not connect if user's Twitch account isn't linked
+  if (Object.keys(p.twitchList).length === 0) {
+    ConnectionStatus(
+      'topubsub',
+      'disconnected',
+      'No linked account found.',
+      'grey',
+    );
+    return;
+  }
+
+  // Do not connect if there are no listen topics
+  if (JSON.stringify(p.twitchList).indexOf('listen') === -1 || !lioranboardclient._connected) return;
+
+  pubsubserver = new WebSocket('wss://pubsub-edge.twitch.tv');
+
+  function PubSubPing() {
+    pubsubserver.send(
+      JSON.stringify({
+        type: 'PING',
+      }),
+    );
+  }
+
+  // Attempt to reconnect on disconnect, unless LioranBoard is disconnected
+  pubsubserver.onclose = () => {
+    let _lioranboardclient;
+
+    try {
+      clearInterval(p.pubsubinterval);
+    } catch (e) {}
+
+    const i_obj = {
+      topic: 'pubsubdisconnected',
+      type: 'MESSAGE',
+    };
+    ConnectionStatus(
+      'topubsub',
+      'disconnected',
+      'Connection closed. Attempting to reconnect.',
+      'red',
+    );
+    if (
+      (_lioranboardclient = lioranboardclient) !== null
+      && _lioranboardclient !== void 0
+      && _lioranboardclient._connected
+    )
+    // don't reopen connection if no listen topics were provided
+    { if (JSON.stringify(p.twitchList).indexOf('listen') === -1 || !lioranboardclient._connected) return; }
+    connectPubSubserver();
+  };
+
+  // Once connected, listen for stuff
+  pubsubserver.onopen = () => {
+    p.pubsubinterval = setInterval(PubSubPing, 120000);
+    console.log('Twitch PubSub connected successfully.');
+    ConnectionStatus('topubsub', 'connected', 'Connected', 'green'); // List of available Pubsub topic versions
+
+    const listenTopics = {
+      listen_bits: ['bits', 'channel-bits-events-v2'],
+      listen_follow: ['follows', 'following'],
+      listen_moderation: ['mod', 'chat_moderator_actions'],
+      listen_redeem: ['redeem', 'channel-points-channel-v1'],
+      listen_subs: ['subs', 'channel-subscribe-events-v1'],
+      listen_whispers: ['whispers', 'whispers'],
+      listen_hypetrain: ['hypetrain', 'hype-train-events-v1'],
+      listen_predictions: ['predictions', 'predictions-channel-v1'],
+      listen_polls: ['polls', 'polls'],
+    };
+
+    // Construct a listen object to send to Pubsub
+    function PubsubConstructListen(id, token) {
+      this.type = 'LISTEN';
+      this.data = {
+        auth_token: token,
+      };
+
+      this.changeTopic = (type, topic) => {
+        this.nonce = `${type}-${id}`;
+        this.data.topics = (type !== 'mod') ? [`${topic}.${id}`] : [`${topic}.${id}.${id}`];
+      };
+    }
+
+    // Go through the Twitch list and listen to everything the user selected
+    Object.values(p.twitchList).forEach((params) => {
+      const pubsubListen = new PubsubConstructListen(
+        params.user_id,
+        params.token,
+      );
+      Object.keys(params).forEach((key) => {
+        if (key.includes('listen_') && params[key]) {
+          pubsubListen.changeTopic(listenTopics[key][0], listenTopics[key][1]);
+          pubsubserver.send(JSON.stringify(pubsubListen));
+        }
+      });
+    });
+  };
+
+  // Send data from Pubsub to LioranBoard
+  pubsubserver.onmessage = (event) => {
+    // send pubsub message to lioranboard, let it deal with it
+    lioranboardclient.send('PubSubMessage', {
+      Data: JSON.parse(event.data),
+    });
+    if (LBDebugPost && p.LBdebug.pubsub) LBDebugPost('pubsub', event.data);
+  };
+}
+
+  function LBExtensionReceived(hook, LioranBoardJSON) {
+  switch (hook) {
+    // hook you specified.
+    default:
+      break;
+//You hooks will be inserted here
+/*INSERT PART 3*/
+   }
+}
+
+  (function initDebugLogging() {
+  dbgReceiver.checked = LBVars.LBdebug.receiver;
+  dbgPubsub.checked = LBVars.LBdebug.pubsub;
+  LBDebugLog(dbgPubsub); LBDebugLog(dbgReceiver);
+}());
+
+function LBDebugLog(e) {
+  const receiver = document.getElementById('LBreceiverlog');
+  const pubsub = document.getElementById('LBpubsublog');
+  const listening = '<samp>Listening for traffic.</samp>';
+  const disabled = '<samp>Logging is disabled.</samp>';
+  // disable or enable debug logging and display it
+
+  switch (e.id) {
+    default:
+      break;
+    case 'dbgReceiver':
+      if (e.checked) {
+        if (localStorage.debug === 'lb-websocket-js:*') {
+          const _debug = console.debug.bind(console);
+          logIt = function (...args) {
+            const msg = {};
+            _debug.apply(console, arguments);
+            if (!LBDebugPost) return;
+            Object.assign(msg, args[args.length - 2]);
+            if (args[0].includes('Sending Message')) LBDebugPost('receiverSent', msg);
+            else if (args[0].includes('Message received')) {
+              LBDebugPost('receiver', msg);
+            }
+          };
+          receiver.innerHTML = listening;
+        } else {
+          receiver.innerHTML = '<samp>Logging will be enabled once Transmitter is reloaded.</samp>';
+        }
+        localStorage.debug = 'lb-websocket-js:*';
+      } else {
+        if (localStorage.debug == 0) receiver.innerHTML = disabled;
+        else {
+          receiver.innerHTML = '<samp>Logging will be disabled once Transmitter is reloaded.</samp>';
+        }
+        logIt = null;
+        localStorage.debug = 0;
+      }
+      LBVars.LBdebug.receiver = !!(e.checked);
+      break;
+    case 'dbgPubsub':
+      pubsub.innerHTML = (e.checked) ? listening : disabled;
+      LBVars.LBdebug.pubsub = !!(e.checked);
+      break;
+  }
+  localStorage.setItem('LBdebug', JSON.stringify(LBVars.LBdebug));
+}
+
+function LBDebugPost(type, msg) {
+  const p = LBVars;
+  if (!p.LBdebug) return;
+  const receiverlog = document.getElementById('LBreceiverlog');
+  const pubsublog = document.getElementById('LBpubsublog');
+  const arrowDown = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-arrow-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/> </svg>';
+  const arrowUp = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-arrow-up" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/> </svg>';
+
+  // post a message into the debug log if enabled
+  switch (type) {
+    default:
+      break;
+    case 'receiver':
+    case 'receiverSent':
+      if (p.LBdebug.receiver) {
+        const request = msg.rq || msg.upd;
+        const { id } = msg;
+        try {
+          delete msg.id; delete msg.rq;
+        } catch (e) {}
+        if (request === 'Pong' || request === 'Ping' || msg.upd === 'Ping') return;
+        if (msg.rq) {
+          receiverlog.innerHTML += `<br> ${type === 'receiver' ? arrowUp : arrowDown} <samp>Request: ${request}, Id: ${id}, Data: ${StringifyandReplace(msg)} </samp>`;
+        } else {
+          receiverlog.innerHTML += `<br> ${type === 'receiver' ? arrowUp : arrowDown} <samp>Update: ${request}, Data: ${StringifyandReplace(msg)} </samp>`;
+        }
+      }
+      break;
+    case 'pubsub':
+      console.log(msg);
+      if (p.LBdebug.pubsub && !msg.includes('PONG')) pubsublog.innerHTML += `<br> ${arrowDown} <samp>${StringifyandReplace(msg)} </samp>`;
+      break;
+  }
+
+  // stringify if message is an object and replace some symbols
+  // for better readability
+  function StringifyandReplace(obj) {
+    const regexToken = /"token":"[^"]*"/i;
+    if (typeof obj === 'object') obj = JSON.stringify(obj);
+    const strRpl = (typeof obj === 'string') ? obj.replace(/\r\n/g, '').replace(/\\/g, '').replace(/\\/g, '').replace(/%s/g, '')
+      .replace(/%o/g, '')
+      .replace(/%c/g, '')
+      .replace(regexToken, '"token":"xxxxx"')
+      : obj;
+    return strRpl;
+  }
+}
+
+// Your main script will be inserted here
+/*INSERT PART 4*/
+
+</script>
+<script src="https://cdn.jsdelivr.net/gh/LioranBoard/LioranBoard-2-Websocket@main/dist/lb-websocket.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/draggable.bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+  integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+  integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/obs-websocket-js@4.0.2/dist/obs-websocket.js"></script>
+
+</html>

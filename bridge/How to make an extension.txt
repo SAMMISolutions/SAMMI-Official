@@ -70,6 +70,7 @@ Add these keys to your exported deck json if you want SAMMI to perform additiona
 "obswebsocket":"4.9.1"		Check if OBS Main is connect and correct version
 "donot_include_deck":false	Check if the deck should be create, if the deck does not exists it doesnt matter, this is if you want an optionnal deck or hidden deck
 "extension_triggers":["TRG1","TRG",...]		These are all the Extension triggers that should happen, trigger pull data will include "path" for the path of where the extension was.
+"required_extension":["Extension name","Another extension name",...] Check if all required extensions are installed before installing the extension
 
 ---------------------------------
 - 4. Troubleshooting Extensions -

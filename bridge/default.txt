@@ -1,25 +1,26 @@
 <!--For Extension info, read How to make extensions.txt in Extension folder-->
-<!--Transmitter V6.10-->
+<!--Bridge V7.00-->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
-  <meta name="title" content="LioranBoard Transmitter">
+  <meta name="title" content="SAMMI Bridge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description"
-    content="LioranBoard component which allows LioranBoard to connect to Twitch and its extensions.">
-  <meta name="keywords" content="LioranBoard, Transmitter, Twitch, Stream">
+    content="SAMMI component which allows SAMMI to connect to its extensions.">
+  <meta name="keywords" content="SAMMI, Bridge, Twitch, Stream">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="language" content="English">
-  <title>LioranBoard Transmitter</title>
+  <title>SAMMI Bridge</title>
   <link rel="shortcut icon" type="image/x-icon"
-    href="https://raw.githubusercontent.com/LioranBoard/LioranBoard-2-Transmitter/main/favicon_ce.ico" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/christinna9031/LioranBoard-Files@main/lib/bootstrap.min.css">
+    href="https://raw.githubusercontent.com/SAMMISolutions/SAMMI-Bridge/main/favicon.ico"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/SAMMISolutions/SAMMI-Bridge@main/lib/bootstrap.min.css">
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   <style>
     body {
   font-family: 'Lato', sans-serif;
+  background-color: #040b15;
 }
 h1 {
 font-size: calc(1.2em + 1vw);
@@ -44,7 +45,7 @@ a:hover {
   content:'Hide Options \01F845' ;
   width:15px;
 }
-.LBTestTriggers .form-check-input[type=checkbox] {
+.SAMMITestTriggers .form-check-input[type=checkbox] {
   vertical-align: text-bottom;
 }
 #footer .tslCollapse.collapsed:before {
@@ -56,8 +57,8 @@ a:hover {
   width:15px;
 }
 
-#LBreceiverlog, #LBpubsublog {
-  background:rgb(10, 11, 26);
+#SAMMIcorelog {
+  background:#040b15;
   padding:5px 15px;
   display:block;
   position: relative;
@@ -75,7 +76,7 @@ a:hover {
 #debugLog .nav-link {
   padding: .2rem 1rem;
 }
-#LBPubSub, #LBreceiver {
+#SAMMIBridge {
   overflow: hidden;
   padding:5px;
   margin:2px;
@@ -119,14 +120,24 @@ button:active{
   transition: 0.01s;
 }
 .nav-pills > li > .nav-link.active {
-   background-image: linear-gradient(to bottom, #E28B3B, #B96C23);
+   /*background-image: linear-gradient(to bottom, #E28B3B, #B96C23);*/
+   background-image: linear-gradient(to bottom, #761a2c , #761a2c );
+   border: 1px solid #761a2c;
    color: rgb(255, 255, 255);
-   border: 1px solid #8F8C8C;
+   border: 1px solid #761a2c;
    text-shadow: 1px 1px 3px rgb(0 0 0 / 100%);
+   /*
+    /*
+ background-image: linear-gradient(to bottom, #76511A, #76511A);
+    color: rgb(255, 255, 255);
+    border: 1px solid #76511A;
+ */
+   */
  }
  
  .tab-content {
-   background-color: rgba(39, 55, 110, 0.5);
+   /*background-color: rgba(39, 55, 110, 0.5);*/
+   background-color: rgba(22, 53, 100, 0.769);
    box-shadow: 0.5rem 0.5rem 0.5rem #00000080;
    min-height:50px;
    width:100%;
@@ -159,6 +170,18 @@ button:active{
  }
 }
 
+.btn-primary {
+  background-color: #535861b5;
+  border-color: rgb(72 78 89);
+
+}
+
+.btn-primary:hover {
+  background-color: #60646ad9;
+  border-color: #60646ad9
+
+}
+
 .notabs>.tab-pane {
   display: block !important;
   opacity: 1 !important;
@@ -180,20 +203,14 @@ button:active{
 
 <body>
   <div class="container">
-    <h1 class="text-center">LioranBoard Transmitter </h1>
+    <h1 class="text-center">SAMMI Bridge </h1>
 <!-- Connection Info -->
 <div class="row justify-content-center">
   <div class="col col-auto">
     <svg id="toclient_circle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-circle-fill d-md-none me-1" viewBox="0 0 16 16">
         <circle cx="8" cy="8" r="8"/>
       </svg>
-    <span>LioranBoard</span><span class="d-none d-md-inline-flex me-1">: </span><span id="toclient" class="disconnected d-none d-md-inline-flex">Not connected.</span>
-  </div>
-  <div class="col col-auto">
-    <svg id="topubsub_circle" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-circle-fill d-md-none me-1" viewBox="0 0 16 16">
-        <circle cx="8" cy="8" r="8"/>
-      </svg>
-    <span>Pubsub</span><span class="d-none d-md-inline-flex me-1">: </span><span class="disconnected d-none d-md-inline-flex" id="topubsub">Not connected.</span>
+    <span>SAMMI Core</span><span class="d-none d-md-inline-flex me-1">: </span><span id="toclient" class="disconnected d-none d-md-inline-flex">Not connected.</span>
   </div>
 </div> <br>
 <!--Tabs -->
@@ -204,7 +221,7 @@ button:active{
  <div class="tab-content" id="extensions-tabContent">
 <div class="tab-pane" id="content-basic" role="tabpanel" title="Status" data-type="default">
   <div class='row pt-3'>
-    <h5>Transmitter Connection</h5>
+    <h5>Bridge Connection</h5>
     <div class="col">
       <div class="row">
         <label for="inputPassword" class="col-sm-5 col-form-label">IP Address:</label>
@@ -231,39 +248,17 @@ button:active{
       </div>
     </div>
   </div>
-  <div class='row pt-3'>
-    <h5>Appearance</h5>
-    <div class="col col-md-auto"><button type="button" class="btn btn-primary btn-sm mb-2 w-auto me-2"
-        onclick="TSLNoTabs()">No Tabs</button><button type="button" class="btn btn-primary btn-sm mb-2 w-auto"
-        onclick="TSLTabs()">Show Tabs</button></div>
-  </div>
   <div class='row pt-3 d-block'>
     <h5>Message Logging</h5>
     <div class='pl-5 ml-5'>
        <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" id="dbgReceiver" onclick="LBDebugLog(this)" >
-          <label class="form-check-label"for="flexSwitchCheckDefault">LioranBoard</label>
+          <input class="form-check-input" type="checkbox" id="dbgBridge" onclick="SAMMIDebugLog(this)" >
+          <label class="form-check-label"for="flexSwitchCheckDefault">SAMMI</label>
        </div>
-       <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" id="dbgPubsub" onclick="LBDebugLog(this)">
-          <label class="form-check-label" for="flexSwitchCheckDefault">PubSub</label>
-       </div>
-       <ul class="nav nav-tabs mt-3" id="debugLog" role="tablist">
-          <li class="nav-item" role="presentation">
-             <button class="nav-link active" id="LBreceiver-tab" data-bs-toggle="tab" data-bs-target="#LBreceiver" type="button" role="tab" aria-controls="LBreceiver" aria-selected="true">LioranBoard</button>
-          </li>
-          <li class="nav-item" role="presentation">
-             <button class="nav-link" id="LBPubSub-tab" data-bs-toggle="tab" data-bs-target="#LBPubSub" type="button" role="tab" aria-controls="LBPubSub" aria-selected="false">PubSub</button>
-          </li>
-       </ul>
-       <div class="tab-content p-0 " id="debugLogContent">
-          <!--LB Receiver Log-->
-          <div class="tab-pane fade show active" id="LBreceiver" role="tabpanel" aria-labelledby="LBreceiver-tab" >
-             <div id="LBreceiverlog" class="col col-10 text-wrap">Logging is disabled.</div>
-          </div>
-          <!--LB Pubsub Log-->
-          <div class="tab-pane fade" id="LBPubSub" role="tabpanel" aria-labelledby="LBPubSub-tab">
-             <div id="LBpubsublog" class="col col-10 text-wrap">Logging is disabled.</div>
+       <div class="tab-content p-0 mt-2" id="debugLogContent">
+          <!--SAMMI Core Log-->
+          <div class="tab-pane fade show active" id="SAMMIBridge" role="tabpanel" aria-labelledby="SAMMIBridge-tab" >
+             <div id="SAMMIcorelog" class="col col-10 text-wrap">Logging is disabled.</div>
           </div>
        </div>
     </div>
@@ -274,10 +269,10 @@ button:active{
 <!--INSERT PART 1-->
 <!--Twitch Triggers-->
 <div class="tab-pane" id="content-triggers" role="tabpanel" title="Twitch Triggers" data-type="default">
-   <form id="LBTestTwitchFollow" class="LBTestTriggers">
+   <form id="SAMMITestTwitchFollow" class="SAMMITestTriggers">
       <button type="submit" class="btn btn-primary btn-sm me-1">Test Follower</button>
    </form>
-   <form id="LBTestTwitchSubs" class="LBTestTriggers">
+   <form id="SAMMITestTwitchSubs" class="SAMMITestTriggers">
       <button type="submit" class="btn btn-primary btn-sm me-1">Test Sub</button>
       <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#hidesubs" role="button" aria-expanded="false"
          aria-controls="hidesubs"></a>
@@ -294,32 +289,32 @@ button:active{
          SubGift
          <input type="checkbox" class="form-check-input" id="anongift" value="anongift">
          AnonGift
-         <input type="number" min="0" max="100" id="submonths" value=1> Months <br>
+         <input type="number" min="1" max="999" id="submonths" value=1> Months <br>
          Message:
          <input type="text" id="submessage" size="20">
       </div>
       <div>
    </form>
-   <form id="LBTestTwitchSubGift" class="LBTestTriggers">
+   <form id="SAMMITestTwitchSubGift" class="SAMMITestTriggers">
       <button type="submit" class="btn btn-primary btn-sm me-1">Test Subs Gift Amount</button>
       Amount:
-      <input type="number" min="1" max="99" id="subGiftAmount" value=1>
+      <input type="number" min="1" max="999" id="subGiftAmount" value=1>
 </div>
 </form>
-<form id="LBTestTwitchBits" class="LBTestTriggers">
+<form id="SAMMITestTwitchBits" class="SAMMITestTriggers">
    <button type="submit" class="btn btn-primary btn-sm me-1">Test Bits</button>
    <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#hidebits" role="button" aria-expanded="false"
       aria-controls="hidebits"></a>
    <div class='collapse' id="hidebits">
       Amount of bits:
-      <input type="number" min="0" max="999" id="bitsamount" value=10>
+      <input type="number" min="1" max="99999" id="bitsamount" value=10>
       Total bits:
-      <input type="number" min="0" max="999" id="bitstotal" value=100><br />
+      <input type="number" min="1" max="99999" id="bitstotal" value=100><br />
       Message:
       <input type="text" id="bitsmessage" size="20" style="margin:5px 0px;" value='Hello World!'>
    </div>
 </form>
-<form id="LBTestTwitchPoints" class="LBTestTriggers">
+<form id="SAMMITestTwitchPoints" class="SAMMITestTriggers">
    <div><button type="submit" class="btn btn-primary btn-sm me-1">Test Channel Points</button>
       <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#hidepoints" role="button" aria-expanded="false"
          aria-controls="hidebits"></a>
@@ -331,23 +326,23 @@ button:active{
       Redeem Message:
       <input type="text" id="channelPointsMsg" size="20"> <br>
       Redeem Cost:
-      <input type="number" min="0" max="9999" id="channelPointsCost" size="5" value=50>
+      <input type="number" min="1" max="9999" id="channelPointsCost" size="5" value=50>
    </div>
 </form>
-<form id="LBTestTwitchRaid" class="LBTestTriggers">
+<form id="SAMMITestTwitchRaid" class="SAMMITestTriggers">
    <div><button type="submit" class="btn btn-primary btn-sm me-1">Test Raid</button>
       Amount:
-      <input type="number" min="0" max="999" id="raidAmount" value=5>
+      <input type="number" min="1" max="999" id="raidAmount" value=5>
    </div>
 </form>
-<form id="LBTestTwitchHost" class="LBTestTriggers">
+<form id="SAMMITestTwitchHost" class="SAMMITestTriggers">
    <div><button type="submit" class="btn btn-primary btn-sm me-1">Test Host</button>
       Amount:
-      <input type="number" min="0" max="999" id="hostamount" value=5> <br>
+      <input type="number" min="1" max="999" id="hostamount" value=5> <br>
    </div>
 </form>
 
-<form id="LBTestTwitchPoll" class="LBTestTriggers form-inline">
+<form id="SAMMITestTwitchPoll" class="SAMMITestTriggers form-inline">
       <div class="form-group d-flex align-items-center">
       <button type="submit" class="btn btn-primary btn-sm me-2">Test Poll</button>
       <select class="form-select-sm w-auto me-2" style="height:30px" aria-label="Poll Type" id="pollType">
@@ -369,7 +364,7 @@ button:active{
    </div>
 </form>
 
-<form id="LBTestTwitchPrediction" class="LBTestTriggers form-inline">
+<form id="SAMMITestTwitchPrediction" class="SAMMITestTriggers form-inline">
    <div class="form-group d-flex align-items-center">
    <button type="submit" class="btn btn-primary btn-sm me-2">Test Prediction</button>
    <select class="form-select-sm w-auto me-2" style="height:30px" aria-label="Poll Type" id="predictType">
@@ -389,7 +384,7 @@ button:active{
 </div>
 </form>
 
-<form id="LBTestTwitchHypeTrain" class="LBTestTriggers form-inline">
+<form id="SAMMITestTwitchHypeTrain" class="SAMMITestTriggers form-inline">
    <div class="form-group d-flex align-items-center">
    <button type="submit" class="btn btn-primary btn-sm me-2">Test Hype Train</button>
    <select class="form-select-sm w-auto me-2" style="height:30px" aria-label="Hype Train Type" id="hypeTrainType">
@@ -425,7 +420,7 @@ button:active{
 </form>
 
 
-<form id="LBTestTwitchChat" class="LBTestTriggers">
+<form id="SAMMITestTwitchChat" class="SAMMITestTriggers">
    <div><button type="submit" class="btn btn-primary btn-sm me-1">Test Chat Message </button>
       <a class="tslCollapse collapsed" data-bs-toggle="collapse" href="#hidechatmsg" role="button" aria-expanded="false"
          aria-controls="hidechatmsg"></a>
@@ -548,34 +543,34 @@ button:active{
   </div>
 </body>
 <script>
-  /** LB2 Helper Functions
- * You can call them with LB.{helperfunction}
- * Use promises if you want to get a reply back from LB
- * No promise example: LB.setVariable(myVariable, 'some value', 'someButtonID')
- * Promise example: LB.getVariable(myVariable, 'someButtonID').then(reply=>console.log(reply))
+  /** SAMMI Core Helper Functions
+ * You can call them with SAMMI.{helperfunction}
+ * Use promises if you want to get a reply back from SAMMI
+ * No promise example: SAMMI.setVariable(myVariable, 'some value', 'someButtonID')
+ * Promise example: SAMMI.getVariable(myVariable, 'someButtonID').then(reply=>console.log(reply))
  */
-function LBCommands() {
-  const LBSendCommand = {
+function SAMMICommands() {
+  const SendCommand = {
     /**
-     * Get a variable from LB
+     * Get a variable from SAMMI
      * @param {string} name - name of the variable
      * @param {string} buttonId - button ID for local variable, default = global variable
      */
     async getVariable(name, buttonId = 'global') {
-      return sendToLB('GetVariable', {
+      return sendToSAMMI('GetVariable', {
         Variable: name,
         ButtonId: buttonId,
       });
     },
 
     /**
-     * Set a variable in LB
+     * Set a variable in SAMMI
      * @param {string} name - name of the variable
      * @param {(string|number|object|array|null)} value - new value of the variable
      * @param {string} buttonId - button ID for local variable, default = global variable
      */
     async setVariable(name, value, buttonId = 'global') {
-      return sendToLB('SetVariable', {
+      return sendToSAMMI('SetVariable', {
         Variable: name,
         Value: value,
         ButtonId: buttonId,
@@ -583,27 +578,27 @@ function LBCommands() {
     },
 
     /**
-     * Send a popup message to LB
+     * Send a popup message to SAMMI
      * @param {string} msg - message to send
      */
     async popUp(msg) {
-      return sendToLB('PopupMessage', {
+      return sendToSAMMI('PopupMessage', {
         Message: msg,
       });
     },
 
     /**
-     * Send a yellow notification message to LB
+     * Send a yellow notification message to SAMMI
      * @param {string} msg - message to send
      */
     async alert(msg) {
-      return sendToLB('AlertMessage', {
+      return sendToSAMMI('AlertMessage', {
         Message: msg,
       });
     },
 
     /**
-     * send extension command to LB
+     * send extension command to SAMMI
      * @param {string} name - name of the extension command
      * @param {string} color - box color, accepts hex/dec colors (include # for hex), default 3355443
      * @param {string} height - height of the box in pixels, 52 for regular or 80 for resizable box, default 52
@@ -618,22 +613,22 @@ function LBCommands() {
      * @param {[boxName: string, boxType: number, defaultValue: (string | number), sizeModifier: (number|undefined), selectOptions: Array|undefined]} boxes.boxVariable
      * */
     async extCommand(name, color = 3355443, height = 52, boxes) {
-      const ext = new LBConstructExtCommand(name, color, height);
+      const ext = new SammiConstructExtCommand(name, color, height);
 
       for (const [key, value] of Object.entries(boxes)) {
         ext.addBox(key, value);
       }
 
-      return sendToLB('SendExtensionCommands', {
+      return sendToSAMMI('SendExtensionCommands', {
         Data: [ext],
       });
     },
 
     /**
-     * Close LioranBoard connection to Transmitter.
+     * Close SAMMI Bridge connection to SAMMI Core.
      */
     async close() {
-      return sendToLB('Close');
+      return sendToSAMMI('Close');
     },
 
     /**
@@ -641,7 +636,7 @@ function LBCommands() {
      * @param {boolean} enabled - enable or disable updates
      */
     async stayInformed(enabled) {
-      return sendToLB('SetStayInformed', {
+      return sendToSAMMI('SetStayInformed', {
         Enabled: enabled,
       });
     },
@@ -652,7 +647,7 @@ function LBCommands() {
      * - Use crc32 value to verify deck you saved localy is the same
      */
     async getDeckList() {
-      return sendToLB('GetDeckList');
+      return sendToSAMMI('GetDeckList');
     },
 
     /**
@@ -661,7 +656,7 @@ function LBCommands() {
      * - Replies with an object containing a full deck
      */
     async getDeck(id) {
-      return sendToLB('GetDeck', {
+      return sendToSAMMI('GetDeck', {
         UniqueId: id,
       });
     },
@@ -672,7 +667,7 @@ function LBCommands() {
      * - Replies with an object containing the Base64 string of the image
      */
     async getImage(fileName) {
-      return sendToLB('GetImage', {
+      return sendToSAMMI('GetImage', {
         FileName: fileName,
       });
     },
@@ -682,7 +677,7 @@ function LBCommands() {
      * @param {string} fileName - file name without the path (image.png)
      */
     async getSum(fileName) {
-      return sendToLB('GetSum', {
+      return sendToSAMMI('GetSum', {
         Name: fileName,
       });
     },
@@ -692,14 +687,14 @@ function LBCommands() {
      * - Replies with an array of button param objects
      */
     async getActiveButtons() {
-      return sendToLB('GetOngoingButtons');
+      return sendToSAMMI('GetOngoingButtons');
     },
 
     /**
      * Retrieves params of all linked Twitch accounts
      */
     async getTwitchList() {
-      return sendToLB('GetTwitchList');
+      return sendToSAMMI('GetTwitchList');
     },
 
     /**
@@ -707,11 +702,11 @@ function LBCommands() {
      * @param {number} type - type of trigger
      * - trigger types: 0 Twitch chat, 1 Twitch Sub, 2 Twitch Gift, 3 Twitch redeem
      * 4 Twitch Raid, 5 Twitch Bits, 6 Twitch Follower, 7 Hotkey
-     * 8 Timer, 9 OBS Trigger, 10 lioranboard, 11 twitch moderation, 12 extension trigger
+     * 8 Timer, 9 OBS Trigger, 10 SAMMI Bridge, 11 twitch moderation, 12 extension trigger
      * @param {object} data - whatever data is required for the trigger, see manual
      */
     async trigger(type, data) {
-      return sendToLB('SendTrigger', {
+      return sendToSAMMI('SendTrigger', {
         Type: type,
         Data: data,
       });
@@ -722,11 +717,11 @@ function LBCommands() {
      * @param {number} type - type of trigger
      * - trigger types: 0 Twitch chat, 1 Twitch Sub, 2 Twitch Gift, 3 Twitch redeem
      * 4 Twitch Raid, 5 Twitch Bits, 6 Twitch Follower, 7 Hotkey
-     * 8 Timer, 9 OBS Trigger, 10 lioranboard, 11 twitch moderation, 12 extension trigger
+     * 8 Timer, 9 OBS Trigger, 10 SAMMI Bridge, 11 twitch moderation, 12 extension trigger
      * @param {object} data - whatever data is required for the trigger, see manual
      */
     async testTrigger(type, data) {
-      return sendToLB('SendTestTrigger', {
+      return sendToSAMMI('SendTestTrigger', {
         Type: type,
         Data: data,
       });
@@ -737,7 +732,7 @@ function LBCommands() {
      * @param {string} id - button ID to trigger
      */
     async triggerButton(id) {
-      return sendToLB('TriggerButton', {
+      return sendToSAMMI('TriggerButton', {
         ButtonId: id,
       });
     },
@@ -747,7 +742,7 @@ function LBCommands() {
      * @param {string} id - button ID to release
      */
     async releaseButton(id) {
-      return sendToLB('ReleaseButton', {
+      return sendToSAMMI('ReleaseButton', {
         ButtonId: id,
       });
     },
@@ -762,7 +757,7 @@ function LBCommands() {
      * - leave parameters empty to reset button back to default values
      */
     async modifyButton(id, color, text = '', image, border) {
-      return sendToLB('ModifyButton', {
+      return sendToSAMMI('ModifyButton', {
         ButtonId: id,
         Data: {
           color: color || undefined,
@@ -778,7 +773,7 @@ function LBCommands() {
      * - object of button objects that are currently modified
      */
     async getModifiedButtons() {
-      return sendToLB('GetModifications');
+      return sendToSAMMI('GetModifications');
     },
 
     /**
@@ -787,7 +782,7 @@ function LBCommands() {
      * @param {object} data - object containing all trigger pull data
      */
     async triggerExt(trigger, data = {}) {
-      return sendToLB('ExtensionTrigger', {
+      return sendToSAMMI('ExtensionTrigger', {
         Trigger: trigger,
         Data: data,
       });
@@ -799,7 +794,7 @@ function LBCommands() {
      * @param {string} buttonId - button ID for local variable, default = global variable
      */
     async deleteVariable(name, buttonId = 'global') {
-      return sendToLB('DeleteVariable', {
+      return sendToSAMMI('DeleteVariable', {
         Variable: name,
         ButtonId: buttonId,
       });
@@ -813,7 +808,7 @@ function LBCommands() {
      * @param {string} buttonId - button id, default is global
      */
     async insertArray(arrayName, index, value, buttonId = 'global') {
-      return sendToLB('InsertArrayValue', {
+      return sendToSAMMI('InsertArrayValue', {
         Array: arrayName,
         Slot: index,
         Value: value,
@@ -828,7 +823,7 @@ function LBCommands() {
      * @param {string} buttonId - button id, default is global
      */
     async deleteArray(arrayName, slot, buttonId = 'global') {
-      return sendToLB('DeleteArraySlot', {
+      return sendToSAMMI('DeleteArraySlot', {
         Array: arrayName,
         Slot: slot,
         ButtonId: buttonId,
@@ -836,22 +831,42 @@ function LBCommands() {
     },
 
     /**
-     * Sends a notification (tray icon bubble) message to LBn
+     * Sends a notification (tray icon bubble) message to SAMMI
      * @param {string} msg - message to show
      */
     async notification(msg) {
-      return sendToLB('NotificationMessage', {
+      return sendToSAMMI('NotificationMessage', {
         Message: msg,
       });
     },
+    generateMessage() {
+      const messages = [
+        'All that glitters is not gold. Fair is foul, and foul is fair Hover through the fog and filthy air. These violent delights have violent ends. Hell is empty and all the devils are here. By the pricking of my thumbs, Something wicked this way comes. Open, locks, Whoever knocks!',
+        'Hello World!',
+        "Alright, I'll be honest with ya, Bob. My name's not Kirk. It's Skywalker. Luke Skywalker.",
+        'Well, that never happened in any of the simulations.',
+        'You know, you blow up one sun and suddenly everyone expects you to walk on water.',
+        "How's a needle in my butt gonna get water out of my ears?",
+        'If you immediately know the candle light is fire, then the meal was cooked a long time ago.',
+        'In the middle of my backswing!?',
+        'If I am to remain in this body, I must shave my head.',
+        "I remembered something. There's a man. He is bald and wears a short sleeve shirt. And somehow, he is important to me… I think his name is… Homer.",
+        'Alright, we came here in peace, we expect to go in one... piece.',
+        'It costs nearly a billion dollars just to turn the lights on around here',
+        "You wouldn't believe the things you can make from the common, simple items lying around your planet... which reminds me, you're going to need a new microwave.",
+        'Welcome, ye knights of the round table, men of honor, followers of the path of righteousness. Only those with wealth of knowledge and truth of spirit shall be given access to the underworld, the storehouse of riches of Ambrosius Aurelianus. Prove ye worthy, and all shall be revealed.'
+      ];
+      const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+      return randomMessage;
+    },
   };
 
-  async function sendToLB(command, data) {
-    const res = await lioranboardclient.send(command, data);
+  async function sendToSAMMI(command, data) {
+    const res = await sammiclient.send(command, data);
     return res;
   } // construct extension command object
 
-  class LBConstructExtCommand {
+  class SammiConstructExtCommand {
     constructor(name, color, height) {
       let p = 0;
       this.name = name;
@@ -870,22 +885,21 @@ function LBCommands() {
     }
   }
 
-  return LBSendCommand;
+  return SendCommand;
 }
 
   // Twitch client ID to use for Twitch API requests
-  let TWITCH_CLIENT_ID = "tpqy40pm79e00s63cqusqepvhwqz1n";
-  // init object with all available LB command methods
-  const LB = new LBCommands()
-  // Expose websocket client, pubsub client and logIt function for global access
+  let TWITCH_CLIENT_ID = "xolexwv18o8i5uqsga0bw3z39cpg0c";
+  // init object with all available SAMMI command methods
+  const SAMMI = LB = new SAMMICommands()
+  // Expose websocket client and logIt function for global access
+  let sammiclient
   let lioranboardclient
-  let pubsubserver
   let logIt
   let i_force = "";
-  // LioranBoard global object with variables
-  const LBVars = {
-    LBdebug: JSON.parse(localStorage.getItem('LBdebug')) || {},
-    pubsubinterval: null,
+  // SAMMI global object with variables
+  const SAMMIVars = LBVars = {
+    SAMMIdebug: JSON.parse(localStorage.getItem('SAMMIdebug')) || {},
     twitchList: {},
     force_close: false,
     box_newline: 0,
@@ -905,17 +919,17 @@ function LBCommands() {
     box_imagefile: 23
   }
 
-  // define LioranBoard connection on load and try to immediately connect
+  // define SAMMI connection on load and try to immediately connect
   window.addEventListener('load', function () {
-    lioranboardclient = new LBWebSocket()
+    sammiclient = lioranboardclient = new SAMMIWebSocket()
     load_connection();
-    connecttoboard();
-    LBTestTriggers();
+    connecttosammi();
+    SAMMITestTriggers();
   }, false);
 
   // modify UI on load
-window.addEventListener('load', LBLoadTabsUI, false);
-function LBLoadTabsUI() {
+window.addEventListener('load', SAMMILoadTabsUI, false);
+function SAMMILoadTabsUI() {
   const tabList = {};
   let tabSortList = JSON.parse(localStorage.getItem('tabsSortList')) || [];
   const newtabSortList = [];
@@ -1058,20 +1072,6 @@ function LBLoadTabsUI() {
   }
 }
 
-// switch to no tabs UI
-function TSLNoTabs() {
-  document.getElementById('extensions-tab').className = 'd-none d-flex';
-  document.getElementById('extensions-tabContent').className = 'notabs';
-  document.getElementById('extensions-tab-buttons').className = 'd-none mt-2';
-}
-
-// switch to tabs UI
-function TSLTabs() {
-  document.getElementById('extensions-tab').className = 'nav nav-pills mb-3';
-  document.getElementById('extensions-tabContent').className = 'tab-content';
-  document.getElementById('extensions-tab-buttons').className = 'mt-2';
-}
-
 // change connection status UI
 function ConnectionStatus(id, status, text, fill) {
   document.getElementById(id).className = `${status} d-none d-md-inline-flex`;
@@ -1086,9 +1086,9 @@ Element.prototype.setAttributes = function (obj) {
   }
 };
   // Fake Triggers testing
-async function LBTestTriggers() {
+async function SAMMITestTriggers() {
   const processTrigger = {
-    LBTestTwitchSubs(form, notUsed, gifted = false, gifterName = '') {
+    SAMMITestTwitchSubs(form, notUsed, gifted = false, gifterName = '') {
       const type = 1;
       const subtype = form.subgift.checked
         ? 2
@@ -1111,7 +1111,7 @@ async function LBTestTriggers() {
           ? ['Anonymous User']
           : generateName();
       const giftedName = subtype !== 1 ? generateName(name[0]) : [''];
-      const message = form.submessage.value || generateMessage();
+      const message = form.submessage.value || SAMMI.generateMessage();
       const tiers = form.querySelectorAll('input[name="tier"]');
       let selectedTier;
       let selectedTierD;
@@ -1151,11 +1151,11 @@ async function LBTestTriggers() {
         month,
         community_gift: gifted ? 1 : 0,
       };
-      sendTriggerToLB(type, msg, data, pullData);
+      sendTriggerToSAMMI(type, msg, data, pullData);
     },
 
-    LBTestTwitchSubGift(form) {
-      const subForm = document.getElementById('LBTestTwitchSubs');
+    SAMMITestTwitchSubGift(form) {
+      const subForm = document.getElementById('SAMMITestTwitchSubs');
       if (subForm.prime.checked) subForm.tier1.checked = true;
       if (subForm.anongift.checked === false) subForm.subgift.checked = true;
       const tiers = subForm.querySelectorAll('input[name="tier"]');
@@ -1185,7 +1185,7 @@ async function LBTestTriggers() {
         amount,
         tier: selectedTier,
       };
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         2,
         `${gifterName[0]} has gifted ${amount} subs!`,
         {
@@ -1197,21 +1197,21 @@ async function LBTestTriggers() {
 
       for (let i = 0; i < amount; i++) {
         setTimeout(() => {
-          this.LBTestTwitchSubs(subForm, null, true, gifterName);
+          this.SAMMITestTwitchSubs(subForm, null, true, gifterName);
         }, 1000 + i * 10);
       }
     },
 
-    LBTestTwitchBits(form, pullData) {
+    SAMMITestTwitchBits(form, pullData) {
       const amount = parseInt(form.bitsamount.value) || 50;
       const totalAmount = parseInt(form.bitstotal.value) || amount + 100;
-      const message = form.bitsmessage.value || generateMessage();
+      const message = form.bitsmessage.value || SAMMI.generateMessage();
       pullData.addvalues({
         amount,
         total_amount: totalAmount,
         message,
       });
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         5,
         `${pullData.user_name} donated ${amount} bits (test trigger)!`,
         {
@@ -1221,12 +1221,12 @@ async function LBTestTriggers() {
       );
     },
 
-    LBTestTwitchPoints(form, pullData) {
+    SAMMITestTwitchPoints(form, pullData) {
       const channelID = generateName[1];
       const redeemName = form.channelPointsName.value || 'Test Reward';
       const userInput = form.channelPointsInput.checked;
       const message = userInput
-        ? form.channelPointsMsg.value || generateMessage()
+        ? form.channelPointsMsg.value || SAMMI.generateMessage()
         : '';
       const cost = parseInt(form.channelPointsCost.value) || 50;
       const image = 'https://static-cdn.jtvnw.net/custom-reward-images/default-4.png';
@@ -1241,7 +1241,7 @@ async function LBTestTriggers() {
         reward_id: rewardId,
         redeem_id: redeemId,
       });
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         3,
         `${pullData.display_name} has redeemed ${redeemName}!`,
         {
@@ -1252,12 +1252,12 @@ async function LBTestTriggers() {
       );
     },
 
-    LBTestTwitchRaid(form, pullData) {
+    SAMMITestTwitchRaid(form, pullData) {
       const amount = parseInt(form.raidAmount.value) || 5;
       pullData.addvalues({
         amount,
       });
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         4,
         `${pullData.display_name} is raiding you with ${amount} viewers (test trigger)!`,
         {
@@ -1267,12 +1267,12 @@ async function LBTestTriggers() {
       );
     },
 
-    LBTestTwitchHost(form, pullData) {
+    SAMMITestTwitchHost(form, pullData) {
       const amount = parseInt(form.hostamount.value) || 5;
       pullData.addvalues({
         amount,
       });
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         14,
         `${pullData.display_name} is hosting you with ${amount} viewers (test trigger)!`,
         {
@@ -1282,7 +1282,7 @@ async function LBTestTriggers() {
       );
     },
 
-    LBTestTwitchPrediction(form) {
+    SAMMITestTwitchPrediction(form) {
       const predictSelect = form.predictType;
       const amount = form.predictChoiceAmount.value || getRandomInt(2, 10);
       const duration = form.predictionDuration.value || getRandomInt(60, 600);
@@ -1299,7 +1299,7 @@ async function LBTestTriggers() {
       };
       const pullData = populateWithOutcomeInfo(baseData, amount, type);
 
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         15,
         `Prediction ${type} Test trigger sent!`,
         {
@@ -1309,7 +1309,7 @@ async function LBTestTriggers() {
       );
     },
 
-    LBTestTwitchPoll(form) {
+    SAMMITestTwitchPoll(form) {
       const pollSelect = form.pollType;
       const amount = form.pollChoiceAmount.value || getRandomInt(2, 5);
       const duration = form.pollDuration.value || getRandomInt(60, 600);
@@ -1333,7 +1333,7 @@ async function LBTestTriggers() {
       };
       const pullData = populateWithChoiceInfo(baseData, amount, type, allowBits, allowPoints, voteTotal);
 
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         16,
         `Poll ${type} Test trigger sent!`,
         {
@@ -1342,7 +1342,7 @@ async function LBTestTriggers() {
         pullData,
       );
     },
-    async LBTestTwitchHypeTrain(form) {
+    async SAMMITestTwitchHypeTrain(form) {
       const hypeSelect = form.hypeTrainType;
       const type = hypeSelect[hypeSelect.selectedIndex].text;
       const currentLevel = form.hypeTrainLevel.value || 1;
@@ -1353,7 +1353,7 @@ async function LBTestTriggers() {
       };
       const typeNum = typeNums[type];
       let baseObj = {};
-      // base LB trigger values are the same for the following types
+      // base SAMMI trigger values are the same for the following types
       if (typeNum == 1 || typeNum == 3 || typeNum == 6) {
         baseObj = {
           current_level: parseInt(currentLevel),
@@ -1490,10 +1490,10 @@ async function LBTestTriggers() {
           const particType = source === 'BITS' ? particTypes[getRandomInt(0, 2)] : particTypes[getRandomInt(3, 8)];
           const particTypeValue = parseInt(form.hypeTrainAmount.value) || 10;
           baseObj = {
-              display_name: name,
-              user_name: name.toLowerCase(),
-              user_id: userID,
-            };
+            display_name: name,
+            user_name: name.toLowerCase(),
+            user_id: userID,
+          };
           data = {
             participations: {
               [particType]: particTypeValue,
@@ -1537,7 +1537,7 @@ async function LBTestTriggers() {
       baseObj.type = typeNum;
       baseObj.data = data;
 
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         17,
         `Hype Train ${type} Test trigger sent!`,
         { type: typeNum },
@@ -1545,9 +1545,9 @@ async function LBTestTriggers() {
       );
     },
 
-    async LBTestTwitchChat(form) {
+    async SAMMITestTwitchChat(form) {
       const [name, userID] = await getNameFromInput(form.chatName);
-      const message = form.chatMsg.value || generateMessage();
+      const message = form.chatMsg.value || SAMMI.generateMessage();
       const channel = Math.floor(Math.random() * 1000000000);
       const color = '#189A8D';
       const emoteList = '304822798:0-9/304682444:11-19';
@@ -1583,12 +1583,12 @@ async function LBTestTriggers() {
         user_id: parseInt(userID),
         message,
         emote_list: emoteList,
-        badge_list: badge,
+        badge_list: badge.join(','),
         channel,
         name_color: color,
         first_time: firstTime,
       };
-      LB.trigger(0, {
+      SAMMI.trigger(0, {
         message,
         broadcaster: form.chatBroadcaster.checked,
         moderator: form.chatMod.checked,
@@ -1599,8 +1599,8 @@ async function LBTestTriggers() {
       });
     },
 
-    LBTestTwitchFollow(form, pullData) {
-      sendTriggerToLB(
+    SAMMITestTwitchFollow(form, pullData) {
+      sendTriggerToSAMMI(
         6,
         `${pullData.display_name} followed you!`,
         {},
@@ -1612,9 +1612,9 @@ async function LBTestTriggers() {
   class ConstructPullData {
     constructor(type) {
       const name = generateName();
-      this.user_name = type !== 'LBTestTwitchHost' ? name[0].toLowerCase() : undefined;
-      this.display_name = type !== 'LBTestTwitchBits' ? name[0] : undefined;
-      this.user_id = type !== 'LBTestTwitchHost'
+      this.user_name = type !== 'SAMMITestTwitchHost' ? name[0].toLowerCase() : undefined;
+      this.display_name = type !== 'SAMMITestTwitchBits' ? name[0] : undefined;
+      this.user_id = type !== 'SAMMITestTwitchHost'
         ? name[1]
         : undefined;
 
@@ -1624,7 +1624,7 @@ async function LBTestTriggers() {
     }
   }
 
-  const forms = document.querySelectorAll('.LBTestTriggers');
+  const forms = document.querySelectorAll('.SAMMITestTriggers');
   Array.prototype.slice.call(forms).forEach((form) => {
     form.addEventListener(
       'submit',
@@ -1763,21 +1763,6 @@ async function LBTestTriggers() {
     return obj;
   }
 
-  function generateMessage() {
-    const messages = [
-      'Hello World!',
-      "Love your stream, you are a very genuine guy and you're not affraid to say it how it is. But, I would just prefer if you didn't give your opinion, just saying.",
-      "Alright, I'll be honest with ya, Bob. My name's not Kirk. It's Skywalker. Luke Skywalker.",
-      'Well, that never happened in any of the simulations.',
-      'You know, you blow up one sun and suddenly everyone expects you to walk on water.',
-      "How's a needle in my butt gonna get water out of my ears?",
-      'If you immediately know the candle light is fire, then the meal was cooked a long time ago.',
-      'All that glitters is not gold. Fair is foul, and foul is fair Hover through the fog and filthy air. These violent delights have violent ends. Hell is empty and all the devils are here. By the pricking of my thumbs, Something wicked this way comes. Open, locks, Whoever knocks!',
-    ];
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    return randomMessage;
-  }
-
   function generateUUID() {
     return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) => (
       c
@@ -1785,15 +1770,15 @@ async function LBTestTriggers() {
     ).toString(16));
   }
 
-  function sendTriggerToLB(
+  function sendTriggerToSAMMI(
     type,
     message = 'Test trigger fired.',
     data = {},
     triggerData,
   ) {
     data.trigger_data = triggerData;
-    LB.testTrigger(type, data);
-    LB.alert(message);
+    SAMMI.testTrigger(type, data);
+    SAMMI.alert(message);
   }
 }
 
@@ -1814,7 +1799,7 @@ async function LBTestTriggers() {
       break;
     case 'ytLiveTestSub':
 
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         19,
         `YouTube Subscription Test triggered by ${pullData.display_name}`,
         {},
@@ -1829,7 +1814,7 @@ async function LBTestTriggers() {
         level_name: 'Some level name',
       });
 
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         22,
         `YouTube Member Test triggered by ${pullData.display_name}`,
         {},
@@ -1840,7 +1825,7 @@ async function LBTestTriggers() {
     case 'ytLiveTestMilestone': {
       const months = document.getElementById('YTLiveMilestoneMonth').value || Math.ceil(Math.random() * 10);
       const level_name = document.getElementById('YTLiveMilestoneLevel').value || 'Some level name';
-      const message = document.getElementById('YTLiveMilestoneMsg').value || generateMessage();
+      const message = document.getElementById('YTLiveMilestoneMsg').value || SAMMI.generateMessage();
 
       pullData.addvalues({
         channel_url: `https://www.youtube.com/channel/${pullData.user_id}`,
@@ -1850,7 +1835,7 @@ async function LBTestTriggers() {
         months,
       });
 
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         22,
         `YouTube Member Renewal Test triggered by ${pullData.display_name}`,
         {},
@@ -1861,7 +1846,7 @@ async function LBTestTriggers() {
     case 'ytLiveTestSuperChat': {
       const amount = parseInt(document.getElementById('YTLiveSuperChatAmount').value) || Math.ceil(Math.random() * 1000000);
       const tier = document.getElementById('YTLiveSuperChatTier').value || Math.ceil(Math.random() * 5);
-      const message = document.getElementById('YTLiveSuperChatMsg').value || generateMessage();
+      const message = document.getElementById('YTLiveSuperChatMsg').value || SAMMI.generateMessage();
 
       pullData.addvalues({
         channel_url: `https://www.youtube.com/channel/${pullData.user_id}`,
@@ -1873,7 +1858,7 @@ async function LBTestTriggers() {
         tier,
       });
 
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         20,
         `YouTube Super Chat Test triggered by ${pullData.display_name}`,
         { amount },
@@ -1894,7 +1879,7 @@ async function LBTestTriggers() {
         sticker_text: 'Pear character turning around waving his hand, saying Hey you while lowering his glasses',
       });
 
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         21,
         `YouTube Super Sticker Test triggered by ${pullData.display_name}`,
         { amount },
@@ -1903,7 +1888,7 @@ async function LBTestTriggers() {
     }
       break;
     case 'ytLiveTestChatMessage': {
-      const message = document.getElementById('YTLiveChatMessageMsg').value || generateMessage();
+      const message = document.getElementById('YTLiveChatMessageMsg').value || SAMMI.generateMessage();
       pullData.addvalues({
         display_name: document.getElementById('YTLiveChatMessageName').value || pullData.display_name,
         channel_url: `https://www.youtube.com/channel/${pullData.user_id}`,
@@ -1915,7 +1900,7 @@ async function LBTestTriggers() {
         is_verified: YTLiveChatMessageMember.checked,
       });
 
-      sendTriggerToLB(
+      sendTriggerToSAMMI(
         18,
         `YouTube Chat Message Test triggered by ${pullData.display_name}`,
         {
@@ -1931,11 +1916,6 @@ async function LBTestTriggers() {
       break;
   }
 
-  function generateMessage() {
-    const message = ['Hello World!', "Alright, I'll be honest with ya, Bob. My name's not Kirk. It's Skywalker. Luke Skywalker.", 'Well, that never happened in any of the simulations.', 'You know, you blow up one sun and suddenly everyone expects you to walk on water.', "How's a needle in my butt gonna get water out of my ears?", 'If you immediately know the candle light is fire, then the meal was cooked a long time ago.', "So it's possible there's an alternate version of myself out there that actually understands what the hell you're talkin' about?", 'It costs nearly a billion dollars just to turn the lights on around here'];
-    const randomMsg = message[Math.floor(Math.random() * message.length)];
-    return randomMsg;
-  }
 
   function generateName() {
     const names = [
@@ -1960,39 +1940,19 @@ async function LBTestTriggers() {
     return randomName;
   }
 
-  function generateMessage() {
-    const messages = [
-      'Hello World!',
-      "Alright, I'll be honest with ya, Bob. My name's not Kirk. It's Skywalker. Luke Skywalker.",
-      'Well, that never happened in any of the simulations.',
-      'You know, you blow up one sun and suddenly everyone expects you to walk on water.',
-      "How's a needle in my butt gonna get water out of my ears?",
-      'If you immediately know the candle light is fire, then the meal was cooked a long time ago.',
-      'In the middle of my backswing!?',
-      'If I am to remain in this body, I must shave my head.',
-      "I remembered something. There's a man. He is bald and wears a short sleeve shirt. And somehow, he is important to me… I think his name is… Homer.",
-      'Alright, we came here in peace, we expect to go in one... piece.',
-      'It costs nearly a billion dollars just to turn the lights on around here',
-      "You wouldn't believe the things you can make from the common, simple items lying around your planet... which reminds me, you're going to need a new microwave.",
-      'Welcome, ye knights of the round table, men of honor, followers of the path of righteousness. Only those with wealth of knowledge and truth of spirit shall be given access to the underworld, the storehouse of riches of Ambrosius Aurelianus. Prove ye worthy, and all shall be revealed.',
-    ];
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    return randomMessage;
-  }
-
-  function sendTriggerToLB(
+  function sendTriggerToSAMMI(
     type,
     message = 'Test trigger fired.',
     data = {},
     triggerData,
   ) {
     data.trigger_data = triggerData;
-    LB.trigger(type, data);
-    LB.alert(message);
+    SAMMI.trigger(type, data);
+    SAMMI.alert(message);
   }
 }
 
-  // load LB connection params from storage
+  // load SAMMI connection params from storage
 function load_connection() {
   const ls = JSON.parse(localStorage.getItem('lsParams')) || {};
   nIPbox.value = ls.ip || '127.0.0.1';
@@ -2000,68 +1960,66 @@ function load_connection() {
   nPassBox.value = ls.pass || '';
 }
 
-// manually connect/disconnect from LB via button
+// manually connect/disconnect from SAMMI via button
 function connectbutton() {
-  let _lioranboardclient;
-
-  const p = LBVars;
+  let _sammiclient;
+  const p = SAMMIVars;
 
   if (
-    (_lioranboardclient = lioranboardclient) !== null
-    && _lioranboardclient !== void 0
-    && _lioranboardclient._connected
+    (_sammiclient = sammiclient) !== null
+    && _sammiclient !== void 0
+    && _sammiclient._connected
   ) {
     p.force_close = true;
-    lioranboardclient.send('Close');
-    lioranboardclient.disconnect();
+    sammiclient.send('Close');
+    sammiclient.disconnect();
     ConnectionStatus('toclient', 'disconnected', 'Connection Closed', 'red');
     document.querySelector('#cnctbutton').innerText = 'Disconnecting';
   } else {
-    console.log('LioranBoard Manual Connection.');
+    console.log('SAMMI manually connected.');
 
     try {
       clearTimeout(p.waiting_to_connect);
     } catch (e) {}
 
-    connecttoboard();
+    connecttosammi();
   }
 }
 
-// Connect to LB and listen for events
-function connecttoboard() {
-  LBDebugLog(dbgReceiver);
+// Connect to SAMMI and listen for events
+function connecttosammi() {
+  SAMMIDebugLog(dbgBridge);
 
   try {
     clearTimeout(p.waiting_to_connect);
   } catch (e) {}
 
-  const p = LBVars;
+  const p = SAMMIVars;
 
-  // CONNECT TO LIORANBOARD
-  lioranboardclient.connect({
+  // CONNECT TO SAMMI
+  sammiclient.connect({
     address: `${nIPbox.value || '127.0.0.1'}:${nPortBox.value || 9425}`,
     password: `${nPassBox.value || ''}`,
-    name: 'Transmitter',
+    name: 'SAMMI Bridge',
   });
 
   // CONNECTION OPENED
-  lioranboardclient.on('ConnectionOpened', () => {
+  sammiclient.on('ConnectionOpened', () => {
     document.querySelector('#cnctbutton').innerText = 'Disconnect';
-    console.log('LioranBoard Connection opened!');
+    console.log('SAMMI Connection opened!');
   });
-  lioranboardclient.on('error', (err) => {
-    lioranboardclient.disconnect();
+  sammiclient.on('error', (err) => {
+    sammiclient.disconnect();
   });
 
   // AUTH SUCCESSFUL
-  lioranboardclient.on('AuthenticationSuccess', async () => {
-    // Send all extension commands to LB
-    sendExtensionCommands(); // Get Twitch list and connect to Pubsub
+  sammiclient.on('AuthenticationSuccess', async () => {
+    // Send all extension commands to SAMMI
+    sendExtensionCommands(); // Get Twitch list for extension makers
 
-    await LB.getTwitchList().then((data) => {
+    await SAMMI.getTwitchList().then((data) => {
       TWITCH_CLIENT_ID = data.twitch_list.clientId ? data.twitch_list.clientId : TWITCH_CLIENT_ID
-      p.twitchList = data.twitch_list;
-      connectPubSubserver();
+      //p.twitchList = data.twitch_list;
     });
 
     // Save connection params to storage
@@ -2073,24 +2031,19 @@ function connecttoboard() {
     localStorage.setItem('lsParams', JSON.stringify(ls));
 
     // set current browser as global variable
-    LB.setVariable('browser_name', browser);
+    SAMMI.setVariable('browser_name', browser);
 
     ConnectionStatus('toclient', 'connected', 'Connected', 'green');
-    console.log('LioranBoard Authentication successsful!');
+    console.log('SAMMI Authentication successsful!');
   });
 
   // CONNECTION CLOSED
-  lioranboardclient.on('ConnectionClosed', () => {
+  sammiclient.on('ConnectionClosed', () => {
     try {
       clearTimeout(p.waiting_to_connect);
     } catch (e) {}
 
-    lioranboardclient.removeAllListeners();
-
-    // Attempt to force disconnect from PubSub
-    try {
-      pubsubserver.close();
-    } catch (e) {}
+    sammiclient.removeAllListeners();
 
     // Attempt to reconnect if not manual disconnect
     if (!p.force_close) {
@@ -2100,12 +2053,12 @@ function connecttoboard() {
         'Disconnected, attempting to reconnect.',
         'red',
       );
-      console.log('LioranBoard disconnected. Attempting to reconnect in 2s.');
+      console.log('SAMMI disconnected. Attempting to reconnect in 5s.');
       p.waiting_to_connect = setTimeout(() => {
-        connecttoboard();
-      }, 2000);
+        connecttosammi();
+      }, 5000);
     } else {
-      console.log('LioranBoard disconnected by user.');
+      console.log('SAMMI disconnected by user.');
       ConnectionStatus('toclient', 'disconnected', 'Connection Closed', 'red');
     }
 
@@ -2114,29 +2067,29 @@ function connecttoboard() {
   });
 
   // CONNECTION ERROR
-  lioranboardclient.on('ConnectionError', (e) => {
+  sammiclient.on('ConnectionError', (e) => {
     // Try to force close the connection
     try {
-      lioranboard.disconnect();
+      sammiclient.disconnect();
     } catch (e) {}
 
-    console.log('LioranBoard Connection error');
+    console.log('SAMMI connection error.');
   });
 
-  // RELOAD TRANSMITTER
-  lioranboardclient.on('ResetPlease', () => {
+  // RELOAD SAMMI Bridge
+  sammiclient.on('ResetPlease', () => {
     location.reload();
   });
 
   // EXECUTE COMMAND
-  lioranboardclient.on('ExecuteCommand', (json) => {
-    LBExtensionReceived(json.CommandName, json.Data);
+  sammiclient.on('ExecuteCommand', (json) => {
+    SammiExtensionReceived(json.CommandName, json.Data);
   });
 }
 
 // Get Browser Name
 
-const browser = (function () {
+const browser = (() => {
   const test = function (regexp) { return regexp.test(window.navigator.userAgent); };
   switch (true) {
     case test(/OBS/i): return 'OBS';
@@ -2150,126 +2103,92 @@ const browser = (function () {
     case test(/safari/i): return 'Apple Safari';
     default: return 'Other';
   }
+})();
+
+  (function initDebugLogging() {
+  dbgBridge.checked = SAMMIVars.SAMMIdebug.core;
+  SAMMIDebugLog(dbgBridge);
 }());
 
+function SAMMIDebugLog(e) {
+  const core = document.getElementById('SAMMIcorelog');
+  const listening = '<samp>Listening for traffic.</samp>';
+  const disabled = '<samp>Logging is disabled.</samp>';
+  // disable or enable debug logging and display it
+
+  if (e.checked) {
+    if (localStorage.debug === 'sammi-websocket-js:*') {
+      const _debug = console.debug.bind(console);
+      logIt = function (...args) {
+        const msg = {};
+        _debug.apply(console, arguments);
+        if (!SAMMIdebugPost) return;
+        Object.assign(msg, args[args.length - 2]);
+        if (args[0].includes('Sending Message')) SAMMIdebugPost('coreSent', msg);
+        else if (args[0].includes('Message received')) {
+          SAMMIdebugPost('core', msg);
+        }
+      };
+      core.innerHTML = listening;
+    } else {
+      core.innerHTML = '<samp>Logging will be enabled once SAMMI Bridge is reloaded.</samp>';
+    }
+    localStorage.debug = 'sammi-websocket-js:*';
+  } else {
+    if (localStorage.debug == 0) core.innerHTML = disabled;
+    else {
+      core.innerHTML = '<samp>Logging will be disabled once SAMMI Bridge is reloaded.</samp>';
+    }
+    logIt = null;
+    localStorage.debug = 0;
+  }
+  SAMMIVars.SAMMIdebug.core = !!(e.checked);
+  localStorage.setItem('SAMMIdebug', JSON.stringify(SAMMIVars.SAMMIdebug));
+}
+
+function SAMMIdebugPost(type, msg) {
+  const p = SAMMIVars;
+  if (!p.SAMMIdebug) return;
+  const corelog = document.getElementById('SAMMIcorelog');
+  const arrowDown = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-arrow-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/> </svg>';
+  const arrowUp = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-arrow-up" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/> </svg>';
+
+  // post a message into the debug log if enabled
+  if (p.SAMMIdebug.core) {
+    const request = msg.rq || msg.upd;
+    const { id } = msg;
+    try {
+      delete msg.id; delete msg.rq;
+    } catch (e) {}
+    if (request === 'Pong' || request === 'Ping' || msg.upd === 'Ping') return;
+    if (msg.rq) {
+      corelog.innerHTML += `<br> ${type === 'core' ? arrowUp : arrowDown} <samp>Request: ${request}, Id: ${id}, Data: ${StringifyandReplace(msg)} </samp>`;
+    } else {
+      corelog.innerHTML += `<br> ${type === 'core' ? arrowUp : arrowDown} <samp>Update: ${request}, Data: ${StringifyandReplace(msg)} </samp>`;
+    }
+  }
+
+  // stringify if message is an object and replace some symbols
+  // for better readability
+  function StringifyandReplace(obj) {
+    const regexToken = /"token":"[^"]*"/ig;
+    if (typeof obj === 'object') obj = JSON.stringify(obj);
+    const strRpl = (typeof obj === 'string') ? obj.replace(/\r\n/g, '').replace(/\\/g, '').replace(/\\/g, '').replace(/%s/g, '')
+      .replace(/%o/g, '')
+      .replace(/%c/g, '')
+      .replace(regexToken, '"token":"xxxxxhidden"')
+      : obj;
+    return strRpl;
+  }
+}
+
   function sendExtensionCommands() {
-// You LioranBoard extension commands will be inserted here
+// You SAMMI Core extension commands will be inserted here
 /*INSERT PART 2*/
 }
 
-  // Connect to PubSub
-function connectPubSubserver() {
-  const p = LBVars;
-
-  // Do not connect if user's Twitch account isn't linked
-  if (Object.keys(p.twitchList).length === 0) {
-    ConnectionStatus(
-      'topubsub',
-      'disconnected',
-      'No linked account found.',
-      'grey',
-    );
-    return;
-  }
-
-  // Do not connect if there are no listen topics
-  if (JSON.stringify(p.twitchList).indexOf('listen') === -1 || !lioranboardclient._connected) return;
-
-  pubsubserver = new WebSocket('wss://pubsub-edge.twitch.tv');
-
-  function PubSubPing() {
-    pubsubserver.send(
-      JSON.stringify({
-        type: 'PING',
-      }),
-    );
-  }
-
-  // Attempt to reconnect on disconnect, unless LioranBoard is disconnected
-  pubsubserver.onclose = () => {
-    let _lioranboardclient;
-
-    try {
-      clearInterval(p.pubsubinterval);
-    } catch (e) {}
-
-    const i_obj = {
-      topic: 'pubsubdisconnected',
-      type: 'MESSAGE',
-    };
-    ConnectionStatus(
-      'topubsub',
-      'disconnected',
-      'Connection closed. Attempting to reconnect.',
-      'red',
-    );
-    if (
-      (_lioranboardclient = lioranboardclient) !== null
-      && _lioranboardclient !== void 0
-      && _lioranboardclient._connected
-    )
-    // don't reopen connection if no listen topics were provided
-    { if (JSON.stringify(p.twitchList).indexOf('listen') === -1 || !lioranboardclient._connected) return; }
-    connectPubSubserver();
-  };
-
-  // Once connected, listen for stuff
-  pubsubserver.onopen = () => {
-    p.pubsubinterval = setInterval(PubSubPing, 120000);
-    console.log('Twitch PubSub connected successfully.');
-    ConnectionStatus('topubsub', 'connected', 'Connected', 'green'); // List of available Pubsub topic versions
-
-    const listenTopics = {
-      listen_bits: ['bits', 'channel-bits-events-v2'],
-      listen_follow: ['follows', 'following'],
-      listen_moderation: ['mod', 'chat_moderator_actions'],
-      listen_redeem: ['redeem', 'channel-points-channel-v1'],
-      listen_subs: ['subs', 'channel-subscribe-events-v1'],
-      listen_whispers: ['whispers', 'whispers'],
-      listen_hypetrain: ['hypetrain', 'hype-train-events-v1'],
-      listen_predictions: ['predictions', 'predictions-channel-v1'],
-      listen_polls: ['polls', 'polls'],
-    };
-
-    // Construct a listen object to send to Pubsub
-    function PubsubConstructListen(id, token) {
-      this.type = 'LISTEN';
-      this.data = {
-        auth_token: token,
-      };
-
-      this.changeTopic = (type, topic) => {
-        this.nonce = `${type}-${id}`;
-        this.data.topics = (type !== 'mod') ? [`${topic}.${id}`] : [`${topic}.${id}.${id}`];
-      };
-    }
-
-    // Go through the Twitch list and listen to everything the user selected
-    Object.values(p.twitchList).forEach((params) => {
-      const pubsubListen = new PubsubConstructListen(
-        params.user_id,
-        params.token,
-      );
-      Object.keys(params).forEach((key) => {
-        if (key.includes('listen_') && params[key]) {
-          pubsubListen.changeTopic(listenTopics[key][0], listenTopics[key][1]);
-          pubsubserver.send(JSON.stringify(pubsubListen));
-        }
-      });
-    });
-  };
-
-  // Send data from Pubsub to LioranBoard
-  pubsubserver.onmessage = (event) => {
-    // send pubsub message to lioranboard, let it deal with it
-    lioranboardclient.send('PubSubMessage', {
-      Data: JSON.parse(event.data),
-    });
-    if (LBDebugPost && p.LBdebug.pubsub) LBDebugPost('pubsub', event.data);
-  };
-}
-
-  function LBExtensionReceived(hook, LioranBoardJSON) {
+  function SammiExtensionReceived(hook, SAMMIJSON) {
+  LioranBoardJSON = SAMMIJSON;
   switch (hook) {
     // hook you specified.
     default:
@@ -2279,112 +2198,11 @@ function connectPubSubserver() {
    }
 }
 
-  (function initDebugLogging() {
-  dbgReceiver.checked = LBVars.LBdebug.receiver;
-  dbgPubsub.checked = LBVars.LBdebug.pubsub;
-  LBDebugLog(dbgPubsub); LBDebugLog(dbgReceiver);
-}());
-
-function LBDebugLog(e) {
-  const receiver = document.getElementById('LBreceiverlog');
-  const pubsub = document.getElementById('LBpubsublog');
-  const listening = '<samp>Listening for traffic.</samp>';
-  const disabled = '<samp>Logging is disabled.</samp>';
-  // disable or enable debug logging and display it
-
-  switch (e.id) {
-    default:
-      break;
-    case 'dbgReceiver':
-      if (e.checked) {
-        if (localStorage.debug === 'lb-websocket-js:*') {
-          const _debug = console.debug.bind(console);
-          logIt = function (...args) {
-            const msg = {};
-            _debug.apply(console, arguments);
-            if (!LBDebugPost) return;
-            Object.assign(msg, args[args.length - 2]);
-            if (args[0].includes('Sending Message')) LBDebugPost('receiverSent', msg);
-            else if (args[0].includes('Message received')) {
-              LBDebugPost('receiver', msg);
-            }
-          };
-          receiver.innerHTML = listening;
-        } else {
-          receiver.innerHTML = '<samp>Logging will be enabled once Transmitter is reloaded.</samp>';
-        }
-        localStorage.debug = 'lb-websocket-js:*';
-      } else {
-        if (localStorage.debug == 0) receiver.innerHTML = disabled;
-        else {
-          receiver.innerHTML = '<samp>Logging will be disabled once Transmitter is reloaded.</samp>';
-        }
-        logIt = null;
-        localStorage.debug = 0;
-      }
-      LBVars.LBdebug.receiver = !!(e.checked);
-      break;
-    case 'dbgPubsub':
-      pubsub.innerHTML = (e.checked) ? listening : disabled;
-      LBVars.LBdebug.pubsub = !!(e.checked);
-      break;
-  }
-  localStorage.setItem('LBdebug', JSON.stringify(LBVars.LBdebug));
-}
-
-function LBDebugPost(type, msg) {
-  const p = LBVars;
-  if (!p.LBdebug) return;
-  const receiverlog = document.getElementById('LBreceiverlog');
-  const pubsublog = document.getElementById('LBpubsublog');
-  const arrowDown = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-arrow-down" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/> </svg>';
-  const arrowUp = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="green" class="bi bi-arrow-up" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/> </svg>';
-
-  // post a message into the debug log if enabled
-  switch (type) {
-    default:
-      break;
-    case 'receiver':
-    case 'receiverSent':
-      if (p.LBdebug.receiver) {
-        const request = msg.rq || msg.upd;
-        const { id } = msg;
-        try {
-          delete msg.id; delete msg.rq;
-        } catch (e) {}
-        if (request === 'Pong' || request === 'Ping' || msg.upd === 'Ping') return;
-        if (msg.rq) {
-          receiverlog.innerHTML += `<br> ${type === 'receiver' ? arrowUp : arrowDown} <samp>Request: ${request}, Id: ${id}, Data: ${StringifyandReplace(msg)} </samp>`;
-        } else {
-          receiverlog.innerHTML += `<br> ${type === 'receiver' ? arrowUp : arrowDown} <samp>Update: ${request}, Data: ${StringifyandReplace(msg)} </samp>`;
-        }
-      }
-      break;
-    case 'pubsub':
-      console.log(msg);
-      if (p.LBdebug.pubsub && !msg.includes('PONG')) pubsublog.innerHTML += `<br> ${arrowDown} <samp>${StringifyandReplace(msg)} </samp>`;
-      break;
-  }
-
-  // stringify if message is an object and replace some symbols
-  // for better readability
-  function StringifyandReplace(obj) {
-    const regexToken = /"token":"[^"]*"/i;
-    if (typeof obj === 'object') obj = JSON.stringify(obj);
-    const strRpl = (typeof obj === 'string') ? obj.replace(/\r\n/g, '').replace(/\\/g, '').replace(/\\/g, '').replace(/%s/g, '')
-      .replace(/%o/g, '')
-      .replace(/%c/g, '')
-      .replace(regexToken, '"token":"xxxxx"')
-      : obj;
-    return strRpl;
-  }
-}
-
-// Your main script will be inserted here
+  // Your main script will be inserted here
 /*INSERT PART 4*/
 
 </script>
-<script src="https://cdn.jsdelivr.net/gh/LioranBoard/LioranBoard-2-Websocket@main/dist/lb-websocket.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/SAMMISolutions/SAMMI-Websocket@main/dist/sammi-websocket.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/draggable.bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
   integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

@@ -14,7 +14,7 @@ It also works for YouTube streams too - it can listen to all chat events, send c
 ## Links
 ### Downloads
 - Main Program  
-  - [Windows, 64-bit](https://github.com/SAMMISolutions/SAMMI-Official/blob/main/download/x64.zip), [Windows, 32-bit](https://github.com/SAMMISolutions/SAMMI-Official/blob/main/download/x86.zip).  
+  - [Windows, 64-bit](https://github.com/SAMMISolutions/SAMMI-Official/raw/main/download/x64.zip), [Windows, 32-bit](https://github.com/SAMMISolutions/SAMMI-Official/raw/main/download/x86.zip).  
   - Mac and Linux are not currently supported, but may be in the future.  
 - Stream Deck
   - Windows has the Stream Deck included in the download of the main program.  

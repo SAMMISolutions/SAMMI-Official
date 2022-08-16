@@ -11,6 +11,9 @@ It is fully compatible with [OBS Websocket](https://obsproject.com/forum/resourc
 SAMMI can listen to Twitch alerts and chat messages, send chat messages, and fully control your Twitch stream via the [Twitch API](https://dev.twitch.tv/docs/api/reference).  
 It also works for YouTube streams too - it can listen to all chat events, send chat messages, and ban users, to name a few.
 
+## Migrationg from LB2
+Find information about migrating from LB2 on our [website](https://sammi.solutions/docs/getting-started/migrating-lb2).
+
 ## Links
 ### Downloads
 - Main Program  

@@ -949,6 +949,7 @@ function SAMMILoadTabsUI() {
 
   // create tabs and checkboxes
   content.forEach((e) => {
+    e.id = e.id.replace(/^[^a-z]+|[^\w:.-]+/g, '');
     createExtensionTab(e);
     createExtensionBox(e);
   });

@@ -18,7 +18,7 @@ It also works for YouTube streams too - it can listen to all chat events, send c
   - Mac and Linux are not currently supported, but may be in the future.  
 - Stream Deck
   - Windows has the Stream Deck included in the download of the main program.  
-  - Android: [Google Play Store](https://play.google.com/store/apps/details?id=lioranboard.ca.lioranboard.streamdeck), [APK file](https://github.com/SAMMISolutions/SAMMI-Official/blob/main/download/SAMMI%20Deck.apk).
+  - Android: [Google Play Store](https://play.google.com/store/apps/details?id=lioranboard.ca.lioranboard.streamdeck), [APK file](https://github.com/SAMMISolutions/SAMMI-Official/raw/main/download/SAMMI%20Deck.apk).
   - iOS is not currently supported, but may be in the future.
 ### Help
 - Documentation: https://sammi.solutions/docs

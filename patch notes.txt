@@ -40,7 +40,7 @@ Bug Fixes:
 
 Known Bugs: 
 - Button menu option to 'Delete Button' doesn't work currently. Use the keyboard 'Delete' key instead.
-- Extension commands for filter boxes do not correctly show source filtersSAMMI 2022.4.0 (August 2022):
+- Extension commands for filter boxes do not correctly show source filters.
 
 SAMMI 2022.4.0 (August 2022)
 

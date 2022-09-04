@@ -1,5 +1,5 @@
 <!--For Extension info, read How to make extensions.txt in Extension folder-->
-<!--Bridge V7.01-->
+<!--Bridge V7.00-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -949,7 +949,6 @@ function SAMMILoadTabsUI() {
 
   // create tabs and checkboxes
   content.forEach((e) => {
-    e.id = e.id.replace(/^[^a-z]+|[^\w:.-]+/g, '');
     createExtensionTab(e);
     createExtensionBox(e);
   });
@@ -1897,8 +1896,8 @@ async function SAMMITestTriggers() {
         message: message.replace(/"/g, "'"),
         is_broadcaster: YTLiveChatMessageBroadcaster.checked,
         is_moderator: YTLiveChatMessageMod.checked,
-        is_member: YTLiveChatMessageMember.checked, 
-        is_verified: YTLiveChatMessageVerified.checked,
+        is_member: YTLiveChatMessageVerified.checked,
+        is_verified: YTLiveChatMessageMember.checked,
       });
 
       sendTriggerToSAMMI(

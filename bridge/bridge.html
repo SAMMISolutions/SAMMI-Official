@@ -1,5 +1,5 @@
 <!--For Extension info, read How to make extensions.txt in Extension folder-->
-<!--Bridge V7.00-->
+<!--Bridge V7.01-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1897,8 +1897,8 @@ async function SAMMITestTriggers() {
         message: message.replace(/"/g, "'"),
         is_broadcaster: YTLiveChatMessageBroadcaster.checked,
         is_moderator: YTLiveChatMessageMod.checked,
-        is_member: YTLiveChatMessageVerified.checked,
-        is_verified: YTLiveChatMessageMember.checked,
+        is_member: YTLiveChatMessageMember.checked, 
+        is_verified: YTLiveChatMessageVerified.checked,
       });
 
       sendTriggerToSAMMI(

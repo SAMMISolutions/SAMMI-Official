@@ -57,4 +57,5 @@ Bug Fixes:
 - Fixed a crash when a button was incorrectly saved in previous version [Sebas]
 - Fixed an About Window Tags bug [Silverlink]
 
-Known Bugs:
+Known Bugs: 
+

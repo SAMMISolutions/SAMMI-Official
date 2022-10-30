@@ -1,5 +1,5 @@
 <!--For Extension info, read How to make extensions.txt in Extension folder-->
-<!--Bridge V7.02-->
+<!--Bridge V7.10-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -213,6 +213,23 @@ button:active{
     <span>SAMMI Core</span><span class="d-none d-md-inline-flex me-1">: </span><span id="toclient" class="disconnected d-none d-md-inline-flex">Not connected.</span>
   </div>
 </div> <br>
+<!-- Modal -->
+<div class="modal fade" id="sammiModalElem" tabindex="-1" aria-labelledby="sammiModalElemLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sammiModalElemTitle">SAMMI</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="sammiModalElemContent">
+        ..
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!--Tabs -->
 <div class="row justify-content-center g-0">
     <ul class="nav nav-pills mb-0" id="extensions-tab" role="tablist">
@@ -662,6 +679,29 @@ function SAMMICommands() {
     },
 
     /**
+     * Get deck status
+     * - Replies with either 0 (deck is disabled) or 1 (deck is enabled)
+     * @param {string} id - Unique deck ID retrieved from getDeckList
+     */
+    async getDeckStatus(deckID = 0) {
+      return sendToSAMMI('getDeckStatus', {
+        deckID,
+      });
+    },
+
+    /**
+     * Change deck status
+     * @param {string} id - Unique deck ID retrieved from getDeckList
+     * @param {int} status - New deck status, 0 = disable, 1 = enable, 2 = toggle
+     */
+    async changeDeckStatus(deckID = 0, status = 1) {
+      return sendToSAMMI('changeDeckStatus', {
+        deckID,
+        status,
+      });
+    },
+
+    /**
      * Retrieve an image in base64
      * @param {string} fileName - image file name without the path (image.png)
      * - Replies with an object containing the Base64 string of the image
@@ -896,7 +936,7 @@ function SAMMICommands() {
   let sammiclient
   let lioranboardclient
   let logIt
-  let i_force = "";
+  let sammiModal
   // SAMMI global object with variables
   const SAMMIVars = LBVars = {
     SAMMIdebug: JSON.parse(localStorage.getItem('SAMMIdebug')) || {},
@@ -930,6 +970,7 @@ function SAMMICommands() {
   // modify UI on load
 window.addEventListener('load', SAMMILoadTabsUI, false);
 function SAMMILoadTabsUI() {
+  sammiModal = new bootstrap.Modal(document.getElementById('sammiModalElem'), {});
   const tabList = {};
   let tabSortList = JSON.parse(localStorage.getItem('tabsSortList')) || [];
   const newtabSortList = [];
@@ -1086,6 +1127,8 @@ Element.prototype.setAttributes = function (obj) {
     this.setAttribute(prop, obj[prop]);
   }
 };
+
+
   // Fake Triggers testing
 async function SAMMITestTriggers() {
   const processTrigger = {
@@ -1978,7 +2021,6 @@ function connectbutton() {
     document.querySelector('#cnctbutton').innerText = 'Disconnecting';
   } else {
     console.log('SAMMI manually connected.');
-
     try {
       clearTimeout(p.waiting_to_connect);
     } catch (e) {}
@@ -2079,7 +2121,18 @@ function connecttosammi() {
 
   // RELOAD SAMMI Bridge
   sammiclient.on('ResetPlease', () => {
-    location.reload();
+  location.reload();
+  });
+
+  // PING SAMMI Bridge
+  sammiclient.on('UserPing', () => {
+    sammiModalElemTitle.innerHTML = 'SAMMI Core';
+    sammiModalElemContent.innerHTML = 'Ping received!';
+    sammiModal.show();
+    setTimeout(() => {
+      sammiModal.hide();
+    }, 10000);
+    SAMMI.alert(`Ping Received. Your Bridge is running in the following browser: ${browser}.`)
   });
 
   // EXECUTE COMMAND
@@ -2212,6 +2265,7 @@ function SAMMIdebugPost(type, msg) {
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
   integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/obs-websocket-js@4.0.2/dist/obs-websocket.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/obs-websocket-js@4.0.2/dist/obs-websocket.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/SAMMISolutions/SAMMI-Bridge@main/lib/obs-websocket5.min.js"></script>
 
 </html>

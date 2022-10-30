@@ -1,61 +1,105 @@
-SAMMI 2022.4.4 (September 2022):
+SAMMI 2022.5.0 (October 2022):
 
 New Features:
-- Added JSON checker for when Send OBS Request Command is executed. [Christina]
-  - If the JSON is not formatted correctly, you now get an alert, and the request is not sent.
-- Added more variables to OBS global variables.
-  - port and type [Christina]
-  - ip [Chrizzz]
-- Added client_language as a global variable [Chrizzz]
+- Command: Deck: Change Status - allows you to enable, disable or toggle a deck status [Christina]
+- Command: Deck: Get Status - allows you to get the current status of a deck (enabled/disabled) [Christina]
+- Command: Twitch: Delete Chat Message - allows you to delete a chat messages by its ID (retrieved from Trigger Pull Data command) [Christina]
+- Command: Twitch: Edit All Rewards - allows you to enable/disable or pause/unpause all channel point rewards at once [Christina]
+- Command: HTTP Upload File (developer only due to its complexity) - allows you to upload a file to any server that requries formData object in the body (for example Imgur) [Christina]
+- Command: Twitch: Send Whisper - Allows to send a whisper over the Twitch API [Chrizzz]
+- Command: TXT: Append Text - Append text to a simple TXT file [Chrizzz]
+- Command: File: Read Line - Reads a specific line from a file of your choices [Chrizzz]
+- Command: File: Random Line - Reads a random line from a file of your choices (can also save the line number) [Chrizzz]
+- Command: File: Read all - Reads all lines from a file of your choices (can be saved either as array or string) [Chrizzz]
+- Command: OBS Event Pull - Similiar to Trigger Pull but for WS5 Events [Chrizzz]
+- Command: Array: Get Value - Same as Array: Pull but without removing the item [Chrizzz]
+- Command: Get Chatters - Returns an object with your chatters username split in categories (viewer, mod, vip, etc) [Sebas]
+- Command: String Trim - Deletes spaces at the start and end of a string and extra characters [Sebas]
+- Added global variables: SAMMI Core version, SAMMI Bridge Version, SAMMI Deck Version, Array with OBS connection names [Chrizzz]
+- Added Options for Trigger Pull: Extension Triggers (Trigger Name, Trigger Type) [Chrizzz]
+- Added Shortcuts in the Button Menu: CTRL + S => Save Button, CTRL + R => Run Button, CTRL + N / CTRL + Enter => Add a new Line at the bottom
+- Added Twitch Moderation Trigger: Low Trust User (part of moderation topics) - triggers for any new messages from low trust users, useful for immediately banning them [Christina]
+- Added Twitch Trigger: Delete Chat Message - trigger for any delete chat message actions [Christina]
+- Added Twitch Trigger: Shoutout (you must listen to the new topic in your Twitch Connections tab) - triggers for new Twitch /shoutout [username] chat command [Christina]
+- Bridge: Ping Bridge - you can now send a ping to your Bridge from SAMMI, it will respond with the current browser it's running in and you will see a popup in your Bridge as well (only works with the newest Bridge) [Christina]
+- New Language: Italian [Bucefalo]
+- New local API and webhooks are available in SAMMI (major rework of the early access webhook feature) [Christina]
+  - you can now communicate with SAMMI via HTTP requests and command line using CURL 
+  - to enable the API server, select open API server in SAMMI Settings and optionally set a password
+  - includes /api endpoint for GET and POST requests (similar to Bridge ones), /webhook endpoint for sending webhook triggers to SAMMI
+  - added new Webhook button trigger
+  - please consult the API Reference on SAMMI Website
 
 Improvements:
-- Added 2 new Twitch Scopes (No commands yet, but can be done via HTTP Requests) [Silverlink]
-  - Charity Scope
-  - Goals Scope
-- Optimized Bridge to send default parameters to SAMMI when executing SAMMI methods with empty parameters to prevent SAMMI crashing [Christina]
-- When exporting or importing a deck, the lb_version key is now replaced with sammi_version key [Christina]
-- SAMMI now automatically fetches data for all OBS connections. [Christinna]
-  - the Fetch OBS Data checkbox has been removed from OBS Connections, which should fix several OBS-related crashes.
+- Lots of internal source code improvements for better readability, efficiency and hopefully less bugs [Dev team]
+- If downloading new languages fails, you are now prompted to open a direct download link instead and manually replace them [Christina]
+- You can now pull message ID for Twitch Chat messages (required for deleting them) [Christina]
+- Twitch Reward commands now display Reward Names when saved instead of their IDs (they still only accept IDs, this does not change) [Christina]
+- Completely reworked how enabling/disabling decks works, it should be faster, more reliable and less bug-prone now [Christina]
+- Check if SAMMI is located in a program files locations and output a warning [Chrizzz]
+- Changed Command Names (INI: ..., CSV: ..., TXT: ..., File: ..., Buffer: ...) also renamed CSV: Delete to CSV: Unload [Chrizzz]
+- Reworked the file path for 22 file commands (now works with both, the relative path and the full path, also adds the file type automatically) [Chrizzz]
+- Added "all" as default option to "Delete Variable" (deletes all local variables in the button) and "Trigger Pull" (Grabs all infos and saves them into an object), this was also possible by leaving the box empty but only a few people used it [Chrizzz]
+- Send OBS Requests now has a dropdown with templates for all OBSws5 requests [Sebas, with special thanks to Landie]
+- Updated translations [Sebas and translators]
+- Added Crash Datetime to the crashes [Sebas]
+- Reworked the search function [Chrizzz]:
+  - Now works with substrings => "INI" Number would find "INI: Save Number" and "INI: Load Number")
+  - LEFT / ESC => Previous Layer
+  - RIGHT / TAB / ENTER => Next Layer or if the search was used, it takes the command at pos 0 and uses it
+  - UP / DOWN to scroll up & down 
+- Reworked INI: Save / Load Text and INI: INI to Object / Object to work with the same replacements [Chrizzz]
+- Added Copy ID to Deck menu when you right click (useful for extension makers using the new Deck commands)
+- Changed how users get their Twitch Auth Tokens. We now have 2 default flavors called Streamer and Bot. Streamer has almost all scopes that are available except the scopes we don't deem necessary like Stream Key. We don't need that! Bot just has the minimum requirements to listen to certain events and do moderator related stuff. There is also advanced scopes available in dev mode and that the classic scope selector but we don't advice users to use it. [Silverlink]
+- Faces are now randomized in the about screen [Silverlink]
+- Bridge and extensions [Christina]: 
+  - Added [extension_version] you can use in your .sef files. In the near future, Bridge will contain an automatic Version Checker for all installed extensions, so we recommend adding this section to all your extensions now (this will not break installing the extensions in any old SAMMI versions).
+  - Added OBSWS5 library to Bridge, you can now use `OBSWebSocket` variable to connect to OBSWS 4 or `OBSWebSocket5` variable to connect to OBSWS 5, both are supported 
+  - Added 2 new functions to control deck enable/disable status: getDeckStatus(deckID) and changeDeckStatus(deckID, status = 0, 1, or 2 for toggle)
+ 
+UI Changes:
+- Reworked OBS Connections, Twitch Connections, YouTube Connection and Settings tab [Silverlink]
 
 Removed Features:
-- Removed 2 Twitch Scopes [Silverlink]
-  - Twitch Stream Key (SAMMI does not need the Twitch Stream Key to operate so we removed this)
-  - Edit Follows (This is deprecated by Twitch and does nothing anymore)
-
-UI Changes:
+- Unnecessary Connection alerts for OBS, Twitch, Bridge (there will be only error alerts now) [Christina]
+- Deprecated Command: OBS Custom Packet - please do not use this command anymore as it will not properly function [Christina]
 
 Bug Fixes:
-- AM and PM now work correctly in Date/Time commands [Sebas]
-- MMM and MMMM tokens now work again [Sebas]
-- Daylight Savings Time is now correctly calculated in Date/Time commands [Sebas]
-- Fixed "Divide by Zero" crash when minimizing SAMMI window in some cases [Silverlink]
-- Fixed "Can't create a surface with either a width or height with a value less than or equal to zero" error [Silverlink]
-- Fixed Twitch connection not getting properly removed when token is alread expired [Christina]
-- Fixed crashes when users try to access non existing structure in OBS Request response or save the response into non existing objects/arrays. [Christina]
-  - It will now show yellow alert messages instead.
-- Fixed OBS Set Scene Transition Settings command crash [Christina]
-- Fixed several OBSws5 related bugs, including: [Roadie]
-  - Source Delte crashes
-  - Source Filter removed crashes
-  - New scenes and sources not being added to Pull Source Value list, and crashing if the list was open when the scene was made
-  - Opening the source dropdown menu after creating/moving sources
-- Fixed a crash when Undo was used in some cases in OBS [Christina]
-- Fixed a crash when user tried to insert or delete a value in global array from Bridge [Christina]
-- Fixed duplicate messages for OBS Connected/Disconnected alerts [Christina]
-- Fixed a crash where SAMMI would try to auto-connect to OBS when there were no OBS connections [Sebas]
-- Fixed Send OBS Request command having the default wrong JSON payload in some cases [Christina]
-- Fixed Send OBS Request command crash when OBS returns no data in its response due to incorrect user input [Christina]
-- Fixed a crash when decks are being dragged around while alt tabbing at the same time [Christina]
-- Fixed a crash when user attempts to open About Page without being connected to internet [Christina]
-- Fixed a crash when trying to uninstall an extension without a bridge connected [Sebas]
-- Fixed crashes when Twitch, OBS and YouTube json settings files are either empty or corrupted. [Christina]
-  - It now creates default settings and properly alerts the user instead.
-- Fixed a bug where, after deleting an OBS connection, the global variable would not be deleted [Christina]
-- Fixed SAMMI displaying moderator as 'Unknown' in some Pubsub moderation alerts [Christina]
-- Fixed an ocassional crash when saving a deck [Sebas]
-- Fixed a crash when an extension sends incorrect data to trigger [Sebas]
-- Fixed a crash when a button was incorrectly saved in previous version [Sebas]
-- Fixed an About Window Tags bug [Silverlink]
+- Fixed a bug where a second SAMMI would not automatically reconnect to Bridge/SAMMI Deck if you closed the first SAMMI currently connected to it without completely restarting the second SAMMI first [Christina]
+- Fixed a memory leak when saving/running buttons [Christina]
+- Fixed a bug where you could not select the last row in a new deck [Christina]
+- Fixed a bug where SAMMI would not connect to Twitch when linking an account for the first time [Christina]
+- Fixed a bug where SAMMI would not request channel points automatically when linking an affiliate account for the first time [Christina]
+- Fixed SAMMI spamming Bridge with lots of unnecessary packets in some cases [Christina]
+- Fixed a bug where SAMMI ignored the 'sammi_version' key when installing an extension and would not check for minimum version [Christina]
+- Fixed Check Settings button (in Source/Filter change settings command) only showing the first 4 values [Christina]
+- Fixed OBS Request command not correctly working with batches for OBSWS 5 [Christina]
+- Fixed Channel Point Names not immediately refreshing inside commands after editing them inside SAMMI [Christina]
+- Fixed a crash when trying to send an empty alert to SAMMI via Bridge [Christina]
+- Fixed a crash when Bridge requests a variable in an undefined object [Christina]
+- Fixed an occasional crash that happened on OBS connection [Christina]
+- Fixed a crash that sometimes happened when OBS Source or Filter State changed [Christina]
+- Fixed a Pubsub crash on anonymous resub gift events [Christina]
+- Fixed a Pubsub crash on poll events as Twitch sometimes sends incorrect payload for poll choices [Christina]
+- Fixed button crashes when some boxes were not filled out in OBS Motion commands. They now default to 0 instead. [Christina]
+- Fixed a crash that would happen when minimizing and maximing SAMMI in quick succession [Christina]
+- Fixed a crash when trying to reinstall a non-existing extension [Christina]
+- Fixed a crash when trying to load non-supported button image [Christina]
+- Fixed a bug when Modify Flag would not be cleared if the button was modified, deleted and recreated [Christina]
+- Fixed a bug where some error alert messages coming from OBS were displaying weird characters [Christina]
+- Fixed a crash when selecting an empty or non existing file for Bridge [Christina]
+- Fixed OBSws5_request Change crop, change position and change scale no longer need all sections to be filled in. [Roadie]
+- Add source: Will assume current scene if "scene" is left blank [Roadie]
+- Fixed OBSws5_events memory leak [Roadie]
+- Fixed an ocasional crash when adding new obs connections [Sebas]
+- Fixed a crash when using Check Settings with a variable in the OBS box [Sebas]
+- Fixed a crash when the Twitch Channel ID is empty [Sebas]
+- Fixed a bug with the hour 12 AM in the Date/Time commands [Sebas]
+- Fixed some commands that weren't able to save data inside an Array [Sebas]
+- Fully refactored ws5_events to assist with bug fixing. [Roadie]
+- Removed the creation of a file with new translations that would reduce fps [Sebas]
+- Fixed a crash when using ALT+TAB while moving a deck [Chrizzz]
+- Twitch Connections window now doesnt stick to your mouse pointer if you click no to the confirm close window [Roadie]
 
-Known Bugs: 
-
+Known Bugs:
+- In certain countries in DST (aka Summer Time), Date/Time commands can add your current timezone to your current time. A workaround is to substract your timezone until we fix it.

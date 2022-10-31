@@ -1,5 +1,5 @@
 <!--For Extension info, read How to make extensions.txt in Extension folder-->
-<!--Bridge V7.01-->
+<!--Bridge V7.10-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -213,6 +213,23 @@ button:active{
     <span>SAMMI Core</span><span class="d-none d-md-inline-flex me-1">: </span><span id="toclient" class="disconnected d-none d-md-inline-flex">Not connected.</span>
   </div>
 </div> <br>
+<!-- Modal -->
+<div class="modal fade" id="sammiModalElem" tabindex="-1" aria-labelledby="sammiModalElemLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sammiModalElemTitle">SAMMI</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="sammiModalElemContent">
+        ..
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
 <!--Tabs -->
 <div class="row justify-content-center g-0">
     <ul class="nav nav-pills mb-0" id="extensions-tab" role="tablist">
@@ -556,7 +573,7 @@ function SAMMICommands() {
      * @param {string} name - name of the variable
      * @param {string} buttonId - button ID for local variable, default = global variable
      */
-    async getVariable(name, buttonId = 'global') {
+    async getVariable(name = '', buttonId = 'global') {
       return sendToSAMMI('GetVariable', {
         Variable: name,
         ButtonId: buttonId,
@@ -569,7 +586,7 @@ function SAMMICommands() {
      * @param {(string|number|object|array|null)} value - new value of the variable
      * @param {string} buttonId - button ID for local variable, default = global variable
      */
-    async setVariable(name, value, buttonId = 'global') {
+    async setVariable(name = '', value = '', buttonId = 'global') {
       return sendToSAMMI('SetVariable', {
         Variable: name,
         Value: value,
@@ -581,7 +598,7 @@ function SAMMICommands() {
      * Send a popup message to SAMMI
      * @param {string} msg - message to send
      */
-    async popUp(msg) {
+    async popUp(msg = '') {
       return sendToSAMMI('PopupMessage', {
         Message: msg,
       });
@@ -591,7 +608,7 @@ function SAMMICommands() {
      * Send a yellow notification message to SAMMI
      * @param {string} msg - message to send
      */
-    async alert(msg) {
+    async alert(msg = '') {
       return sendToSAMMI('AlertMessage', {
         Message: msg,
       });
@@ -612,7 +629,7 @@ function SAMMICommands() {
      * - (optional) [] selectOptions = array of options for the user to select (when using Select box type)
      * @param {[boxName: string, boxType: number, defaultValue: (string | number), sizeModifier: (number|undefined), selectOptions: Array|undefined]} boxes.boxVariable
      * */
-    async extCommand(name, color = 3355443, height = 52, boxes) {
+    async extCommand(name = '', color = 3355443, height = 52, boxes = {}) {
       const ext = new SammiConstructExtCommand(name, color, height);
 
       for (const [key, value] of Object.entries(boxes)) {
@@ -655,9 +672,32 @@ function SAMMICommands() {
      * @param {string} id - Unique deck ID retrieved from getDeckList
      * - Replies with an object containing a full deck
      */
-    async getDeck(id) {
+    async getDeck(id = 0) {
       return sendToSAMMI('GetDeck', {
         UniqueId: id,
+      });
+    },
+
+    /**
+     * Get deck status
+     * - Replies with either 0 (deck is disabled) or 1 (deck is enabled)
+     * @param {string} id - Unique deck ID retrieved from getDeckList
+     */
+    async getDeckStatus(deckID = 0) {
+      return sendToSAMMI('getDeckStatus', {
+        deckID,
+      });
+    },
+
+    /**
+     * Change deck status
+     * @param {string} id - Unique deck ID retrieved from getDeckList
+     * @param {int} status - New deck status, 0 = disable, 1 = enable, 2 = toggle
+     */
+    async changeDeckStatus(deckID = 0, status = 1) {
+      return sendToSAMMI('changeDeckStatus', {
+        deckID,
+        status,
       });
     },
 
@@ -666,7 +706,7 @@ function SAMMICommands() {
      * @param {string} fileName - image file name without the path (image.png)
      * - Replies with an object containing the Base64 string of the image
      */
-    async getImage(fileName) {
+    async getImage(fileName = '') {
       return sendToSAMMI('GetImage', {
         FileName: fileName,
       });
@@ -676,7 +716,7 @@ function SAMMICommands() {
      * Retrieves CRC32 of a file
      * @param {string} fileName - file name without the path (image.png)
      */
-    async getSum(fileName) {
+    async getSum(fileName = '') {
       return sendToSAMMI('GetSum', {
         Name: fileName,
       });
@@ -705,7 +745,7 @@ function SAMMICommands() {
      * 8 Timer, 9 OBS Trigger, 10 SAMMI Bridge, 11 twitch moderation, 12 extension trigger
      * @param {object} data - whatever data is required for the trigger, see manual
      */
-    async trigger(type, data) {
+    async trigger(type = -1, data = { trigger_data: {} }) {
       return sendToSAMMI('SendTrigger', {
         Type: type,
         Data: data,
@@ -731,7 +771,7 @@ function SAMMICommands() {
      * Triggers a button
      * @param {string} id - button ID to trigger
      */
-    async triggerButton(id) {
+    async triggerButton(id = '') {
       return sendToSAMMI('TriggerButton', {
         ButtonId: id,
       });
@@ -741,7 +781,7 @@ function SAMMICommands() {
      * Releases a button
      * @param {string} id - button ID to release
      */
-    async releaseButton(id) {
+    async releaseButton(id = '') {
       return sendToSAMMI('ReleaseButton', {
         ButtonId: id,
       });
@@ -779,9 +819,9 @@ function SAMMICommands() {
     /**
      * Sends an extension trigger
      * @param {string} trigger - name of the trigger
-     * @param {object} data - object containing all trigger pull data
+     * @param {object} dats - object containing all trigger pull data
      */
-    async triggerExt(trigger, data = {}) {
+    async triggerExt(trigger = '', data = {}) {
       return sendToSAMMI('ExtensionTrigger', {
         Trigger: trigger,
         Data: data,
@@ -793,7 +833,7 @@ function SAMMICommands() {
      * @param {string} name - name of the variable
      * @param {string} buttonId - button ID for local variable, default = global variable
      */
-    async deleteVariable(name, buttonId = 'global') {
+    async deleteVariable(name = '', buttonId = 'global') {
       return sendToSAMMI('DeleteVariable', {
         Variable: name,
         ButtonId: buttonId,
@@ -807,7 +847,7 @@ function SAMMICommands() {
      * @param {string|number|object|array} value - item value
      * @param {string} buttonId - button id, default is global
      */
-    async insertArray(arrayName, index, value, buttonId = 'global') {
+    async insertArray(arrayName = '', index = 0, value = '', buttonId = 'global') {
       return sendToSAMMI('InsertArrayValue', {
         Array: arrayName,
         Slot: index,
@@ -822,7 +862,7 @@ function SAMMICommands() {
      * @param {number} index - index of the item to delete
      * @param {string} buttonId - button id, default is global
      */
-    async deleteArray(arrayName, slot, buttonId = 'global') {
+    async deleteArray(arrayName = '', slot = 0, buttonId = 'global') {
       return sendToSAMMI('DeleteArraySlot', {
         Array: arrayName,
         Slot: slot,
@@ -834,7 +874,7 @@ function SAMMICommands() {
      * Sends a notification (tray icon bubble) message to SAMMI
      * @param {string} msg - message to show
      */
-    async notification(msg) {
+    async notification(msg = '') {
       return sendToSAMMI('NotificationMessage', {
         Message: msg,
       });
@@ -854,7 +894,7 @@ function SAMMICommands() {
         'Alright, we came here in peace, we expect to go in one... piece.',
         'It costs nearly a billion dollars just to turn the lights on around here',
         "You wouldn't believe the things you can make from the common, simple items lying around your planet... which reminds me, you're going to need a new microwave.",
-        'Welcome, ye knights of the round table, men of honor, followers of the path of righteousness. Only those with wealth of knowledge and truth of spirit shall be given access to the underworld, the storehouse of riches of Ambrosius Aurelianus. Prove ye worthy, and all shall be revealed.'
+        'Welcome, ye knights of the round table, men of honor, followers of the path of righteousness. Only those with wealth of knowledge and truth of spirit shall be given access to the underworld, the storehouse of riches of Ambrosius Aurelianus. Prove ye worthy, and all shall be revealed.',
       ];
       const randomMessage = messages[Math.floor(Math.random() * messages.length)];
       return randomMessage;
@@ -896,7 +936,7 @@ function SAMMICommands() {
   let sammiclient
   let lioranboardclient
   let logIt
-  let i_force = "";
+  let sammiModal
   // SAMMI global object with variables
   const SAMMIVars = LBVars = {
     SAMMIdebug: JSON.parse(localStorage.getItem('SAMMIdebug')) || {},
@@ -930,6 +970,7 @@ function SAMMICommands() {
   // modify UI on load
 window.addEventListener('load', SAMMILoadTabsUI, false);
 function SAMMILoadTabsUI() {
+  sammiModal = new bootstrap.Modal(document.getElementById('sammiModalElem'), {});
   const tabList = {};
   let tabSortList = JSON.parse(localStorage.getItem('tabsSortList')) || [];
   const newtabSortList = [];
@@ -1086,6 +1127,8 @@ Element.prototype.setAttributes = function (obj) {
     this.setAttribute(prop, obj[prop]);
   }
 };
+
+
   // Fake Triggers testing
 async function SAMMITestTriggers() {
   const processTrigger = {
@@ -1978,7 +2021,6 @@ function connectbutton() {
     document.querySelector('#cnctbutton').innerText = 'Disconnecting';
   } else {
     console.log('SAMMI manually connected.');
-
     try {
       clearTimeout(p.waiting_to_connect);
     } catch (e) {}
@@ -2079,7 +2121,18 @@ function connecttosammi() {
 
   // RELOAD SAMMI Bridge
   sammiclient.on('ResetPlease', () => {
-    location.reload();
+  location.reload();
+  });
+
+  // PING SAMMI Bridge
+  sammiclient.on('UserPing', () => {
+    sammiModalElemTitle.innerHTML = 'SAMMI Core';
+    sammiModalElemContent.innerHTML = 'Ping received!';
+    sammiModal.show();
+    setTimeout(() => {
+      sammiModal.hide();
+    }, 10000);
+    SAMMI.alert(`Ping Received. Your Bridge is running in the following browser: ${browser}.`)
   });
 
   // EXECUTE COMMAND
@@ -2212,6 +2265,7 @@ function SAMMIdebugPost(type, msg) {
   crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
   integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/obs-websocket-js@4.0.2/dist/obs-websocket.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/obs-websocket-js@4.0.2/dist/obs-websocket.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/SAMMISolutions/SAMMI-Bridge@main/lib/obs-websocket5.min.js"></script>
 
 </html>

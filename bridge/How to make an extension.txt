@@ -31,6 +31,10 @@ This section contains the name of the extension and is what will be displayed to
 
 You can add any text content here or leave it empty, it is not used by the transmitter or receiver.  Version and author name information is good information to include in this section.
 
+[extension_version]
+
+Add your current extension version here. Should only contain numbers and dots. For example 2.01. This will be later used in an automatic version checker where you will be able to submit your PRs to our public repo whenever you release a new version of your extension.
+
 [insert_external]
 
 The content in this section supports HTML format text content and will display on the extension's tab in the transmitter.  This section may be left empty if desired.

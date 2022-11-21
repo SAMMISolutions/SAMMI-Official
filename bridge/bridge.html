@@ -1,5 +1,5 @@
 <!--For Extension info, read How to make extensions.txt in Extension folder-->
-<!--Bridge V7.11-->
+<!--Bridge V7.12-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1292,6 +1292,7 @@ async function SAMMITestTriggers() {
         {
           redeemname: redeemName,
           message,
+          user_name: pullData.user_name,
         },
         pullData,
       );
@@ -1635,6 +1636,7 @@ async function SAMMITestTriggers() {
       };
       SAMMI.trigger(0, {
         message,
+        user_name: name.toLowerCase(),
         broadcaster: form.chatBroadcaster.checked,
         moderator: form.chatMod.checked,
         sub: form.chatSub.checked,

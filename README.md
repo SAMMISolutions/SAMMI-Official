@@ -8,7 +8,7 @@ This is the ONLY official SAMMI source. Please be careful downloading it from an
 ## What is SAMMI?
 SAMMI stands for Stream Automation, Management, Monitoring and Innovation. 
 
-It is a fully customizable Stream Deck that lets your Twitch and YouTube Live audience control and interact with your stream.
+It is a fully customizable Streaming Assistant that lets your Twitch and YouTube Live audience control and interact with your stream.
 
 It is fully compatible with [OBS Websocket](https://obsproject.com/forum/resources/obs-websocket-remote-control-obs-studio-from-websockets.466/), which can remotely control your [OBS Studio](https://obsproject.com/).
 

@@ -1,10 +1,10 @@
 SAMMI Deck is a Stream Deck application that works alongside SAMMI Core and SAMMI Bridge and lets your Twitch and YouTube Live audience control and interact with your stream.
 
-SAMMI Deck is licensed under under the terms of the Apache 2.0 license
+SAMMI Deck is licensed under under the terms of the GNU GPLv3.0 license. 
 
 The SAMMI Deck source code is licensed under an MIT license.
 
 License notices are hereby attached in the follwing files within this folder: 
 
 1. License-MIT
-2. License-Apache 2.0
+2. License-GNUGPL3.0

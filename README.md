@@ -1,7 +1,7 @@
 # SAMMI
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/fold_left.svg?style=social&label=Follow%20%40SAMMI)](https://twitter.com/sammisolutions)
 [![Discord](https://img.shields.io/discord/699319482442711072.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/dXez8Zh)
-[![Patreon](https://img.shields.io/endpoint.svg?label=Patreon&url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dlb2devs%26type%3Dpatrons&style=flat)](https://patreon.com/lb2devs)
+[![Patreon](https://img.shields.io/endpoint.svg?label=Patreon&url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dsammidevs%26type%3Dpatrons&style=flat)](https://www.patreon.com/sammidevs)
 
 This is the ONLY official SAMMI source. Please be careful downloading it from any other sources.
 

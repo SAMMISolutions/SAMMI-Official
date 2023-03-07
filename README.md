@@ -17,7 +17,7 @@ Find information about migrating from LB2 on our [website](https://sammi.solutio
 ## Links
 ### Downloads
 - Main Program  
-  - [Windows, 64-bit](https://github.com/SAMMISolutions/SAMMI-Official/raw/main/download/x64.zip), [Windows, 32-bit](https://github.com/SAMMISolutions/SAMMI-Official/raw/main/download/x86.zip).  
+  - [Windows, 64-bit](https://github.com/SAMMISolutions/SAMMI-Official/raw/main/download/x64.zip)
   - Mac and Linux are not currently supported, but may be in the future.  
 - Stream Deck
   - Windows has the Stream Deck included in the download of the main program.  

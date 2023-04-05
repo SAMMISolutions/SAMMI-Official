@@ -1,29 +1,28 @@
-[
-      {
-        "version": "2023.1.0",
-        "components": {
-            "SAMMI Core": "987654",
-            "SAMMI Voice": "987654",
-            "SAMMI Panel": "987654"
-            "Updater": "987654"
-        }
-    },
-    {
-        "version": "2023.1.1",
-        "components": {
-            "SAMMI Core": "365489",
-            "SAMMI Voice": "365489",
-            "SAMMI Panel": "365489"
-            "Updater": "365489"
-        }
-    },
-    {
-        "version": "2023.2.0",
-        "components": {
-            "SAMMI Core": "123456",
-            "SAMMI Voice": "123456",
-            "SAMMI Panel": "123456",
-            "Updater": "123456"
-        }
-    },
+[{
+		"version": "2023.1.0",
+		"components": {
+			"SAMMI Core": "987654",
+			"SAMMI Voice": "987654",
+			"SAMMI Panel": "987654",
+			"Updater": "987654"
+		}
+	},
+	{
+		"version": "2023.1.1",
+		"components": {
+			"SAMMI Core": "365489",
+			"SAMMI Voice": "365489",
+			"SAMMI Panel": "365489",
+			"Updater": "365489"
+		}
+	},
+	{
+		"version": "2023.2.0",
+		"components": {
+			"SAMMI Core": "123456",
+			"SAMMI Voice": "123456",
+			"SAMMI Panel": "123456",
+			"Updater": "123456"
+		}
+	}
 ]

@@ -1,5 +1,5 @@
 # End-User License Agreement
-## Last updated: 28 March 2023
+## Last updated: 7 April 2023
 
 This End-User License Agreement (referred to as the "EULA") is a legally binding agreement between you, the Licensee, an individual customer or entity, and SAMMI Solutions, the author of SAMMI Panel, the Software, which may include associated media, printed materials, and online or electronic documentation. This Agreement is a legally binding contract that includes terms that limit your legal rights and Licensors' liability to you, and shall govern all access to and use of this Software. You hereby agree, without limitation or alteration, to all the terms and conditions contained herein.
 

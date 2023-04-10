@@ -1,1 +1,106 @@
-[{"version":"2023.1.0","components":{"SAMMI Core":"987654","SAMMI Voice":"987654","SAMMI Panel":"987654","Updater":"987654"}},{"version":"2023.1.1","components":{"SAMMI Core":"365489","SAMMI Voice":"365489","SAMMI Panel":"365489","Updater":"365489"}},{"version":"2023.2.0","components":{"SAMMI Core":"123456","SAMMI Voice":"123456","SAMMI Panel":"123456","Updater":"123456"}}]
+{
+    "versions": [
+        {
+            "version": "2023.1.0",
+            "components": {
+                "SAMMI Core": {
+                    "version": "2023.1.0.0",
+                    "sum": "bc34b97e88a71427fb720e2f1153f412",
+                    "path": "",
+                    "file": "SAMMI Core.exe"
+                },
+                "SAMMI Voice": {
+                    "version": "1.0.0.0",
+                    "sum": "1ff334dd9953e0d88588bba74a8bf49d",
+                    "path": "SAMMI Voice",
+                    "file": "SAMMI Voice.exe"
+                },
+                "SAMMI Panel": {
+                    "version": "1.0.0.0",
+                    "sum": "bb0ba260b33190f5d00991b54f3bb78e",
+                    "path": "SAMMI Panel",
+                    "file": "SAMMI Panel.exe"
+                },
+                "SAMMI Bridge": {
+                    "version": "7.12",
+                    "path": "bridge",
+                    "file": "default.txt"
+                },
+                "SAMMI Updater": {
+                    "version": "1.0.0.0",
+                    "sum": "771107036",
+                    "path": "SAMMI Updater",
+                    "file": "SAMMI Updater.exe"
+                }
+            }
+        },
+        {
+            "version": "2023.1.1",
+            "components": {
+                "SAMMI Core": {
+                    "version": "2023.1.1.0",
+                    "sum": "bc34b97e88a71427fb720e2f1153f412",
+                    "path": "",
+                    "file": "SAMMI Core.exe"
+                },
+                "SAMMI Voice": {
+                    "version": "1.0.0.0",
+                    "sum": "1ff334dd9953e0d88588bba74a8bf49d",
+                    "path": "SAMMI Voice",
+                    "file": "SAMMI Voice.exe"
+                },
+                "SAMMI Panel": {
+                    "version": "1.0.0.0",
+                    "sum": "bb0ba260b33190f5d00991b54f3bb78e",
+                    "path": "SAMMI Panel",
+                    "file": "SAMMI Panel.exe"
+                },
+                "SAMMI Bridge": {
+                    "version": "7.13",
+                    "path": "bridge",
+                    "file": "default.txt"
+                },
+                "SAMMI Updater": {
+                    "version": "1.0.0.0",
+                    "sum": "771107036",
+                    "path": "SAMMI Updater",
+                    "file": "SAMMI Updater.exe"
+                }
+            }
+        },
+        {
+            "version": "2023.2.0",
+            "components": {
+                "SAMMI Core": {
+                    "version": "2023.2.0.0",
+                    "sum": "bc34b97e88a71427fb720e2f1153f412",
+                    "path": "",
+                    "file": "SAMMI Core.exe"
+                },
+                "SAMMI Voice": {
+                    "version": "1.0.0.0",
+                    "sum": "1ff334dd9953e0d88588bba74a8bf49d",
+                    "path": "SAMMI Voice",
+                    "file": "SAMMI Voice.exe"
+                },
+                "SAMMI Panel": {
+                    "version": "1.0.0.0",
+                    "sum": "bb0ba260b33190f5d00991b54f3bb78e",
+                    "path": "SAMMI Panel",
+                    "file": "SAMMI Panel.exe"
+                },
+                "SAMMI Bridge": {
+                    "version": "7.14",
+                    "path": "bridge",
+                    "file": "default.txt"
+                },
+                "SAMMI Updater": {
+                    "version": "1.0.0.0",
+                    "sum": "771107036",
+                    "path": "SAMMI Updater",
+                    "file": "SAMMI Updater.exe"
+                }
+            }
+        }
+    ]
+}

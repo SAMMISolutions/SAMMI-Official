@@ -1,1 +1,76 @@
-[{"version":"2023.1.0","components":{"SAMMI Core":"987654","SAMMI Voice":"987654","SAMMI Panel":"987654","Updater":"987654"}},{"version":"2023.1.1","components":{"SAMMI Core":"365489","SAMMI Voice":"365489","SAMMI Panel":"365489","Updater":"365489"}},{"version":"2023.2.0","components":{"SAMMI Core":"123456","SAMMI Voice":"123456","SAMMI Panel":"123456","Updater":"123456"}}]
+{
+    "versions": [
+        {
+            "version": "2023.1.0",
+            "components": {
+                "SAMMI Core.exe": {
+                    "version": "2023.1.0",
+                    "sum": "bc34b97e88a71427fb720e2f1153f412"
+                },
+                "SAMMI Voice.exe": {
+                    "version": "1.0.0.0",
+                    "sum": "1ff334dd9953e0d88588bba74a8bf49d"
+                },
+                "SAMMI Panel.exe": {
+                    "version": "1.0.0.0",
+                    "sum": "bb0ba260b33190f5d00991b54f3bb78e"
+                },
+                "SAMMI Updater.exe": {
+                    "version": "1.0.0.0",
+                    "sum": "771107036"
+                },
+                "SAMMI Bridge": {
+                    "version": "7.12"
+                }
+            }
+        },
+        {
+            "version": "2023.1.1",
+            "components": {
+                "SAMMI Core.exe": {
+                    "version": "2023.1.1",
+                    "sum": "bc34b97e88a71427fb720e2f1153f412"
+                },
+                "SAMMI Voice.exe": {
+                    "version": "1.0.0.0",
+                    "sum": "1ff334dd9953e0d88588bba74a8bf49d"
+                },
+                "SAMMI Panel.exe": {
+                    "version": "1.0.0.0",
+                    "sum": "bb0ba260b33190f5d00991b54f3bb78e"
+                },
+                "SAMMI Updater.exe": {
+                    "version": "1.0.0.0",
+                    "sum": "771107036"
+                },
+                "SAMMI Bridge": {
+                    "version": "7.13"
+                }
+            }
+        },
+        {
+            "version": "2023.2.0",
+            "components": {
+                "SAMMI Core.exe": {
+                    "version": "2023.2.0",
+                    "sum": "bc34b97e88a71427fb720e2f1153f412"
+                },
+                "SAMMI Voice.exe": {
+                    "version": "1.0.0.0",
+                    "sum": "1ff334dd9953e0d88588bba74a8bf49d"
+                },
+                "SAMMI Panel.exe": {
+                    "version": "1.0.0.0",
+                    "sum": "bb0ba260b33190f5d00991b54f3bb78e"
+                },
+                "SAMMI Updater.exe": {
+                    "version": "1.0.0.0",
+                    "sum": "771107036"
+                },
+                "SAMMI Bridge": {
+                    "version": "7.14"
+                }
+            }
+        }
+    ]
+}

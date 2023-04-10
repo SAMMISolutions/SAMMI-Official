@@ -72,7 +72,7 @@
             "version": "2023.2.0",
             "components": {
                 "SAMMI Core": {
-                    "version": "2023.2.0.0",
+                    "version": "2023.2.0.beta",
                     "sum": "bc34b97e88a71427fb720e2f1153f412",
                     "path": "",
                     "file": "SAMMI Core.exe"

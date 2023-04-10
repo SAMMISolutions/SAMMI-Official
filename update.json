@@ -4,7 +4,7 @@
             "version": "2023.1.0",
             "components": {
                 "SAMMI Core.exe": {
-                    "version": "2023.1.0",
+                    "version": "2023.1.0.0",
                     "sum": "bc34b97e88a71427fb720e2f1153f412"
                 },
                 "SAMMI Voice.exe": {
@@ -28,7 +28,7 @@
             "version": "2023.1.1",
             "components": {
                 "SAMMI Core.exe": {
-                    "version": "2023.1.1",
+                    "version": "2023.1.1.0",
                     "sum": "bc34b97e88a71427fb720e2f1153f412"
                 },
                 "SAMMI Voice.exe": {
@@ -52,7 +52,7 @@
             "version": "2023.2.0",
             "components": {
                 "SAMMI Core.exe": {
-                    "version": "2023.2.0",
+                    "version": "2023.2.0.0",
                     "sum": "bc34b97e88a71427fb720e2f1153f412"
                 },
                 "SAMMI Voice.exe": {

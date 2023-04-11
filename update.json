@@ -1,51 +1,17 @@
 {
     "versions": [
         {
-            "version": "2023.1.0",
-            "components": {
-                "SAMMI Core": {
-                    "version": "2023.1.0.0",
-                    "sum": "bc34b97e88a71427fb720e2f1153f412",
-                    "path": "",
-                    "file": "SAMMI Core.exe"
-                },
-                "SAMMI Voice": {
-                    "version": "1.0.0.0",
-                    "sum": "1ff334dd9953e0d88588bba74a8bf49d",
-                    "path": "SAMMI Voice",
-                    "file": "SAMMI Voice.exe"
-                },
-                "SAMMI Panel": {
-                    "version": "1.0.0.0",
-                    "sum": "bb0ba260b33190f5d00991b54f3bb78e",
-                    "path": "SAMMI Panel",
-                    "file": "SAMMI Panel.exe"
-                },
-                "SAMMI Bridge": {
-                    "version": "7.12",
-                    "path": "bridge",
-                    "file": "default.txt"
-                },
-                "SAMMI Updater": {
-                    "version": "1.0.0.0",
-                    "sum": "771107036",
-                    "path": "SAMMI Updater",
-                    "file": "SAMMI Updater.exe"
-                }
-            }
-        },
-        {
             "version": "2023.1.1",
             "components": {
                 "SAMMI Core": {
                     "version": "2023.1.1.0",
-                    "sum": "bc34b97e88a71427fb720e2f1153f412",
+                    "sum": "a44d36d45f0241430a398e47566caadd",
                     "path": "",
                     "file": "SAMMI Core.exe"
                 },
                 "SAMMI Voice": {
                     "version": "1.0.0.0",
-                    "sum": "1ff334dd9953e0d88588bba74a8bf49d",
+                    "sum": "a2adc6a283319274a204bc9b5561d4c0",
                     "path": "SAMMI Voice",
                     "file": "SAMMI Voice.exe"
                 },
@@ -56,13 +22,13 @@
                     "file": "SAMMI Panel.exe"
                 },
                 "SAMMI Bridge": {
-                    "version": "7.13",
+                    "version": "7.11",
                     "path": "bridge",
                     "file": "default.txt"
                 },
                 "SAMMI Updater": {
                     "version": "1.0.0.0",
-                    "sum": "771107036",
+                    "sum": "43d56d98",
                     "path": "SAMMI Updater",
                     "file": "SAMMI Updater.exe"
                 }
@@ -84,8 +50,8 @@
                     "file": "SAMMI Voice.exe"
                 },
                 "SAMMI Panel": {
-                    "version": "1.0.0.0",
-                    "sum": "bb0ba260b33190f5d00991b54f3bb78e",
+                    "version": "1.0.1",
+                    "sum": "5ea66f6b81633465b2f7771c9beb4279",
                     "path": "SAMMI Panel",
                     "file": "SAMMI Panel.exe"
                 },
@@ -96,7 +62,7 @@
                 },
                 "SAMMI Updater": {
                     "version": "1.0.0.0",
-                    "sum": "771107036",
+                    "sum": "43d56d98",
                     "path": "SAMMI Updater",
                     "file": "SAMMI Updater.exe"
                 }

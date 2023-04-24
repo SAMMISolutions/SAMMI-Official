@@ -1,39 +1,4 @@
-SAMMI 2023.1.1 (March 2023):
+SAMMI 2023.2.0 (April 2023):
 
 New Features:
-- New Command: Source Toggle Visibility [Sebas]
-- New Command: Filter Toggle Visibility [Sebas]
-- New Command: Discord: Send Message [Chrizzz]
-- New Command: File: Folder Exists [Chrizzz]
-- 3 new global variables:
-  - api_port (int) - (only when the API server is enabled) [Chrizzz]
-  - api_pw_enabled - (bool) - (only when the API server is enabled) [Chrizzz]
-  - main_directory_slash - (string) - (same as global.main_directory but with forward slashes) [Chrizzz]
-- Updated Translation:
-  - Italian [AlfaTelevision]
-
-Improvements:
-- Moved the Twitch commands above the YouTube commands in the command list / search [Chrizzz]
-- Moved the Twitch: Send Chat Message command to the top of the Twitch commands [Chrizzz]
-- SAMMI now checks for any empty Variable/Array/Object/Buffer name boxes in your commands and does not allow you to save the button if these values are mandatory [Christina]
-- Stringify Object command now stringifies your whole button if you leave the Object Name box empty or set it to 'local' for the current button, or put in the button ID you want to stringify. This allows you to save all the button variables with a single command. [Christina]
-
-UI Changes:
-- SAMMI can now remember its last window position and size between restarts. You can enable the beta feature in the Settings. (It does not remember which monitor you run SAMMI on as that's something Windows needs to do) [Christina (majority) + Silverlink]
-- If you hover over a command name in a command box within the Edit Commands window, it will now show its full name. While hovering, you can also press F1 to automatically open documentation for the selected command. [Christina] 
-
-Bug Fixes:
-- Fixed a bug in Twitch: Modify Channel Information where using special characters like ? in the title would make the command fail [Chrizzz]
-- The following commands no longer save their responses into an empty named variable if the optional Save Variable As box name is not filled out: Send OBS Request, Twitch: API Call, Create Clip, HTTP Request, HTTP Upload File. [Christina]
-- OBSWS5 related bug fixes, such as when source filter is removed or source name is changed in OBS [Christina]
-- Fixed a crash that would sometimes happen when pressing Check for Updates button [Christina]
-- Fixed alert when a Twitch command failed [Sebas]
-- Fixed broken alerts when a value was missing [Sebas]
-- Fixed `s` token in Date/Time commands [Sebas]
-- Fixed a bug that would corrupt deck files [Sebas]
-- Fixed a memory leak that happened in some cases when using OBS Request command [Christina] 
-- Fixed Twitch: API Call command not saving the response in the correct button in some cases [Christina] 
-- Fixed Bridge not correctly mimicking Twitch payload when testing Twitch triggers. It now sends channel and from_channel_id as a string, name_color without #, user_id as a string and first_time as "1" or "0". [Christina]
-
-Known Bugs:
-Having special characters in SAMMI folder path (such as "ö") may cause some features not correctly working
+it's a test

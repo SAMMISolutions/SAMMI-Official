@@ -1,0 +1,39 @@
+{
+  "versions": [
+    {
+      "version": "2023.1.1",
+      "components": {
+        "SAMMI Core": {
+          "version": "2023.1.1.0",
+          "sum": "86feb78a54813fe51149800c16e72bad5d52e501bad747fcf59ef249b1ddb89b",
+          "path": "",
+          "file": "SAMMI Core.exe"
+        },
+        "SAMMI Voice": {
+          "version": "1.0.0.0",
+          "sum": "cff5878b875794d340d693e703351eb5f9fdf73f0d66de222ffc863026f7127e",
+          "path": "SAMMI Voice",
+          "file": "SAMMI Voice.exe"
+        },
+        "SAMMI Bridge": {
+          "version": "7.13",
+          "path": "bridge",
+          "file": "default.txt",
+          "sum": null
+        },
+        "SAMMI Panel": {
+          "version": "0.9.1",
+          "sum": "9bab0844ee26e8eb2fbf4fbb8fd4e29992b469c346cc6ee2fc7e5a04b84e1b63",
+          "path": "SAMMI Panel",
+          "file": "SAMMI Panel.exe"
+        },
+        "SAMMI Updater": {
+          "version": "1.0.0.0",
+          "sum": "625da78c54de4b70b9b58474db8e7424",
+          "path": "SAMMI Updater",
+          "file": "SAMMI Updater.exe"
+        }
+      }
+    }
+  ]
+}

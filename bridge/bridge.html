@@ -1,5 +1,5 @@
 <!--For Extension info, read How to make extensions.txt in Extension folder-->
-<!--Bridge V7.12-->
+<!--Bridge V7.13-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1594,10 +1594,10 @@ async function SAMMITestTriggers() {
     async SAMMITestTwitchChat(form) {
       const [name, userID] = await getNameFromInput(form.chatName);
       const message = form.chatMsg.value || SAMMI.generateMessage();
-      const channel = Math.floor(Math.random() * 1000000000);
-      const color = '#189A8D';
+      const channel = Math.floor(Math.random() * 1000000000).toString();
+      const color = '189A8D';
       const emoteList = '304822798:0-9/304682444:11-19';
-      const firstTime = form.chatFirstTime.checked;
+      const firstTime = form.chatFirstTime.checked ? '1' : '0';
       const badge = [];
       if (form.chatBroadcaster.checked) badge.push('broadcaster/1');
       if (form.chatMod.checked) badge.push('moderator/1');
@@ -1626,13 +1626,14 @@ async function SAMMITestTriggers() {
       const pullData = {
         user_name: name.toLowerCase(),
         display_name: name,
-        user_id: parseInt(userID),
+        user_id: userID,
         message,
         emote_list: emoteList,
         badge_list: badge.join(','),
         channel,
         name_color: color,
         first_time: firstTime,
+        from_channel_id: 123456789,
       };
       SAMMI.trigger(0, {
         message,
@@ -1707,24 +1708,24 @@ async function SAMMITestTriggers() {
 
   function generateName(name = '') {
     const names = [
-      ['Melonax', 41809329],
-      ['RamsReef', 91464575],
-      ['Wellzish', 461898318],
-      ['Andilippi', 47504449],
-      ['Cyanidesugar', 76159058],
-      ['Silverlink', 489730],
-      ['wolbee', 72573038],
-      ['Davidihewlett', 116807809],
-      ['DearAsMax', 478335805],
-      ['Estudiando_Ajedrez', 184806573],
-      ['RoadieGamer', 450427842],
-      ['chrizzz_1508', 88246295],
-      ['MisterK_Qc', 475765680],
-      ['Falinere', 144606537],
-      ['Landie', 78949799],
-      ['Phat32', 24565497],
-      ['mofalkmusic', 443568234],
-      ['NikiYanagi', 528140333],
+      ['Melonax', '41809329'],
+      ['RamsReef', '91464575'],
+      ['Wellzish', '461898318'],
+      ['Andilippi', '47504449'],
+      ['Cyanidesugar', '76159058'],
+      ['Silverlink', '489730'],
+      ['wolbee', '72573038'],
+      ['Davidihewlett', '116807809'],
+      ['DearAsMax', '478335805'],
+      ['Estudiando_Ajedrez', '184806573'],
+      ['RoadieGamer', '450427842'],
+      ['chrizzz_1508', '88246295'],
+      ['MisterK_Qc', '475765680'],
+      ['Falinere', '144606537'],
+      ['Landie', '78949799'],
+      ['Phat32', '24565497'],
+      ['mofalkmusic', '443568234'],
+      ['NikiYanagi', '528140333'],
     ];
     const randomName = names[Math.floor(Math.random() * names.length)];
     if (name !== randomName) return randomName;

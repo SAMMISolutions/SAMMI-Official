@@ -5,31 +5,31 @@
       "components": {
         "SAMMI Core": {
           "version": "2023.1.1.0",
-          "sum": "11e01ba6ed95e03f89e7d2f6f1794c645a85c89253e426d4708520de1e7a77f2",
+          "sum": "86feb78a54813fe51149800c16e72bad5d52e501bad747fcf59ef249b1ddb89b",
           "path": "",
           "file": "SAMMI Core.exe"
         },
         "SAMMI Voice": {
           "version": "1.0.0.0",
-          "sum": "eef62e049cbf3778a92d7b6fded23eed8a11b4a2566e12b8e309f66c326a5735",
+          "sum": "cff5878b875794d340d693e703351eb5f9fdf73f0d66de222ffc863026f7127e",
           "path": "SAMMI Voice",
           "file": "SAMMI Voice.exe"
         },
         "SAMMI Bridge": {
-          "version": "7.11",
+          "version": "7.13",
           "path": "bridge",
           "file": "default.txt",
           "sum": null
         },
         "SAMMI Panel": {
-          "version": "1.0.0",
-          "sum": "96490970e66d829d233dcfc95e65523e85dc755df5560aad49022d0dd8164523",
+          "version": "0.9.1",
+          "sum": "9bab0844ee26e8eb2fbf4fbb8fd4e29992b469c346cc6ee2fc7e5a04b84e1b63",
           "path": "SAMMI Panel",
           "file": "SAMMI Panel.exe"
         },
         "SAMMI Updater": {
           "version": "1.0.0.0",
-          "sum": "52951ce7",
+          "sum": "093a5b3171e828b5e807a9f6b3ac6ad8",
           "path": "SAMMI Updater",
           "file": "SAMMI Updater.exe"
         }
@@ -40,31 +40,31 @@
       "components": {
         "SAMMI Core": {
           "version": "2023.2.0.0",
-          "sum": "ed274e369d8784b29092df226b3f1aec1ca6db4d8f0b07b3d9ae295025f92fd1",
+          "sum": "237a5ce49d7a16401d46620368fa509dd2f2bace3ff7f411b06a9097e84d3d0e",
           "path": "",
           "file": "SAMMI Core.exe"
         },
         "SAMMI Voice": {
-          "version": "1.1.0.0",
-          "sum": "5a591d0bc9ed65cd9aadd8e1119dc28ebaaf668b98c095a111a67fe401d26b29",
+          "version": "1.0.0.0",
+          "sum": "cff5878b875794d340d693e703351eb5f9fdf73f0d66de222ffc863026f7127e",
           "path": "SAMMI Voice",
           "file": "SAMMI Voice.exe"
         },
         "SAMMI Bridge": {
-          "version": "7.11",
+          "version": "7.14",
           "path": "bridge",
           "file": "default.txt",
           "sum": null
         },
         "SAMMI Panel": {
-          "version": "1.0.1",
-          "sum": "80954f8deeb380c145cce579607c7e95d05cf4a271c96ef3d636514f493392c0",
+          "version": "0.9.1",
+          "sum": "9bab0844ee26e8eb2fbf4fbb8fd4e29992b469c346cc6ee2fc7e5a04b84e1b63",
           "path": "SAMMI Panel",
           "file": "SAMMI Panel.exe"
         },
         "SAMMI Updater": {
           "version": "1.0.0.0",
-          "sum": "52951ce7",
+          "sum": "093a5b3171e828b5e807a9f6b3ac6ad8",
           "path": "SAMMI Updater",
           "file": "SAMMI Updater.exe"
         }

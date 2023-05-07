@@ -1,5 +1,5 @@
 <!--For Extension info, read How to make extensions.txt in Extension folder-->
-<!--Bridge V7.13-->
+<!--Bridge V7.14-->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -586,11 +586,13 @@ function SAMMICommands() {
      * @param {(string|number|object|array|null)} value - new value of the variable
      * @param {string} buttonId - button ID for local variable, default = global variable
      */
-    async setVariable(name = '', value = '', buttonId = 'global') {
+    async setVariable(name = '', value = '', buttonId = 'global', instanceId = 0) {
+      instanceId = !isNaN(instanceId) ? parseInt(instanceId) : 0;
       return sendToSAMMI('SetVariable', {
         Variable: name,
         Value: value,
         ButtonId: buttonId,
+        instanceId,
       });
     },
 
@@ -1227,7 +1229,7 @@ async function SAMMITestTriggers() {
         user_name: gifterName[0].toLowerCase(),
         display_name: gifterName[0],
         user_id: gifterName[1],
-        amount,
+        amount: `${amount}`,
         tier: selectedTier,
       };
       sendTriggerToSAMMI(
@@ -1252,7 +1254,7 @@ async function SAMMITestTriggers() {
       const totalAmount = parseInt(form.bitstotal.value) || amount + 100;
       const message = form.bitsmessage.value || SAMMI.generateMessage();
       pullData.addvalues({
-        amount,
+        amount: `${amount}`,
         total_amount: totalAmount,
         message,
       });

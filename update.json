@@ -74,8 +74,8 @@
       "version": "2023.2.1",
       "components": {
         "SAMMI Core": {
-          "version": "2023.2.1.0",
-          "sum": "74a01528cc4c86735054526fc1c7c66c9e3f4e16d318cf1d841326b61e689998",
+          "version": "2023.2.1.1",
+          "sum": "128cee7b7918ebe3b53e024dd936327c7de1cb4478c7e5c35d7e34ed9b0036e4",
           "path": "",
           "file": "SAMMI Core.exe"
         },

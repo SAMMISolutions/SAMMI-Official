@@ -143,12 +143,6 @@
     {
       "version": "2023.2.2",
       "components": {
-        "SAMMI Core": {
-          "version": "2023.2.2.0",
-          "sum": "d9542d065f40f72f5098829519fa6da0e5fdbdb0dd644962b8d7ea5c2ff4bfa8",
-          "path": "",
-          "file": "SAMMI Core.exe"
-        },
         "SAMMI Voice": {
           "version": "1.0.1.0",
           "sum": "c18321fbddb498618455945b6407d0ec736b65a3c6fee444eebdbbfd4c2b68de",

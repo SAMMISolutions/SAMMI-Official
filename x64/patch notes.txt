@@ -13,6 +13,7 @@ New Features:
 - Added two new official SAMMI extensions and their triggers: 
   - Crowd Control [Chrizzz]
   - Voicemod [Chrizzz]
+- Added Mix It Up integration with two new commands: "Mix It Up: Get All Commands" and "Mix It Up: Run Command" [Christina]
 - Added new Command: "String Capitalize" - Makes the first letter of a string uppercase [Chrizzz]
 - Added new Command: "Twitch: Get Blocked Terms" - Gets an array of blocked terms from a twitch channel [Chrizzz]
 - Added new Command: "Twitch: Add Blocked Term" - Adds a new blocked term [Chrizzz]

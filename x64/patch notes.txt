@@ -1,77 +1,90 @@
 ====================================
-     SAMMI 2023.2.1 (May 2023)
+     SAMMI 2023.2.2 (June 2023)
 ====================================
 
 [SAMMI Core]
 -------------------------------------
+New Features:
+- Introduced comment templates [Christina]
+  - Allows for the generation of a custom comment template, settings its own name name and color
+  - These custom comment templates can be seen by other users when they import your buttons/decks into their SAMMI, even without the template themselves (provided they're using the latest SAMMI version)
+- Added a new global variable - global.Extensions. This contains all extensions and their versions installed in Bridge (when Bridge is connected to SAMMI) [Christina]
+- Extension Development: Support for dynamic extension command dropdowns has been added [Christina]
+- Added two new official SAMMI extensions and their triggers: 
+  - Crowd Control [Chrizzz]
+  - Voicemod [Chrizzz]
+- Added Mix It Up integration with two new commands: "Mix It Up: Get All Commands" and "Mix It Up: Run Command" [Christina]
+- Added new Command: "String Capitalize" - Makes the first letter of a string uppercase [Chrizzz]
+- Added new Command: "Twitch: Get Blocked Terms" - Gets an array of blocked terms from a twitch channel [Chrizzz]
+- Added new Command: "Twitch: Add Blocked Term" - Adds a new blocked term [Chrizzz]
+- Added new Command: "Twitch: Remove Blocked Term" - Removes a blocked term [Chrizzz]
+- Added new Command: "Send JSON To Extension" - Allows you to send payload to Bridge without needing to use an Extension Command [Christina]
+- Added New Command: "String Substitute Variables" - Replaces variables in a template string with the supplied placeholder names in an object [Christina]
+- New translation - Russian [Solo_mag]
+
+
 Improvements:
+- Deprecated the old "Twitch: Get Channel Info" command (existing commands will still work) and added a new version of it which accepts the username instead of the userid [Chrizzz]
+- Added a new scope for managing blocked terms (please relink your Twitch account to use the new blocked term commands) [Chrizzz]
+- Added a check for duplicated Button IDs [Sebas]
+- Set Button Variable command now allows you to set the variable to an object or an array natively, without the need to stringify and parse it again [Christina]
+- When importing a button/deck, the original button ID is now preserved unless there's an existing one already [Christina]
+- When importing a button/deck, you now get an alert if SAMMI detects a command from a higher version of SAMMI [Christina]
+- Execute Program command newly accepts parameters and you can choose the display mode (e.g. show, hide, minimize, maximize) [Christina]
 - Updated translations:
-  - French [MisterK]
-  - English (UK) [wolbee]
-  - Spanish [Sebas]
-  - German [Chrizzz]
-- SAMMI now detects when it is running on Wine and displays a warning that non-Windows platforms are not supported [Christina]
-- The Local API server is now enabled by default in all new SAMMI versions to prevent confusion when using SAMMI Voice with the option previously disabled by default [Christina]
+     - English [Sebas]
+     - Spanish [Sebas]
+
+UI Changes:
+- Added Integrations menu that lets you download all official SAMMI extensions [Christina]
+
+Removed Features:
+- The backup menu button is no longer available [Christina]
+  - To create a backup of SAMMI, you can simply compress and copy the entire SAMMI folder
 
 Bug Fixes:
-- Variables inside [] brackets are now correctly treated as variables, not text [Chrizzz & Sebas]
-- Saving a variable with "undefined" is now allowed in some commands [Sebas]
-- Resolved a crash on SAMMI launch for Wine users [Christina]
-- The LAN IP is now correctly copied to the clipboard when using "Get LAN IP" on non-English Windows [Christina]
-- Resolved various OBS WebSocket crashes and error messages related to input volume or filter enabled status [Christina]
-- Resolved a bug that concatenated the previous command line result with the latest result (e.g., 'echo Hello' followed by 'echo World' occasionally resulted in 'HelloWorld') [Christina]
-- The Twitch Low Trust trigger now returns the correct trigger number [Christina]
-- Resolved other uncommon crashes, such as those occurring when navigating menus or using the "Get User Info" command [Christina]
-- Fixed GUI issues in the Variable and YouTube window [Silverlink]
+- Resolved an issue where commands were not processed in the right order when a very small delay was set, e.g. 5 ms [Christina] 
+- Fixed a bug with false detection of mouse double clicks within deck editor [Christina]
+- Fixed a crash that would sometimes happen due to excessive Command Line command usage [Christina]
+- Fixed several crashes associated with OBSWS, Twitch and general websocket connections [Christina]
+- A check has been introduced to verify if an image is correctly copied into the Image folder when setting it as button image [Christina]
+- Command 'String to Number' now supports numbers exceeding 32 bytes without causing a crash [Christina]
+- Disabled interaction with commands outside the commands surface [Sebas]
+- Date/Time commands: `twitch` is in UTC now [Sebas]
+- HTTP Upload File command no longer crashes if the file does not exist [Christina]
+- When importing corrupted decks/buttons, SAMMI automatically removes the corrupted portion now [Christina]
+- SAMMI no longer crashes when you run a button containing a command from a higher version of SAMMI [Christina]
+- Fixed a bug that would crash SAMMI when an empty menu was loaded + improved performance of menus [Sebas]
+- Fixed bugs that would break certain translations [Sebas]
+- Fixed an issue with the Twitch: Modify Channel Information and the Twitch: Get Game Info command when using special characters in the game name [Chrizzz]
+- Extension files are now properly removed from the `bridge/extensions/installed` folder and moved to `bridge/extensions/uninstalled` folder when an extension is uninstalled [Christina]
+- Deck: Get Status command now returns 0 if the deck does not exist in the first place [Christina]
 
-Known Bugs:
-- Special characters in SAMMI folder path (like “ö”) might cause some features to malfunction
-
-[SAMMI Voice]
+[SAMMI Bridge]
 -------------------------------------
-New Features:
-- Added a new SAMMI Core command, "Voice: Toggle Status," to toggle the status of SAMMI Voice [Chrizzz]
-- Added the "Confidence Level" setting, allowing users to set a minimum accuracy threshold for voice recognition [Chrizzz]
-- Added the "Create Recognition Logfile" setting to display all recognized sentences with their confidence levels [Chrizzz]
-- Added the "Auto import Voice Triggers" setting for automatically importing voice triggers from SAMMI Core [Chrizzz]
+New Features: [Christina]
+- 'Extensions' tab has been introduced
+  - This tab displays all installed extensions in a table format with their versions, including an option to download or update directly linked to the source of the download.
+  - Extension developers can include their entries here: https://github.com/SAMMISolutions/SAMMI-Bridge/tree/main/extensions
+- Shoutout Twitch test trigger has been added
+- Added username fields for Twitch follower, subscriber, bits, and channel points. The user id is fetched if a name is provided, otherwise, a name is selected randomly.
 
-Improvements:
-- Added an error log file for improved debugging capabilities [Chrizzz]
-- Added support for Japanese characters [Chrizzz]
-- Implemented automatic filtering of duplicate entries [Chrizzz]
-- Improved trigger organization by implementing alphabetical auto-sorting on startup  [Chrizzz]
-- Updated the settings INI file format to ensure compatibility with SAMMI Core [Chrizzz]
+Improvements: [Christina]
+- The 'Status' tab has been rebranded to 'Settings' tab, and can no longer be moved or hidden
+- The current Bridge version is now visible in the Settings tab
+- All test trigger alerts from Bridge now carry the [test trigger] tag.
+- The Bridge code has undergone complete refactoring
+  - The code is now minified and runs in strict mode (not mandated in extension code). An unminified bridge for extension development can be downloaded from SAMMI Bridge repository
 
-Bug Fixes:
-- Fixed an issue where an error would occur if the trigger lines contained only a space character [Chrizzz]
+UI Changes: [Christina]
+- Official tabs such as Settings, Extensions, Twitch, and YouTube Triggers now have a specific icon
+- Official SAMMI Extensions bear a check mark icon, indicating their development by the SAMMI team
+- A tab can be hidden now by dragging it up and dropping on an 'X' mark
+- Various visual elements have been refined for an enhanced user experience, including larger input fields in Twitch/YouTube triggers
 
-[SAMMI Panel]
--------------------------------------
-New Features:
-- Introduced Auto-Connection [Roadie]
-- Added new triggers "SAMMI Panel Connected" and "SAMMI Panel Disconnected" [Christina]
-- Added a new global variable "panel_connected" to check if SAMMI Core is connected to SAMMI Panel [Christina]
+Removed Features: [Christina]
+- Twitch Test Host Trigger has been removed
 
-Improvements:
-- Improved text fit for buttons [Roadie]
-- Improved button placement and spacing to take up full window [Roadie & Sebas]
+Bug Fixes: [Christina]
+- Twitch test subscriber trigger now correctly returns 'sub' context for 1 month subscribers and 'resub' context for 2 months+ subscribers
 
-Bug Fixes:
-- "Release Press" now triggers when the button is dragged away, not just on finger release [Roadie]
-- "Disconnect Button" now properly closes the connection with SAMMI [Roadie & Christina]
-- Text now breaks only on line breaks saved within SAMMI, preventing inappropriate line breaks [Roadie]
-- The alert now displays 'SAMMI Panel Connected/Disconnected' when SAMMI Panel is connected or disconnected [Christina]
-
-[SAMMI Updater]
--------------------------------------
-New Features:
-- When extension reinstallation
-fails during the SAMMI Bridge update, a popup message displays the failed extensions (not included in the updated bridge file), and a backup bridge file is created in the bridge/backup folder to prevent data loss [Christina]
-- Added a button to SAMMI Core Settings to manually open SAMMI Updater, allowing users to check for new versions of SAMMI components (SAMMI only checks for new SAMMI Core versions) [Christina]
-
-Improvements:
-- To accommodate users who have not migrated from the Transmitter folder, SAMMI Updater checks both the bridge and transmitter folders for extension files when SAMMI Bridge is being updated. If extensions are missing from the bridge folder but present in the transmitter folder, they are copied to the bridge folder [Christina]
-
-Bug Fixes:
-- Extension files using LF (line feed) are now correctly reinstalled [Christina]
-- The updater no longer silently ignores extensions that fail to reinstall [Christina]

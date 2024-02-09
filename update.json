@@ -196,12 +196,6 @@
           "file": "default.txt",
           "sum": null
         },
-        "SAMMI Panel": {
-          "version": "0.9.2",
-          "sum": "571f6ca0fc52a2246e934a615d23973b03a0b902ba0c38030c21252553d5bf46",
-          "path": "SAMMI Panel",
-          "file": "SAMMI Panel.exe"
-        },
         "SAMMI Updater": {
           "version": "1.0.1.0",
           "sum": "0c179074c9a039cb91608c89f274ec52",
@@ -230,12 +224,6 @@
           "path": "bridge",
           "file": "default.txt",
           "sum": null
-        },
-        "SAMMI Panel": {
-          "version": "0.9.2",
-          "sum": "8034f244eac5689999d0f9ff7b237d390c36772ef3fe327afb04eab7537a15cf",
-          "path": "SAMMI Panel",
-          "file": "SAMMI Panel.exe"
         },
         "SAMMI Updater": {
           "version": "1.0.1.0",

@@ -238,7 +238,9 @@
       "components": {
         "SAMMI Core": {
           "version": "2024.1.0.0",
-          "sum": "96c1a559690828f27f3ae43ce40a8ae789c6a2297527894ebc5ec7b6c32938e4"
+          "sum": "96c1a559690828f27f3ae43ce40a8ae789c6a2297527894ebc5ec7b6c32938e4",
+          "path": "",
+          "file": "SAMMI Core.exe"
         },
         "SAMMI Voice": {
           "version": "1.0.1.0",

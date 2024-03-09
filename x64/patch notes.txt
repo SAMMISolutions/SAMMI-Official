@@ -11,6 +11,7 @@ New Features:
 - New command: "Twitch: Unblock User (beta)" - Unblocks a user [Chrizzz]
 - New command: "Twitch: Send API Chat Message (beta)" - Sends a chat message via the new API endpoint (also let's you select from which account you want to send the message) [Chrizzz]
 - New Deck App commands usable outside Developer mode: Wait for Input, Wait for Choice,  Wait for Multichoice, Send JSON. Available in Deck Hopper. [Christina]
+- New Language Added: Portuguese [JzTurrini]
 - Added Previous and Next deck options to Deck App: Switch Deck command (previously Panel: Switch Deck command) [Christina]
 - Button color can now be set to transparent (available in Deck Hopper) [Christina]
 - You can disable alerts for pending HTTP requests at the deck view's bottom right by adding to settings.ini: httpPendingAlert="false" [Landie]
@@ -98,6 +99,9 @@ New Features:
 
 Improvements:
 - Adjusted all existing Twitch test triggers to their new Eventsub ones [Christina]
+
+Bug Fixes:
+- Fixed SAMMI.httpRequest command sometimes not working when empty body was sent [Christina]
 
 [SAMMI Panel]
 -------------------------------------

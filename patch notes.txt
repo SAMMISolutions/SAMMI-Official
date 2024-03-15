@@ -1,108 +1,20 @@
 ====================================
-     SAMMI 2024.1.0 (March 2024)
+     SAMMI 2024.1.1 (March 2024)
 ====================================
 
 [SAMMI Core]
 -------------------------------------
-New Features:
-- New command: "Twitch: Get Ad Schedule" - Retrieves your current Ad Schedule [Chrizzz]
-- New command: "Twitch: Snooze Next Ad" - Delays the next automatic mid-roll ad by 5 minutes if available [Chrizzz]
-- New command: "Twitch: Block User (beta)" - Blocks a user completely from viewing your channel and removes their follow [Chrizzz]
-- New command: "Twitch: Unblock User (beta)" - Unblocks a user [Chrizzz]
-- New command: "Twitch: Send API Chat Message (beta)" - Sends a chat message via the new API endpoint (also let's you select from which account you want to send the message) [Chrizzz]
-- New Deck App commands usable outside Developer mode: Wait for Input, Wait for Choice,  Wait for Multichoice, Send JSON. Available in Deck Hopper. [Christina]
-- New Language Added: Portuguese [JzTurrini]
-- Added Previous and Next deck options to Deck App: Switch Deck command (previously Panel: Switch Deck command) [Christina]
-- Button color can now be set to transparent (available in Deck Hopper) [Christina]
-- You can disable alerts for pending HTTP requests at the deck view's bottom right by adding to settings.ini: httpPendingAlert="false" [Landie]
-- Default value for "Wait for Timeout" command can now be changed in settings.ini: waitTimeout="2000" (2000 is the default time, needs SAMMI restart) [Chrizzz]
-- New user information on Analytics and Data Collection with an opt-out option in Settings [Christina]
-
-Improvements:
-- SAMMI Panel removed; Deck Hopper now recommended and included in all new SAMMI downloads. Web SAMMI Panel still accessible, but not maintained [Christina]
-- Renamed Panel commands to Deck App commands, now in a separate section in commands dropdown [Christina]
-- Renamed SAMMI Panel Connected/Disconnected triggers to Deck App Connected/Disconnected (existing triggers don't need changes) [Christina]
-- Replaced Pubsub with Eventsub for Twitch events [Christina]
-  - The following triggers have been added:
-    - IMPORTANT: Please revoke and relink all your Twitch accounts in Twitch Connections to add all the new event scopes
-    - Twitch Announcement
-    - Twitch Charity - Campaign start, progress, stop, donate
-    - Twitch Guest Star - Session start, guest update, session end, settings update
-    - Twitch Shoutout Receive
-    - Twitch Stream - Stream started, Stream ended
-    - Twitch Moderation - moderator add, moderator remove
-  - The following triggers are not currently available:
-    - Twitch Moderation - timeout, untimeout, emote only, emote only off, followers only, followers only off, subscribers only, subscribers only off, slow mode, slow mode off, low trust users
-  - The following triggers have changed: 
-    - Twitch Subscriber - new pull values: name_color, badge_list, system_message, emote_list
-    - Twitch Community Sub - new pull values: id, cumulative_total
-    - Twitch Hype Train - the only available events are Started, Progressed, Ended. New pull values: last_contribution, top_bits_contribution, top_subscription_contribution, top_other_contribution
-    - Twitch Whispers - only available when coming from your default chat account that's marked as 'Join chat under this name' in Twitch Connections, listening to sent whispers is no longer available
-    - Twitch Channel Points - removed pull values: image, new pull values: reward_description, redeemed_at, status
-    - Twitch Bits - removed pull values: total_amount, new pull values: display_name
-    - Twitch Poll - removed pull values: vote_total_bits, new pull values: channel_points_voting
-    - Twitch Prediction - removed pull values: vote_total_points, outcome_amount
-    - Twitch Shoutout - renamed to Twitch Shoutout Create, removed pull values: picture_url, recent_categories, name_color, new pull values: moderator_user_id, moderator_user_name, moderator_display_name, 
-    viewer_count, started_at, cooldown_ends_at, target_cooldown_ends_at
-  - You now need to select which Twitch account you wish to receive Twitch events from in Twitch Connections Window
-  - You no longer need to check what events to listen to in Twitch Connections, you're automatically subscribed to all available events
-- Reworked all trigger pull values to reflect the changes above [Chrizzz]
-- Renamed some trigger names to match the trigger pull values and reflect the actual functions better [Chrizzz] 
-- Added 'client_name trigger' pull value to button triggers from deck apps for client identification [Christina]
-- Added 'custom_reward_id' trigger pull value to Twitch Chat Message which allows you to see if it's a regular chat messag or channel points redeem one [Christina]
-- If Trigger Pull is used for FromButton and it's undefined, it now also checks button_id which is used for SAMMI internal extension triggers [Chrizzz]
-- Default setting: no yellow alerts for received Twitch events in SAMMI to reduce spam. Enable in settings.ini with twitch_event_alerts="1" [Christina]
-- When Twitch Connections window is closed, the connections refresh only if changes were made [Christina]
-- Twitch connections now auto-connects by default [Landie]
-- Added a warning if the port used for linking Twitch accounts is already in use due to another SAMMI instance running [Christina]
-- Changed the way the main Twitch account is detected for Twitch commands (now defaults to the listen to events account) [Chrizzz]
-- Reworked Twitch scopes and added all currently available scopes [Chrizzz] 
-- Twitch Chat connection upgraded to secure websocket, fixing connection issues [Christina]
-- Localized text for various alerts [Christina]
-- Init variables (up to 5000 characters) and global variables now support true/false boolean values [Christina]
-- Added 'Respect Boolean' option in Parse Array/Object command for more accurate JSON parsing (warning: parsing long strings with the option enabled is significantly slower) [Christina]
-- Global variable updates: streamdeck_port -> bridge_port, panel_port -> deck_app_port, panel_connected -> deck_app_connections (array of all connected deck apps) [Christina]
-- Updated settings.ini keys: streamdeck_port -> bridge_port, panel_port -> deck_app_port [Christina]
-- LAN IP now shown in yellow alert when copied via SAMMI-Bridge-Copy LAN IP [Christina]
-
-UI Changes:
-- Reworked Twitch Connections window, showing follower and subscriber counts [Digi_Bunny & Christina]
-- Added "Former Team Members" section in SAMMI Core about Page [Chrizzz]
-- Reworked About Page [Digi_Bunny]
-- Renamed Side menu and Settings menu in SAMMI Panel to Deck App [Christina]
-- Changed helper popup message background in Settings for better visual appeal [Christina]
-
-Removed Features:
-- Removed global variable: Architecture [Christina]
-- Discontinued Pubsub connection, its global variable, and indicator light [Christina]
-- Removed Twitch: Open Whisper command (ineffective, no changes required) [Christina]
-- Removed obsolete Switch Deck button function and deck navigation menu in the button settings. Please use "Deck App: Switch Deck" command instead [Chrizzz]
-
 Bug Fixes:
-- Various OBS issues resolved [Christina]
-- Various minor memory leaks resolved [Christina]
-- Fixed crash on closing Twitch Connections window [Christina]
-- Experimental fix for SAMMI hogging Bridge, Deck App, and Local API ports on close/crash (please report any issues) [Christina]
-- Correct deck app connection name now displayed in alerts [Christina]
-- Fixed a bug causing SAMMI to try connecting to Twitch Chat without linked accounts, preventing 'No Twitch chat default account found' alert [Christina]
-- Resolved issue with button_id and instance_id being undefined in Trigger Button command when using delay [Chrizzz]
-- Fixed Follower alert bug where alerts didn't trigger if the same viewer followed two different linked Twitch accounts in one session [Christina]
-- Fix memory leak introduced in some SAMMI functions [Christina]
-- Array values inside Variable Viewer accurately display boolean values [Christina]
-- 'Copy Variable Value' button in Variable Viewer now correctly copies arrays [Christina]
-- Modify Button command now correctly handles group modifications [Christina]
-
-[SAMMI Bridge]
--------------------------------------
-New Features:
-- Added the following Twitch test triggers: Whisper (checkbox under Chat), Shoutout Received, Ad Break, Stream Started/Ended, Charity [Christina]
-
-Improvements:
-- Adjusted all existing Twitch test triggers to their new Eventsub ones [Christina]
-
-Bug Fixes:
-- Fixed SAMMI.httpRequest command sometimes not working when empty body was sent [Christina]
-
-[SAMMI Panel]
--------------------------------------
-- SAMMI Panel.exe has been removed from all new installs as it's no longer maintained. SAMMI Panel for Web remains available.
+- Resolved Twitch linking issues (Twitch bug) causing 502 errors by removing unnecessary scopes. [Christina]
+- Addressed SAMMI crashes when launched with invalid JSON variables. A popup now alerts you to correct the issue. [Christina]
+- Fixed Eventsub failing to reconnect in certain scenarios. [Christina]
+- Made links in the About Page clickable and fixed user profile images turning black on hover. [Christina]
+- Implemented several Eventsub event parsing improvements. [Christina]
+- Resolved occasional crashes when saving decks or buttons. [Christina]
+- Fixed a rare crash when minimizing and then maximizing SAMMI. [Christina]
+- Addressed crashes happening when attempting to connect to Twitch Chat without a linked Twitch account. [Christina]
+- Addressed a potential crash when an active button's action queue was empty. [Christina]
+- Fixed the issue where a Deck App Client Name was not displayed following authentication failure. [Christina]
+- Resolved crashes related to joining a Twitch Chat channel before establishing a connection. [Christina]
+- Fixed crashes occurring when using the Get Latest Poll/Prediction ID command with an undefined array or attempting to access a non-existent prediction outcome. [Christina]
+- Other optimizations and minor bug fixes. [Christina]

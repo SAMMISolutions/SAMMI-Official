@@ -4,7 +4,17 @@
 
 [SAMMI Core]
 -------------------------------------
-Bug Fixes:
+2024.1.1.2 Bug Fixes: 
+- Resolved OBS Pull Source Value not returning information [Christina]
+- Variable Transition command no longer crashes SAMMI if supplied with undefined or string values [Christina]
+- Other various small bug fixes [Christina]
+
+2024.1.1.1 Bug Fixes: 
+- Fixed 502 Bad Gateway error when attempting to link a Twitch Account [Christina]
+- Fixed src_setbutton_list crash on SAMMI Startup when init variables contained invalid JSON [Christina]
+- Improved Eventsub stability and fixed reconnection issues [Christina]
+
+2024.1.1 Bug Fixes:
 - Resolved Twitch linking issues (Twitch bug) causing 502 errors by removing unnecessary scopes. [Christina]
 - Addressed SAMMI crashes when launched with invalid JSON variables. A popup now alerts you to correct the issue. [Christina]
 - Fixed Eventsub failing to reconnect in certain scenarios. [Christina]
@@ -18,3 +28,5 @@ Bug Fixes:
 - Resolved crashes related to joining a Twitch Chat channel before establishing a connection. [Christina]
 - Fixed crashes occurring when using the Get Latest Poll/Prediction ID command with an undefined array or attempting to access a non-existent prediction outcome. [Christina]
 - Other optimizations and minor bug fixes. [Christina]
+
+

@@ -1,32 +1,55 @@
 ====================================
-     SAMMI 2024.1.1 (March 2024)
+     SAMMI 2024.2.0 (April 2024)
 ====================================
 
 [SAMMI Core]
 -------------------------------------
-2024.1.1.2 Bug Fixes: 
-- Resolved OBS Pull Source Value not returning information [Christina]
-- Variable Transition command no longer crashes SAMMI if supplied with undefined or string values [Christina]
-- Other various small bug fixes [Christina]
 
-2024.1.1.1 Bug Fixes: 
-- Fixed 502 Bad Gateway error when attempting to link a Twitch Account [Christina]
-- Fixed src_setbutton_list crash on SAMMI Startup when init variables contained invalid JSON [Christina]
-- Improved Eventsub stability and fixed reconnection issues [Christina]
+New Features:
 
-2024.1.1 Bug Fixes:
-- Resolved Twitch linking issues (Twitch bug) causing 502 errors by removing unnecessary scopes. [Christina]
-- Addressed SAMMI crashes when launched with invalid JSON variables. A popup now alerts you to correct the issue. [Christina]
-- Fixed Eventsub failing to reconnect in certain scenarios. [Christina]
-- Made links in the About Page clickable and fixed user profile images turning black on hover. [Christina]
-- Implemented several Eventsub event parsing improvements. [Christina]
-- Resolved occasional crashes when saving decks or buttons. [Christina]
-- Fixed a rare crash when minimizing and then maximizing SAMMI. [Christina]
-- Addressed crashes happening when attempting to connect to Twitch Chat without a linked Twitch account. [Christina]
-- Addressed a potential crash when an active button's action queue was empty. [Christina]
-- Fixed the issue where a Deck App Client Name was not displayed following authentication failure. [Christina]
-- Resolved crashes related to joining a Twitch Chat channel before establishing a connection. [Christina]
-- Fixed crashes occurring when using the Get Latest Poll/Prediction ID command with an undefined array or attempting to access a non-existent prediction outcome. [Christina]
-- Other optimizations and minor bug fixes. [Christina]
+- New command: "Set Hidden Variable" - Sets a variable value with hidding the actual value in the command (text gets replaced with "*" character), the value will still be visible in the variable viewer [Chrizzz]
+- New command: "Set Filepath Variable" - Sets a variable value by selecting a local file (while automatically replacing "\" with "/") [Chrizzz]
+- New option "Prevent Full Crash" - By enabling this option in the settings menu, SAMMI will not crash on errors so that you can check the current variable values in the variable viewer, but it still provides an error message and stops the button. Please note that this should only be enabled for debugging purposes. [Chrizzz + Christinna]
+- New function in the variable viewer to only display buttons which contain variables [Digi]
+- Added a lot of new moderation triggers to EventSub [Chrizzz]:
+  - Emote-Only Mode On
+  - Emote-Only Mode Off
+  - Followers-Only Mode On
+  - Followers-Only Mode Off
+  - Slow Mode On
+  - Slow Mode Off
+  - Subscribers-Only On
+  - Subscribers-Only Off
+  - Ban User
+  - Unban User
+  - Timeout User
+  - Untimeout User
+  - Unique-Chat Mode On
+  - Unique-Chat Mode Off
+  - Blocked Term Added
+  - Blocked Term Removed
+  - VIP Added
+  - VIP Removed
 
+Improvements:
 
+- Renamed the "File: Append Text" command to "File: Write Text" and added the option to either append text (turned on by default) or write text into an empty file [Chrizzz]
+- Moved some beta commands out of beta [Chrizzz]
+- Updated the "About" page [Chrizzz]
+- Added timestamp templates to the Date / Time commands [Chrizzz]
+- Template drop down for "Source Change Settings" [Chrizzz & Landie]
+- Modified the deck app menu to better reflect official and third party applications [Chrizzz]
+- Renamed a few moderation triggers for clearer understanding [Chrizzz]:
+  - Ban => Ban / Timeout
+  - Unban => Unban / Untimeout
+  - Outgoing Raid Completed => Raid Completed
+- UI Rework for some triggers (Bits, Raids, YouTube Triggers) [Digi]
+- Settings menu rework [Digi]
+
+Bug Fixes:
+
+- Fixed various payloads and trigger pull commands for Adbreak, Announcements, Channel Point Redemptions, Hype Train, Polls, Predictions and Whispers [Chrizzz]
+- Fixed a bug with trigger button when having "Enable Queue" enabled [Chrizzz]
+- Fixed Deck App Triggers not working [Chrizzz]
+- Fixed Gift Sub Triggers not working correctly [Chrizzz]
+- Fixed UI for Community Subs [Digi]

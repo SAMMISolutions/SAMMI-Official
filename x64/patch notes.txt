@@ -11,6 +11,7 @@ New Features:
 - New command: "Set Filepath Variable" - Sets a variable value by selecting a local file (while automatically replacing "\" with "/") [Chrizzz]
 - New option "Prevent Full Crash" - By enabling this option in the settings menu, SAMMI will not crash on errors so that you can check the current variable values in the variable viewer, but it still provides an error message and stops the button. Please note that this should only be enabled for debugging purposes. [Chrizzz + Christinna]
 - New function in the variable viewer to only display buttons which contain variables [Digi]
+- Added a new global array for "youtube_accounts" [Chrizzz]
 - Added a lot of new moderation triggers to EventSub [Chrizzz]:
   - Emote-Only Mode On
   - Emote-Only Mode Off

@@ -318,6 +318,122 @@
           "file": "SAMMI Updater.exe"
         }
       }
+    },
+    {
+      "version": "2024.2.0",
+      "components": {
+        "SAMMI Core": {
+          "version": "2024.2.0.0",
+          "sum": "905370974aace7d3e9b2fc7073d3dc136c96de85bd5137dc6d0682d6acca52a3",
+          "path": "",
+          "file": "SAMMI Core.exe"
+        },
+        "SAMMI Voice": {
+          "version": "1.0.1.0",
+          "sum": "c18321fbddb498618455945b6407d0ec736b65a3c6fee444eebdbbfd4c2b68de",
+          "path": "SAMMI Voice",
+          "file": "SAMMI Voice.exe"
+        },
+        "SAMMI Bridge": {
+          "version": "7.30",
+          "path": "bridge",
+          "file": "default.txt",
+          "sum": null
+        },
+        "SAMMI Updater": {
+          "version": "1.0.1.0",
+          "sum": "0c179074c9a039cb91608c89f274ec52",
+          "path": "SAMMI Updater",
+          "file": "SAMMI Updater.exe"
+        }
+      }
+    },
+    {
+      "version": "2024.2.0",
+      "components": {
+        "SAMMI Core": {
+          "version": "2024.2.0.0",
+          "sum": "caf386d2cef7a96cfb0ca28d3421e73c8ec4cfbdafce54c392905da15418a1c7",
+          "path": "",
+          "file": "SAMMI Core.exe"
+        },
+        "SAMMI Voice": {
+          "version": "1.0.1.0",
+          "sum": "30d9ac69f3daa5cdd96246790965c5162160ee4a6e98ef2b4f4da132c50c39e5",
+          "path": "SAMMI Voice",
+          "file": "SAMMI Voice.exe"
+        },
+        "SAMMI Bridge": {
+          "version": "7.30",
+          "path": "bridge",
+          "file": "default.txt",
+          "sum": null
+        },
+        "SAMMI Updater": {
+          "version": "1.0.1.0",
+          "sum": "41e231029bf42c82270f145ddca76dee",
+          "path": "SAMMI Updater",
+          "file": "SAMMI Updater.exe"
+        }
+      }
+    },
+    {
+      "version": "2024.2.1",
+      "components": {
+        "SAMMI Core": {
+          "version": "2024.2.0.0",
+          "sum": "caf386d2cef7a96cfb0ca28d3421e73c8ec4cfbdafce54c392905da15418a1c7",
+          "path": "",
+          "file": "SAMMI Core.exe"
+        },
+        "SAMMI Voice": {
+          "version": "1.0.1.0",
+          "sum": "30d9ac69f3daa5cdd96246790965c5162160ee4a6e98ef2b4f4da132c50c39e5",
+          "path": "SAMMI Voice",
+          "file": "SAMMI Voice.exe"
+        },
+        "SAMMI Bridge": {
+          "version": "7.30",
+          "path": "bridge",
+          "file": "default.txt",
+          "sum": null
+        },
+        "SAMMI Updater": {
+          "version": "1.0.1.0",
+          "sum": "41e231029bf42c82270f145ddca76dee",
+          "path": "SAMMI Updater",
+          "file": "SAMMI Updater.exe"
+        }
+      }
+    },
+    {
+      "version": "2024.2.0",
+      "components": {
+        "SAMMI Core": {
+          "version": "2024.2.0.0",
+          "sum": "caf386d2cef7a96cfb0ca28d3421e73c8ec4cfbdafce54c392905da15418a1c7",
+          "path": "",
+          "file": "SAMMI Core.exe"
+        },
+        "SAMMI Voice": {
+          "version": "1.0.1.0",
+          "sum": "30d9ac69f3daa5cdd96246790965c5162160ee4a6e98ef2b4f4da132c50c39e5",
+          "path": "SAMMI Voice",
+          "file": "SAMMI Voice.exe"
+        },
+        "SAMMI Bridge": {
+          "version": "7.30",
+          "path": "bridge",
+          "file": "default.txt",
+          "sum": null
+        },
+        "SAMMI Updater": {
+          "version": "1.0.1.0",
+          "sum": "41e231029bf42c82270f145ddca76dee",
+          "path": "SAMMI Updater",
+          "file": "SAMMI Updater.exe"
+        }
+      }
     }
   ]
 }

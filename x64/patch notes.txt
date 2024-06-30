@@ -1,5 +1,5 @@
 ====================================
-     SAMMI 2024.2.1 (May 2024)
+     SAMMI 2024.2.2 (June 2024)
 ====================================
 
 [SAMMI Core]
@@ -7,15 +7,16 @@
 
 New Features:
 
+- Implemented a message of the day (motd) system to communicate important, or critical messages in different languages on startup [Landie]
 
 
 Improvements:
 
+- Updated YouTube endpoints to point towards new server [Landie]
 
 
 Bug Fixes:
 
-- Fixed various click through issues [Digi]
-- Attempted to fix an issue where decks could get duplicated when the button or deck id got lost (now only shows a popup and does not save the button / deck) [Chrizzz]
-- Fixed a bug with CSV: Math not finding the CSV [Chrizzz]
-- Fixed an EventSub bug where it would not automatically reconnect [Chrizzz]
+- Fixed a click through issue with the settings [Digi]
+- Fixed a bug that would rename all filter boxes in active command editor to the one that was renamed (ws5) [Landie]
+- Fixed a bug where GET requests would send an empty body [Chrizzz & Landie]

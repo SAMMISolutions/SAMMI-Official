@@ -1,5 +1,5 @@
 ====================================
-     SAMMI 2024.2.0 (April 2024)
+     SAMMI 2024.2.1 (May 2024)
 ====================================
 
 [SAMMI Core]
@@ -7,50 +7,15 @@
 
 New Features:
 
-- New command: "Set Hidden Variable" - Sets a variable value with hidding the actual value in the command (text gets replaced with "*" character), the value will still be visible in the variable viewer [Chrizzz]
-- New command: "Set Filepath Variable" - Sets a variable value by selecting a local file (while automatically replacing "\" with "/") [Chrizzz]
-- New option "Prevent Full Crash" - By enabling this option in the settings menu, SAMMI will not crash on errors so that you can check the current variable values in the variable viewer, but it still provides an error message and stops the button. Please note that this should only be enabled for debugging purposes. [Chrizzz + Christinna]
-- New function in the variable viewer to only display buttons which contain variables [Digi]
-- Added a new global array for "youtube_accounts" [Chrizzz]
-- Added a lot of new moderation triggers to EventSub [Chrizzz]:
-  - Emote-Only Mode On
-  - Emote-Only Mode Off
-  - Followers-Only Mode On
-  - Followers-Only Mode Off
-  - Slow Mode On
-  - Slow Mode Off
-  - Subscribers-Only On
-  - Subscribers-Only Off
-  - Ban User
-  - Unban User
-  - Timeout User
-  - Untimeout User
-  - Unique-Chat Mode On
-  - Unique-Chat Mode Off
-  - Blocked Term Added
-  - Blocked Term Removed
-  - VIP Added
-  - VIP Removed
+
 
 Improvements:
 
-- Renamed the "File: Append Text" command to "File: Write Text" and added the option to either append text (turned on by default) or write text into an empty file [Chrizzz]
-- Moved some beta commands out of beta [Chrizzz]
-- Updated the "About" page [Chrizzz]
-- Added timestamp templates to the Date / Time commands [Chrizzz]
-- Template drop down for "Source Change Settings" [Chrizzz & Landie]
-- Modified the deck app menu to better reflect official and third party applications [Chrizzz]
-- Renamed a few moderation triggers for clearer understanding [Chrizzz]:
-  - Ban => Ban / Timeout
-  - Unban => Unban / Untimeout
-  - Outgoing Raid Completed => Raid Completed
-- UI Rework for some triggers (Bits, Raids, YouTube Triggers) [Digi]
-- Settings menu rework [Digi]
+
 
 Bug Fixes:
 
-- Fixed various payloads and trigger pull commands for Adbreak, Announcements, Channel Point Redemptions, Hype Train, Polls, Predictions and Whispers [Chrizzz]
-- Fixed a bug with trigger button when having "Enable Queue" enabled [Chrizzz]
-- Fixed Deck App Triggers not working [Chrizzz]
-- Fixed Gift Sub Triggers not working correctly [Chrizzz]
-- Fixed UI for Community Subs [Digi]
+- Fixed various click through issues [Digi]
+- Attempted to fix an issue where decks could get duplicated when the button or deck id got lost (now only shows a popup and does not save the button / deck) [Chrizzz]
+- Fixed a bug with CSV: Math not finding the CSV [Chrizzz]
+- Fixed an EventSub bug where it would not automatically reconnect [Chrizzz]

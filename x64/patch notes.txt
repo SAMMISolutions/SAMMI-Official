@@ -1,5 +1,5 @@
 ====================================
-     SAMMI 2024.2.2 (June 2024)
+     SAMMI 2024.3.0 (August 2024)
 ====================================
 
 [SAMMI Core]
@@ -7,16 +7,25 @@
 
 New Features:
 
-- Implemented a message of the day (motd) system to communicate important, or critical messages in different languages on startup [Landie]
-
+- Added a new moderation trigger for warnings [Chrizzz]
+- Added a new "Twitch: Warn Chat User" command [Chrizzz]
+- Added a new "File: Start Download" command [Chrizzz]
+- Added a new "Twitch: Get Random Viewer" command [Chrizzz]
+- Added compatibility for the new Elgato Streamdeck Integration [Landie]
+- Added a new Hotkey section in the settings menu [Digi]
+- Added a button to hide icons in the deck editor (only for the current session) [Digi]
+- Added 'Hide Icons' Switch on Deck Editor [Digi]
+- Added Hotkey/Shortcut Menu in settings (or Ctrl+H) [Digi]
 
 Improvements:
-
-- Updated YouTube endpoints to point towards new server [Landie]
-
+- Updated the design of the button settings menu [Digi]
+- Updated the slider design [Digi]
+- Internal Window Subsystem overhaul [Digi]
+- Modernized Button Settings Menu [Digi]
+- Changed [?] boxes [Digi]
 
 Bug Fixes:
 
-- Fixed a click through issue with the settings [Digi]
-- Fixed a bug that would rename all filter boxes in active command editor to the one that was renamed (ws5) [Landie]
-- Fixed a bug where GET requests would send an empty body [Chrizzz & Landie]
+- Made create source compatible with OBS 30.2 for text_gdi and slideshow sources [Chrizzz]
+- Fixed the message of the day function [Landie]
+- Clickthrough Fix [Digi]

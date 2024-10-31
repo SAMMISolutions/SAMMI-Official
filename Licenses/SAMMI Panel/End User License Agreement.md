@@ -1,5 +1,5 @@
 # End-User License Agreement
-## Last updated: 7 April 2023
+## Last updated: 30 October 2024
 
 This End-User License Agreement (referred to as the "EULA") is a legally binding agreement between you, the Licensee, an individual customer or entity, and SAMMI Solutions, the author of SAMMI Panel, the Software, which may include associated media, printed materials, and online or electronic documentation. This Agreement is a legally binding contract that includes terms that limit your legal rights and Licensors' liability to you, and shall govern all access to and use of this Software. You hereby agree, without limitation or alteration, to all the terms and conditions contained herein.
 
@@ -13,7 +13,8 @@ By installing, copying, or otherwise using SAMMI Panel, the Licensee agrees to b
 
 "Software/Licensed product" shall mean SAMMI Panel, the Licensed Product provided pursuant to this EULA.
 ### Grant of License
-Subject to the terms of this EULA, the SAMMI Solutions hereby grants to the Licensee, a royalty-free, revocable, limited, non-exclusive license during the term of this EULA to possess and to use a copy of the Software. The Software is being distributed by SAMMI Solutions. The Licensee is not allowed to make a charge for distributing this Software, either for profit or merely to recover media and distribution costs.
+Subject to the terms of this EULA, the SAMMI Solutions hereby grants to the Licensee, a royalty-free, revocable, limited, non-exclusive license during the term of this EULA to possess and to use a copy of the Software. The Software is being distributed by SAMMI Solutions. The Licensee is not allowed to make a charge for distributing this Software, either for profit or merely to recover media and distribution costs. The commercial use granted herein is limited to content creation and distribution directly related to the Licensee’s streaming activities and does not extend to offering or selling software-based services that manage channel operations for third parties.
+
 ### Intellectual Property
 You hereby unconditionally agree that all right, title and interest in the copyrights and other intellectual property rights in the Software reside with the Licensors. The trademarks, logos, designs, and service marks appearing on the Software are registered and unregistered marks of Licensor.  Accordingly, nothing in this EULA or the Software grants you any right to use any form of intellectual property contained in the Software.
 
@@ -26,10 +27,15 @@ Licensee may not duplicate or re-distribute copies of the Software, without the 
 
 #### Licensee Limitation
 The Licensee may not:
-- Use the Software for any purpose other than personal and non-commercial purposes;
+- Use the Software for any purpose other than personal, non-commercial purposes and only business and commercial purposes directly related to the Licensee's direct content creation and streaming activites;
+- Offer the Software or its functionalities as a service to manage third-party channels.
 - Use the Software for any illegal or unlawful purpose;
 - Gather factual content or any other portion of the Software by any automated means, including but not limited to database scraping or screen scraping; or
 - Reverse engineer, decompile, or disassemble Software, except and only to the extent that such activity is expressly permitted by applicable law notwithstanding the limitation.
+
+#### Prohibition of Sublicensing
+The Licensee is expressly prohibited from sublicensing, renting, leasing, or otherwise granting rights to third parties to manage their channels using the Software, whether for profit or otherwise. The Licensee may not charge third parties for services that include the operation, management, or administration of streaming activities using the Software.
+
 ### Update and Maintenance
 SAMMI Solutions shall provide updates and maintenance for the Software on an as-needed basis.
 ### Support

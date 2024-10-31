@@ -23,5 +23,6 @@ Improvements:
 - Updated the info boxes [Digi]
 
 Bug Fixes:
+
 - Fixed Hide Icon Crash and Modified Button Visual Bug [Digi]
 - Fixed Command Editor moving to mouse when closing using X button [Digi]

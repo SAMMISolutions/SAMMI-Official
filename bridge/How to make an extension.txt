@@ -11,6 +11,8 @@ All SAMMI extensions are Microsoft Windows format text files saved with an .sef 
 
 For questions or issues creating SEF extensions, visit the official SAMMI Discord server (https://discord.gg/dXez8Zh) and post in the Extension section #development channel.  Please remember that there are a limited number of users on the Discord server that can assist with extension development and that they are all volunteers.
 
+If you want a more robust explaination of how to put together an extension you can find an example guide here on the SAMMI website (https://sammi.solutions/extensions/build)
+
 ------------------------------
 - 2. Extension Template File -
 ------------------------------
@@ -38,6 +40,7 @@ Add your current extension version here. Should only contain numbers and dots. F
 [insert_external]
 
 The content in this section supports HTML format text content and will display on the extension's tab in the transmitter.  This section may be left empty if desired.
+(The bridge also comes with Bootstrap@<version>, so you can use bootstrap styling/components to make nicer looking UI elements. You also get access to font-awesome icons.)
 
 [insert_command]
 

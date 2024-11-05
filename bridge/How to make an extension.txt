@@ -11,15 +11,14 @@ All SAMMI extensions are Microsoft Windows format text files saved with an .sef 
 
 For questions or issues creating SEF extensions, visit the official SAMMI Discord server (https://discord.gg/dXez8Zh) and post in the Extension section #development channel.  Please remember that there are a limited number of users on the Discord server that can assist with extension development and that they are all volunteers.
 
-If you want a more robust explaination of how to put together an extension you can find an example guide here on the SAMMI website (https://sammi.solutions/extensions/build)
-
 ------------------------------
 - 2. Extension Template File -
 ------------------------------
 
 See the \bridge\template.sef file under the main SAMMI folder for an empty extension template.
 
-(To-do: Create a basic extension example here)
+You can find an example on how to code extension here:
+https://sammi.solutions/extensions/build
 
 ------------------------------
 - 3. Extension File Sections -
@@ -27,24 +26,26 @@ See the \bridge\template.sef file under the main SAMMI folder for an empty exten
 
 [extension_name]
 
-This section contains the name of the extension and is what will be displayed to users as the extension name in the transmitter and receiver.  Alphanumeric characters and spaces are supported.
+This section names your extension, and is visible in SAMMI Bridge and SAMMI Core. Please use alphanumeric characters and spaces only.
 
 [extension_info]
 
-You can add any text content here or leave it empty, it is not used by the transmitter or receiver.  Version and author name information is good information to include in this section.
+This section is for descriptive text about the extension, e.g. what the extension does. This information is displayed to the users in SAMMI Bridge-Extensions tab when they hover over the extension name inside the list of installed extensions.
 
 [extension_version]
 
-Add your current extension version here. Should only contain numbers and dots. For example 2.01. This will be later used in an automatic version checker where you will be able to submit your PRs to our public repo whenever you release a new version of your extension.
+Specify your extension version here, using numbers and dots (e.g., 2.01). This is crucial for the automatic version checker in Bridge, which can notify users of updates. 
+This will be later used in an automatic version checker where you will be able to submit your PRs to our public repo whenever you release a new version of your extension.
 
 [insert_external]
 
-The content in this section supports HTML format text content and will display on the extension's tab in the transmitter.  This section may be left empty if desired.
-(The bridge also comes with Bootstrap@<version>, so you can use bootstrap styling/components to make nicer looking UI elements. You also get access to font-awesome icons.)
+This section appears inside the extension’s tab in Bridge, and it provides a visual interface for the extension if needed. It’s written in HTML and CSS.
 
 [insert_command]
 
-Defines the command or set of commands for the button editor in the SAMMI Core application.  Use the SAMMI.extCommand helper function outlined in the transmitter documentation to create a new command:
+In this section, you can define Extension Commands. These commands will be available to users in SAMMI Core when they install your extension. You can define multiple commands in this section. Refer to the SAMMI Bridge documentation for Extension Command details.
+In this section, you can also automatically call your main extension function that should run as soon as SAMMI connects to Bridge.
+Use the SAMMI.extCommand helper function outlined in the transmitter documentation to create a new command:
 
 https://github.com/SAMMISolutions/SAMMI-Bridge#helper-functions
 
@@ -52,39 +53,47 @@ An extension can add more than one SAMMI.extCommand block to create multiple but
 
 [insert_hook]
 
-This section bridges the command name(s) and data from the receiver and the JavaScript function(s) and parameters to execute.  This section must include a JavaScript case statement, or hook, for each SAMMI.extCommand block defined in the [insert_command] section.
+This is an outdated, not recommended way to listen for command payloads coming from SAMMI Core. We strongly recommend using regular listeners instead. Hooks are supported for backward compatibility only.
 
-Case matching values (aka hook names) must match the button command names from the [insert_command] section exactly, including case sensitivity and spaces.  The case statement code block should contain the JavaScript function to call defined in the [insert_script] section of the extension.  All function parameters used must include the object prefix of "SAMMIJSON." (Without the quotes) and parameter names that align with boxVariable values in the order defined within the SAMMI.extCommand blocks of the [insert_command] section.
+You can learn how to listen to events from SAMMI here:
+https://github.com/SAMMISolutions/SAMMI-Bridge#listening-to-extension-data-received-from-sammi
 
 [insert_script]
 
-The main extension behavior code goes into this section via standard JavaScript function definitions.  Function and property names must comply with JavaScript naming conventions.  The parameter order must match the order defined in the matching [insert_hook] case statement.  It is not required, although strognly recommended, that the function parameter names align with the names used in the [insert_hook] and [insert_command] sections for clarity.  
+In this section, you’re encouraged to write your own JavaScript code.
 
-Extension code can use the SAMMI websocket library to send and receive data to the receiver.  It is highly recommended to use the helper functions from the transmitter documentation to perform these actions:
+We recommend having one main function that runs as soon as SAMMI connects to Bridge, and which you call from [insert_command] section.
+Inside this function, you can set up listeners for extension commands coming from SAMMI, e.g. when a user actually runs a button containing your extension command you defined in [insert_command] section.
+
+Learn more about Listening to Extension Commands in the SAMMI Bridge documentation.
+
+SAMMI Bridge provides premade helper functions for you to use, such as retrieving variables, setting variables, triggering buttons and more. You can find all the helper functions in the SAMMI Bridge documentation
 
 https://github.com/SAMMISolutions/SAMMI-Bridge#helper-functions
 
 [insert_over]
 
-This section allows the extension to install a new deck into the SAMMI Core.  Developers can create and save the deck content in the receiver UI, right click the deck, select "Export JSON", and paste the JSON text content into this section. SAMMI users installing the extension will receive a prompt to install the deck content as defined in this section.
+In this section you simply copy and paste your deck from SAMMI Core you wish to distribute with your extension. When users install your extension, the deck will be automatically added to their SAMMI Core.
 
-The installed decks can use commands created in the same extension, or any other extension.  However, if the user uninstalls an extension used by the deck defined in this section, the related commands will not work in the receiver.  This may cause unexpected behavior or cause the receiver to crash.
+You can also add the following extra keys in the JSON object to specify additional properties for your extension:
 
-Add these keys to your exported deck json if you want SAMMI to perform additional checks when user tries to install the extension: 
+"sammi_version": "2.00.0" - Checks for minimum SAMMI version compatibility. Will refuse to install the extension if the version is lower than specified.
+"bridge": true - Checks whether SAMMI Bridge is running and connected to SAMMI. Will refuse to install the extension if Bridge is not running.
+"obswebsocket": "4.9.1" - Checks minimum OBS Websocket version compatibility. Will refuse to install the extension if the version is lower than specified.
+"extension_triggers": ["TRG1", "TRG", ...] - Speciicies extension triggers that run in SAMMI Core as soon as the extension is installed. Useful for automatically triggering extension buttons upon installation.
+"required_extension": ["Extension name", "Another extension name", ...] - Checks for required extensions before installation. If any of the extensions are not installed, the extension will not be installed either.
 
-"sammi_version":"2.00.0"	Check if SAMMI version is working fine
-"bridge":true		Check if the Bridge is connected
-"obswebsocket":"4.9.1"		Check if OBS Main is connect and correct version
-"donot_include_deck":false	Check if the deck should be create, if the deck does not exists it doesnt matter, this is if you want an optionnal deck or hidden deck
-"extension_triggers":["TRG1","TRG",...]		These are all the Extension triggers that should happen, trigger pull data will include "path" for the path of where the extension was.
-"required_extension":["Extension name","Another extension name",...] Check if all required extensions are installed before installing the extension
 
 ---------------------------------
 - 4. Troubleshooting Extensions -
 ---------------------------------
 
-Extension files install into the main transmitter HTML document.  It is important to note that syntax errors or JavaScript code issues will not prevent an extension from installing, although they may cause the transmitter or receiver to act strangely or not work at all.  During extension development and testing, it is highly recommended to close out any transmitter docks in OBS Studio and open the transmitter HTML file directly in a local browser window outisde of OBS until testing is complete.
+You can troubleshoot extensions just as any other JavaScript code:
 
-From the browser window, errors from extensions will output to the browser developer console, usually accessed by pushing F12 in the browser window and selecting the "Console" tab of the developer tools.  Extensions support output to console.log within the [insert_script] and [insert_hook] code for testing or troubleshooting purposes and also display in the same browser console.
+1. Install the extension via SAMMI Core - Bridge - Install extension.
+2. Open Bridge in a browser rather than OBS Dock
+3. Open the browser developer console (F12)
+4. Check for errors in the console
+5. Monitor websocket traffic in the Network tab. You can see outgoing and incoming packets from SAMMI Core (must reload Bridge while console is open to see this)
 
-If code changes to the installed extension are required, you can re-upload corrected extension file as long as the extension name does not change; the receiver will prompt to replace the existing extension content.  Normally the transmitter will automatically restart after installing an extension via the receiver.  However, errors may prevent the automatic transmitter restart.  If this is the case, manually reload the transmitter by either refreshing the browser window or closing and reopening the OBS Studio transmitter dock for the new extension code to take effect.
+You can also open bridge.html in your favorite text editor, find your specific extension code and debug it there. It’s often simpler and easier than editing the .sef file directly and reinstalling it in SAMMI Core.

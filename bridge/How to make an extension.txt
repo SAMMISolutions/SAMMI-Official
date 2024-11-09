@@ -91,7 +91,7 @@ You can also add the following extra keys in the JSON object to specify addition
 You can troubleshoot extensions just as any other JavaScript code:
 
 1. Install the extension via SAMMI Core - Bridge - Install extension.
-2. Open Bridge in a browser rather than OBS Dock
+2. Open Bridge in a browser rather than OBS Dock. (It is suggested to use Chrome or a chromium based browser as other browsers may not interact with the bridge properly)
 3. Open the browser developer console (F12)
 4. Check for errors in the console
 5. Monitor websocket traffic in the Network tab. You can see outgoing and incoming packets from SAMMI Core (must reload Bridge while console is open to see this)

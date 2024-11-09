@@ -80,7 +80,7 @@ You can also add the following extra keys in the JSON object to specify addition
 - "sammi_version": "2.00.0" - Checks for minimum SAMMI version compatibility. Will refuse to install the extension if the version is lower than specified.
 - "bridge": true - Checks whether SAMMI Bridge is running and connected to SAMMI. Will refuse to install the extension if Bridge is not running.
 - "obswebsocket": "4.9.1" - Checks minimum OBS Websocket version compatibility. Will refuse to install the extension if the version is lower than specified.
-- "extension_triggers": ["TRG1", "TRG", ...] - Speciicies extension triggers that run in SAMMI Core as soon as the extension is installed. Useful for automatically triggering extension buttons upon installation.
+- "extension_triggers": ["TRG1", "TRG", ...] - Specicies extension triggers that run in SAMMI Core as soon as the extension is installed. Useful for automatically triggering extension buttons upon installation.
 - "required_extension": ["Extension name", "Another extension name", ...] - Checks for required extensions before installation. If any of the extensions are not installed, the extension will not be installed either.
 
 

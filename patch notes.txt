@@ -1,5 +1,5 @@
 ====================================
-     SAMMI 2024.4.0 (October 2024)
+   SAMMI 2025.1.0 (Janurary 2025)
 ====================================
 
 [SAMMI Core]
@@ -7,22 +7,55 @@
 
 New Features:
 
-- Set up a new Eventsub Subscription for automatic reward redemptions like powerups and default channel point rewards. [Chrizzz]
-- Handle Whispers with a new Eventsub Subscription: You can now receive Whispers on your Streamer account. [Chrizzz]
-- Added a new command: "Twitch: Get Channel Teams" [Chrizzz]
-- Keep track with new global variables: "global.twitch_default_chat_account" & "global.twitch_default_channel" [Chrizzz]
-- Introduced a new command: "Twitch: Get Shared Chat Session" [Chrizzz]
-- Retrieve team data with new command: "Twitch: Get Team Information" [Chrizzz]
-- Added even more Trigger Pull values for Twitch Chat Messages (e.g., "Is Mod," "Room ID," "Reply Parent Display Name," etc.) [Chrizzz]
+- Added partial gamepad support (currently only XInput) [Landie]
+- Added "Gamepad" trigger [Landie]
+- Added "HTTP Download File" command [Landie]
+- Added "Twitch Channel Information Updated" trigger [Chrizzz]
+- Added "is_golden_kappa_train" pull value to Started, Progress, and Ended Hype Train triggers [Landie]
+- Added "started_at" pull value to Started, Progress, and Ended Hype Train triggers [Landie]
+- Added File Drop into window support [Landie]
+- Added ability to drag and drop .sef files into the window to install extensions [Landie]
+- Added ability to drag and drop .txt and .json files containing deck data into the main menu window to paste deck data [Landie]
+- Added ability to drag and drop .txt and .json files containing button data into a deck editor window to paste button data [Landie]
+- Added "Timeout Default" to settings, allowing you to change the default timeout on various commands upon creation [Landie]
+- Added "Disable Gamepads" to settings, allowing you to disable the processing of any connected gamepads if desired [Landie]
 
 Improvements:
 
-- Added the version info to the title of SAMMI [Landie]
-- Increased the YouTube icon size by 4 pixels!!! [Digi]
-- Updated Init Variables Window [Digi]
-- Updated the info boxes [Digi]
+- Twitch channel point redeems are now automatically refreshed when the trigger menu for a button contains at least one redeem trigger [Landie]
+- Rewrote how popup menus are interacted with in the trigger menu internally [Landie]
+- Renamed references to "Init/Initial" Variables to "Default" to not confuse with "Initialize" [Landie]
+- Renamed command "Reinitialize Button Variables" to "Reinitialize Default Variables" for command accuracy [Landie]
+- New Patch Notes! You're Lookin' at it! [Digi]
+- Extension Installation is now ~100% faster [Landie]
+- Improve button import error handling consistency [Landie]
+- Increased default timeout on various commands from 1000ms to 3000ms [Landie]
+- Improve deck install error handling consistency [Landie]
+- Settings Menu has scroll functionality! [Digi]
+
+UI Changes:
+
+- Language Button in settings now matches current Aesthetics [Digi]
+
+Removed Features:
+
+- Deprecated "File: Start Download" in favor of new "HTTP Download File" command [Landie]
 
 Bug Fixes:
 
-- Fixed Hide Icon Crash and Modified Button Visual Bug [Digi]
-- Fixed Command Editor moving to mouse when closing using X button [Digi]
+- Fixed a critical issue which allowed Twitch chat to impersonate other User IDs [Landie]
+- Fixed an issue where buttons set with legacy switch deck settings were still being sent to deck apps [Landie]
+- Fixed an issue where the about menu SAMMI face would sometimes disappear (so important) [Landie]
+- Fixed an issue where disconnecting from a Deck App would sometimes not remove it from the global deck_app_connections array [Landie]
+- Fixed an issue where getting your LAN IP would fail on newer versions of Windows 11 [Landie]
+- Fixed an issue where third-party Twitch chat clients were skipping "Twitch Chat Message" triggers every other same message [Landie]
+- Fixed a memory leak when triggering a button via Local API [Landie]
+- Fixed a memory leak when triggering an Extension Trigger via bridge [Landie]
+- Fixed a memory leak in the triggers menu when repeatedly opening the list [Landie]
+- Fixed infinite loop in About window, causing input boxes to get hijacked while offline [Landie]
+- Scroll Wheel Fix on certain Windows [Digi]
+- Discord and Patreon Buttons work on Main [Digi]
+- Grey Windows No longer flash when unfocused [Digi]
+- Scroll Bar on Default Var Window No longer obscured [Digi]
+- Button to Allow Default Variables in Default Var window Centered [Digi]
+- Side Buttons in Settings follow Language as they should. [Digi]

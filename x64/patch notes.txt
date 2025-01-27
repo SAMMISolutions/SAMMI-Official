@@ -1,5 +1,5 @@
 ====================================
-   SAMMI 2025.1.0 (Janurary 2025)
+   SAMMI 2025.1.1 (Janurary 2025)
 ====================================
 
 [SAMMI Core]
@@ -59,3 +59,5 @@ Bug Fixes:
 - Scroll Bar on Default Var Window No longer obscured [Digi]
 - Button to Allow Default Variables in Default Var window Centered [Digi]
 - Side Buttons in Settings follow Language as they should. [Digi]
+- Fixed a bug with comment templates [Chrizzz]
+- Fixed a 2025.1.0 bug with Wait for Timeout [Chrizzz]

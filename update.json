@@ -59,7 +59,7 @@
       }
     },
     {
-      "version": "2024.4.0.0",
+      "version": "2024.4.0.1",
       "components": {
         "SAMMI Core": {
           "version": "2024.4.0.0",

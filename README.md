@@ -19,18 +19,16 @@ Find information about migrating from LB2 on our [website](https://sammi.solutio
 - Learn more at https://sammi.solutions
 - Documentation: https://sammi.solutions/docs
 ### Downloads
-- Main Program  
+- Main Program
   - [Windows, 64-bit](https://github.com/SAMMISolutions/SAMMI-Official/raw/main/download/x64.zip)
   - Mac and Linux are not currently supported, but may be in the future.  
-- SAMMI Deck
-  - Windows has the SAMMI Deck included in the download of the main program.  
-  - Android: [Google Play Store](https://play.google.com/store/apps/details?id=lioranboard.ca.lioranboard.streamdeck), [APK file](https://github.com/SAMMISolutions/SAMMI-Official/raw/main/download/SAMMI%20Deck.apk).
-  - iOS is not currently supported, but may be in the future.
+- SAMMI Panel
+  - Availale via http://sammipanel.solutions, which can be loaded on mobile devices and computers.
+  - Native mobile app is not currently supported, but may be in the future. Check out community-made alternatives such as Deck Hopper or DeckMate Control!
 ### Support SAMMI Development 
-- Patreon: https://www.patreon.com/sammidevs
-- Paypal: https://www.paypal.com/donate/?hosted_button_id=BRDESERM5GDFW
+- Donation Links: https://sammi.solutions/donate
 ### Socials
 - Discord: https://discord.gg/dXez8Zh  
 - Twitter: https://twitter.com/sammisolutions
 - YouTube: https://www.youtube.com/@sammisolutions
-- Twitch: https://www.twitch.tv/SAMMIdevs 
+- Twitch: https://www.twitch.tv/SAMMISolutions

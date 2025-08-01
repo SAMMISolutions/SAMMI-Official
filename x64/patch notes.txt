@@ -1,5 +1,5 @@
 ====================================
-   SAMMI 2025.1.1 (Janurary 2025)
+   SAMMI 2025.2.0 (July 2025)
 ====================================
 
 [SAMMI Core]
@@ -7,57 +7,204 @@
 
 New Features:
 
-- Added partial gamepad support (currently only XInput) [Landie]
-- Added "Gamepad" trigger [Landie]
-- Added "HTTP Download File" command [Landie]
-- Added "Twitch Channel Information Updated" trigger [Chrizzz]
-- Added "is_golden_kappa_train" pull value to Started, Progress, and Ended Hype Train triggers [Landie]
-- Added "started_at" pull value to Started, Progress, and Ended Hype Train triggers [Landie]
-- Added File Drop into window support [Landie]
-- Added ability to drag and drop .sef files into the window to install extensions [Landie]
-- Added ability to drag and drop .txt and .json files containing deck data into the main menu window to paste deck data [Landie]
-- Added ability to drag and drop .txt and .json files containing button data into a deck editor window to paste button data [Landie]
-- Added "Timeout Default" to settings, allowing you to change the default timeout on various commands upon creation [Landie]
-- Added "Disable Gamepads" to settings, allowing you to disable the processing of any connected gamepads if desired [Landie]
+- "Quickbar" added, giving quick access to commonly accessed SAMMI commands such as adding local variables, string variables, and comments. Also adds context-sensitive buttons such as a case button when hovering inside a switch statement, and a button to quickly add a Wait Until Variable Exists command after asynchronous (purple) commands [Digi]
+- Added support for every asynchronous (purple) command to instead be synchronous (gray), allowing buttons to automatically wait until data is received [Landie]
+- Added synchronous support for extension commands to take advantage of. Visit sammi.solutions/extensions/build and the SAMMI Bridge documentation for more info. [Landie]
+- Added "Async is sync" setting option to determine if, when a async command is created, if it should be sync (default is true) [Landie]
+- Added new command "Twitch Create EventSub Subscription" [Chrizzz]
+- Added new command "Twitch: Get Active EventSub Subscriptions" [Chrizzz]
+- Added new command "Twitch: Delete EventSub Subscription" [Chrizzz]
+- Added new command "Remap" [Landie]
+- Added new command "Lerp" [Landie]
+- Added new trigger "Twitch Watch Streak" [Digi]
+- Added new trigger "Twitch Power-ups" - This was previously included in "Twitch Automatic Reward Redemption" but was moved by Twitch, so please adjust your triggers accordingly. This will only work when bits are included, so if you test as broadcaster, this will NOT trigger [Chrizzz]
+- Added new trigger "Twitch EventSub Status Changed" [Chrizzz] 
+- Added new trigger "Twitch Custom EventSub Subscription" - This will fire for all EventSub Subscriptions that are not natively included in SAMMI yet. You can limit it by subscription type for example by using "channel.chat.message" [Chrizzz]
 
 Improvements:
 
-- Twitch channel point redeems are now automatically refreshed when the trigger menu for a button contains at least one redeem trigger [Landie]
-- Rewrote how popup menus are interacted with in the trigger menu internally [Landie]
-- Renamed references to "Init/Initial" Variables to "Default" to not confuse with "Initialize" [Landie]
-- Renamed command "Reinitialize Button Variables" to "Reinitialize Default Variables" for command accuracy [Landie]
-- New Patch Notes! You're Lookin' at it! [Digi]
-- Extension Installation is now ~100% faster [Landie]
-- Improve button import error handling consistency [Landie]
-- Increased default timeout on various commands from 1000ms to 3000ms [Landie]
-- Improve deck install error handling consistency [Landie]
-- Settings Menu has scroll functionality! [Digi]
+- Bits now use the "channel.bits.use" EventSub instead of "channel.cheer" which adds a lot of new pull values [Chrizzz]
+- Moved the "Automatic Reward Redemption" EventSub to V2 (no longer triggers for Power-ups, IMPORTANT, the following values no longer exist: reward_id, unlocked_emote and emotes. Instead you can now use fragments, emote and emote_list) [Chrizzz]
+- Updated the Trigger Pull values for 66 commands [Chrizzz]
+- Asynchronous (purple) commands are now synchronous (gray) by default [Landie]
+- Extension commands are asynchronously colored by default, and if no color is provided. [Landie]
+- Command "Reinitialize Default Variables" now, when the field "Button ID" is left empty, will use the current Button ID [Landie]
+- Copying Variable Name in the Variable Viewer from currently open button no longer prefixes Button ID [Landie]
+- Extension Commands are now colored asynchronously by default if no color is provided [Landie]
+- Reworded Timeout Default settings option slightly [Landie]
+- Command "Send OBS Request"'s default JSON value hints at the existence of the template dropdown [Landie]
+- Renamed command "Twitch: Get Subscription Status" to "Twitch: Get User Subscription Info" [Landie]
+- Renamed command "Twitch: Get Subscribers" to "Twitch: Get All Subscribers Info" [Landie]
+- Renamed command "Twitch: Modify Channel Information" to "Twitch: Modify Channel Info" [Landie]
+- Renamed command "Twitch: Get Team Information" to "Twitch: Get Team Info" [Landie]
+- Renamed command "Twitch: Get Channel Point Rewards" to "Twitch: Get All Rewards Info" [Landie]
+- Renamed command "Twitch: Get Chatters" to "Twitch: Get All Viewers Info" [Landie]
+- Renamed command label "Login Name" to "Channel (default: name)" for "Twitch: Get Latest Poll/Prediction ID" [Landie]
+- Renamed command label "Login Name" to "Channel (default: name)" for "Twitch: Get Poll/Prediction Result" [Landie]
+- Renamed command label "Login Name" to "Channel (default: name)" for "Twitch: Get User Subscription Info" [Landie]
+- Reworked command "Twitch: Get Latest Poll/Prediction ID" internal execution (will not impact buttons!) [Landie]
+- Reworked command "Twitch: Get Poll/Prediction Result" internal execution (will not impact buttons!) [Landie]
+- Reworked command "Twitch: Get User Info" internal execution (will not impact buttons!) [Landie]
+- Reworked command "Twitch: Get Stream Info" internal execution (will not impact buttons!) [Landie]
+- Reworked command "Twitch: Get Subscriber Count" internal execution (will not impact buttons!) [Landie]
+- Reworked command "Twitch: Get User Subscription Info" internal execution (will not impact buttons!) [Landie]
+- Reworked command "HTTP Request" internal execution (will not impact buttons!) [Landie]
+- Reworked command "HTTP Upload File" internal execution (will not impact buttons!) [Landie]
+- Reworked command "Twitch: Snooze Next Ad" internal execution (will not impact buttons!) [Landie]
+- Command "Twitch: Get Game Info" now returns undefined to resolve quicker when no game was provided, no Twitch account was connected, invalid Twitch ID was provided, invalid game name was provided, a parsing error occurred, and an external Twitch API error occurred [Landie]
+- Command "Twitch: API Call" now returns undefined to resolve quicker when no Twitch account was connected, no URL was provided, no Method was provided, an invalid Twitch ID was provided, and an external Twitch API error occurred [Landie]
+- Command "Twitch: Get User Status" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, a user could not be found, and an external Twitch API error occurred [Landie]
+- Command "Twitch: Create Clip" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, and an invalid Twitch ID was provided [Landie]
+- Command "Twitch: Create Reward" now returns undefined to resolve quicker when no Twitch account was connected and linked Twitch account was missing scopes [Landie]
+- Command "Twitch: Get Ad Schedule" now returns undefined to resolve quicker when no Twitch account was connected, a user could not be found, linked Twitch account was missing scopes, an external Twitch API error occurred, and no data was returned from Twitch [Landie]
+- Command "Twitch: Get AutoMod Settings" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, an external Twitch API error occurred, and a parsing error occurred [Landie]
+- Command "Twitch: Get Blocked Terms" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, and an external Twitch API error occurred [Landie]
+- Command "Twitch: Get Banned Users" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, an external Twitch API error occurred, and a parsing error occurred [Landie]
+- Command "Twitch: Get Channel Info" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, an external Twitch API error occurred, and a parsing error occurred [Landie]
+- Command "Twitch: Get All Rewards Info" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, an external Twitch API error occurred, and a parsing error occurred [Landie]
+- Command "Twitch: Get Channel Teams" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, an external Twitch API error occurred, and a parsing error occurred [Landie]
+- Command "Twitch: Get All Viewers Info" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, an external Twitch API error occurred, and a parsing error occurred [Landie]
+- Command "Twitch: Get Emotes" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, an external Twitch API error occurred, and a parsing error occurred [Landie]
+- Command "Twitch: Get Follower Count" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, an external Twitch API error occurred, and a parsing error occurred [Landie]
+- Command "Twitch: Get Latest Followers" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, an external Twitch API error occurred, and a parsing error occurred [Landie]
+- Command "Twitch: Get Latest Poll/Prediction ID" now returns undefined to resolve quicker when no Twitch account was connected or provided, linked Twitch account was missing scopes, an invalid Twitch ID was provided, no poll or prediction exists, an external Twitch API error occurred, or a parsing error occurred [Landie]
+- Command "Twitch: Get User Info" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, or an external Twitch API or parsing error occurred [Landie]
+- Command "Twitch: Get Poll/Prediction Result" now returns undefined to resolve quicker when no Twitch account was connected or provided, linked Twitch account was missing scopes, an invalid Twitch ID was provided, no poll or prediction exists, or an external Twitch API or parsing error occurred [Landie]
+- Command "Twitch: Get Random Viewer" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, or an external Twitch API or parsing error occurred [Landie]
+- Command "Twitch: Get Shared Chat Session" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch ID was provided, or an external Twitch API or parsing error occurred [Landie]
+- Command "Twitch: Get Stream Info" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch channel was provided, or an external Twitch API or parsing error occurred [Landie]
+- Command "Twitch: Get All Subscribers Info" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch channel was provided, or an external Twitch API or parsing error occurred [Landie]
+- Command "Twitch: Get Subscriber Count" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch channel was provided, or an external Twitch API or parsing error occurred [Landie]
+- Command "Twitch: Get User Subscription Info" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch channel was provided, or an external Twitch API or parsing error occurred [Landie]
+- Command "Twitch: Get Team Info" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch channel was provided, no team name was provided, or an external Twitch API or parsing error occurred [Landie]
+- Command "HTTP Request" now returns undefined to resolve quicker when a request failed [Landie]
+- Command "HTTP Upload File" now returns undefined to resolve quicker when a request failed [Landie]
+- Command "Twitch: Get Videos" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch channel was provided, or an external Twitch API or parsing error occurred [Landie]
+- Command "Twitch: Run Ad (Commercial)" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch channel was provided, an external Twitch API error occurred, or a parsing error occurred [Landie]
+- Command "Twitch: Snooze Next Ad" now returns undefined to resolve quicker when no Twitch account was connected, linked Twitch account was missing scopes, an invalid Twitch channel was provided, an external Twitch API error occurred, or a parsing error occurred [Landie]
+- Command "Twitch: Get Game Info" now gives error to the user when no game was provided, attempted to be used with no Twitch account connected, an invalid Twitch ID was provided, an invalid game name was provided, or an internal parsing error occurred [Landie]
+- Command "Twitch: API Call" now gives error to the user when attempted to be used with no Twitch account connected, no URL was provided, no Method was provided, or an invalid Twitch ID was provided [Landie]
+- Command "Twitch: Get User Status" now gives error to the user when attempted to be used with no Twitch account connected or it could not find target user [Landie]
+- Command "Twitch: Create Clip" now gives error to the user when attempted to be used with no Twitch account connected or an invalid Twitch ID was provided [Landie]
+- Command "Twitch: Get Ad Schedule" now gives error to the user when attempted to be used with no Twitch account connected, it could not find target user, or no data was returned from Twitch [Landie]
+- Command "Twitch: Get AutoMod Settings" now gives error to the user when attempted to be used with no Twitch account connected, an invalid Twitch ID was provided, or an internal parsing error occurred [Landie]
+- Command "Twitch: Get Blocked Terms" now gives error to the user when attempted to be used with no Twitch account connected or an invalid Twitch ID was provided [Landie]
+- Command "Twitch: Get Banned Users" now gives error to the user when attempted to be used with no Twitch account connected, an invalid Twitch ID was provided, or an internal parsing error occurred [Landie]
+- Command "Twitch: Get Channel Info" now gives error to the user when attempted to be used with no Twitch account connected, an invalid Twitch ID was provided, or an internal parsing error occurred [Landie]
+- Command "Twitch: Get All Rewards Info" now gives error to the user when attempted to be used with no Twitch account connected, an invalid Twitch ID was provided, or an internal parsing error occurred [Landie]
+- Command "Twitch: Get Channel Teams" now gives error to the user when attempted to be used with no Twitch account connected, an invalid Twitch ID was provided, or an internal parsing error occurred [Landie]
+- Command "Twitch: Get All Viewers Info" now gives error to the user when attempted to be used with no Twitch account connected, an invalid Twitch ID was provided, or an internal parsing error occurred [Landie]
+- Command "Twitch: Get Emotes" now gives error to the user when attempted to be used with no Twitch account connected, an invalid Twitch ID was provided, or an internal parsing error occurred [Landie]
+- Command "Twitch: Get Follower Count" now gives error to the user when attempted to be used with no Twitch account connected, an invalid Twitch ID was provided, or an internal parsing error occurred [Landie]
+- Command "Twitch: Get Latest Followers" now gives error to the user when attempted to be used with no Twitch account connected, an invalid Twitch ID was provided, or an internal parsing error occurred [Landie]
+- Command "Twitch: Get Latest Poll/Prediction ID" now gives error to the user when attempted to be used with no Twitch account connected, an invalid Twitch ID was provided, no poll exists, no prediction exists, or an internal parsing error occurred. Now, if empty, uses default linked streamer account instead of failing [Landie]
+- Command "Twitch: Get User Info" now gives error to the user when no Twitch account is connected, an invalid Twitch ID or username was provided, missing both ID and username, or when an internal parsing error has occurred [Landie]
+- Command "Twitch: Get Poll/Prediction Result" now gives error to the user when no Twitch account is connected, an invalid Twitch ID was provided, no poll or prediction exists, or an internal parsing error has occurred; also now uses the default linked streamer account if empty instead of failing [Landie]
+- Command "Twitch: Get Random Viewer" now gives error to the user when no Twitch account is connected, an invalid Twitch ID was provided, or an internal parsing error has occurred [Landie]
+- Command "Twitch: Get Shared Chat Session" now gives error to the user when no Twitch account is connected, an invalid Twitch ID was provided, or an internal parsing error has occurred [Landie]
+- Command "Twitch: Get Stream Info" now gives error to the user when no Twitch account is connected, an invalid Twitch channel was provided, or an internal parsing error has occurred [Landie]
+- Command "Twitch: Get All Subscribers Info" now gives error to the user when no Twitch account is connected, an invalid Twitch channel was provided, or an internal parsing error has occurred [Landie]
+- Command "Twitch: Get Subscriber Count" now gives error to the user when no Twitch account is connected, an invalid Twitch channel was provided, or an internal parsing error has occurred [Landie]
+- Command "Twitch: Get User Subscription Info" now gives error to the user when no Twitch account is connected, an invalid Twitch channel was provided, or an internal parsing error has occurred [Landie]
+- Command "Twitch: Get Team Info" now gives error to the user when no Twitch account is connected, an invalid Twitch channel or no team name was provided, or an internal parsing error has occurred [Landie]
+- Command "HTTP Request" now gives error to the user when a request fails, detailing where the error originated from [Landie]
+- Command "HTTP Upload File" now gives error to the user when a request fails, detailing where the error originated from [Landie]
+- Command "Twitch: Get Videos" now gives error to the user when no Twitch account is connected, an invalid Twitch channel was provided, or an internal parsing error has occurred [Landie]
+- Command "Twitch: Run Ad (Commercial)" now gives error to the user when no Twitch account is connected, an invalid Twitch channel was provided, or an internal parsing error has occurred [Landie]
+- Command "Twitch: Snooze Next Ad" now gives error to the user when no Twitch account is connected, an invalid Twitch channel was provided, or an internal parsing error has occurred [Landie]
+- Added the "Emote List" & "Fragments" trigger pull values to Bits, Power-Ups and Announcements [Chrizzz]
+- Added the "Raw Data" trigger pull value, which let's you pull the unmodifed payload from Twitch to all 63 EventSub triggers [Chrizzz]:
+   - Twitch Ad Break
+   - Twitch Announcement
+   - Twitch Automatic Reward Redemption
+   - Twitch Bits
+   - Twitch Channel Information Updated
+   - Twitch Channel Point Redemption
+   - Twitch Charity - Donated
+   - Twitch Charity - Progressed
+   - Twitch Charity - Started
+   - Twitch Charity - Stopped
+   - Twitch Guest Star - Guest Updated
+   - Twitch Guest Star - Session Ended
+   - Twitch Guest Star - Session Started
+   - Twitch Guest Star - Settings Updated
+   - Twitch Hypetrain - Ended
+   - Twitch Hypetrain - Progressed
+   - Twitch Hypetrain - Started
+   - Twitch Moderation - Ban
+   - Twitch Moderation - Blocked Term Added
+   - Twitch Moderation - Blocked Term Removed
+   - Twitch Moderation - Chat Cleared
+   - Twitch Moderation - Chat Message Deleted
+   - Twitch Moderation - Moderator Added
+   - Twitch Moderation - Moderator Removed
+   - Twitch Moderation - Emote-Only Mode Off
+   - Twitch Moderation - Emote-Only Mode On
+   - Twitch Moderation - Followers-Only Mode Off
+   - Twitch Moderation - Followers-Only Mode On
+   - Twitch Moderation - Completed
+   - Twitch Moderation - Raid Created
+   - Twitch Moderation - Slow Mode Off
+   - Twitch Moderation - Slow Mode On
+   - Twitch Moderation - Subscribers-Only Mode Off
+   - Twitch Moderation - Subscribers-Only Mode On
+   - Twitch Moderation - Timeout
+   - Twitch Moderation - Unban
+   - Twitch Moderation - Unban / Untimeout
+   - Twitch Moderation - Unique-Chat Mode Off
+   - Twitch Moderation - Unique-Chat Mode On
+   - Twitch Moderation - Unraid
+   - Twitch Moderation - Untimeout
+   - Twitch Moderation - VIP Added
+   - Twitch Moderation - VIP Removed
+   - Twitch Moderation - Warning Issued
+   - Twitch New Follower
+   - Twitch Poll - Archived
+   - Twitch Poll - Ended
+   - Twitch Poll - Started
+   - Twitch Poll - Voted
+   - Twitch Power-ups
+   - Twitch Prediction - Cancelled
+   - Twitch Prediction - Locked
+   - Twitch Prediction - Resolved
+   - Twitch Prediction - Started
+   - Twitch Prediction - Voted
+   - Twitch Raid
+   - Twitch Shoutout - Created
+   - Twitch Shoutout - Received
+   - Twitch Stream - Ended
+   - Twitch Stream - Started
+   - Twitch Subscrition - Normal / Prime
+   - Twitch Subscription - Community Gift
+   - Twitch Subscription - Gift Sub
+- Added more trigger pull values to the Voicemod Trigger [Chrizzz]
 
 UI Changes:
 
-- Language Button in settings now matches current Aesthetics [Digi]
+- Asynchronous (purple) commands now have a "Async" checkbox to swap to the new synchronous (gray) command option. [Landie]
+- Command "Twitch: Get User Status" field "User Name" input box removed drop down to select own linked accounts [Landie]
+- Command "Twitch: Get Stream Info" field "Channel Name" input box removed drop down to select own linked accounts [Landie]
+- Command "HTTP Request" field "Body JSON" changed to be draggable [Landie]
+- Added community member "mxpuffin"'s extensions link to SAMMI Bridge menu [Landie]
 
 Removed Features:
 
-- Deprecated "File: Start Download" in favor of new "HTTP Download File" command [Landie]
+- Removed "Twitch: Check User Status" from command list as it just pointed to the "Twitch: Get User Status" command, causing a duplicate entry [Landie]
 
 Bug Fixes:
 
-- Fixed a critical issue which allowed Twitch chat to impersonate other User IDs [Landie]
-- Fixed an issue where buttons set with legacy switch deck settings were still being sent to deck apps [Landie]
-- Fixed an issue where the about menu SAMMI face would sometimes disappear (so important) [Landie]
-- Fixed an issue where disconnecting from a Deck App would sometimes not remove it from the global deck_app_connections array [Landie]
-- Fixed an issue where getting your LAN IP would fail on newer versions of Windows 11 [Landie]
-- Fixed an issue where third-party Twitch chat clients were skipping "Twitch Chat Message" triggers every other same message [Landie]
-- Fixed a memory leak when triggering a button via Local API [Landie]
-- Fixed a memory leak when triggering an Extension Trigger via bridge [Landie]
-- Fixed a memory leak in the triggers menu when repeatedly opening the list [Landie]
-- Fixed infinite loop in About window, causing input boxes to get hijacked while offline [Landie]
-- Scroll Wheel Fix on certain Windows [Digi]
-- Discord and Patreon Buttons work on Main [Digi]
-- Grey Windows No longer flash when unfocused [Digi]
-- Scroll Bar on Default Var Window No longer obscured [Digi]
-- Button to Allow Default Variables in Default Var window Centered [Digi]
-- Side Buttons in Settings follow Language as they should. [Digi]
-- Fixed a bug with comment templates [Chrizzz]
-- Fixed a 2025.1.0 bug with Wait for Timeout [Chrizzz]
+- Command "Twitch: API Call" wasn't properly checking if URL was provided [Landie]
+- Command "Twitch: API Call" wasn't properly checking if Request Method was provided [Landie]
+- Fixed an internal memory leak when using a promisified HTTP Request [Landie]
+- Fixed an oversight with command "Twitch: Get Latest Poll/Prediction ID" not returning default streamer channel when left field empty [Landie]
+- Fixed an oversight with command "Twitch: Get Poll/Prediction Result" not returning default streamer channel when left field empty [Landie]
+- Fixed an oversight with command "Twitch: Get User Subscription Info" not returning default streamer channel when left field empty [Landie]
+- Command 'HTTP: Upload File" was not populating the Content-Type header mimetype properly when text is plain for FormData [Landie]
+- Experimental fix to command "Command Line" silently crashing SAMMI [Landie]
+- Fixed an issue where "Twitch: Get Ad Schedule", "Twitch: Set Follower Mode" and "Twitch: Snooze Ad" would not work when the account box was left empty while having multiple accounts linked [Chrizzz]
+- Fixed a bug where "Twitch: Get Blocked Terms" would only return 20 instead of up to 100 results [Chrizzz]
+- Fixed an issue where Extension Commands would not recolor when turned off, or selected. [Landie]
+- Fixed an issue where the color of text in the settings menu wasn't consistent [Landie]
+- Experimental fix to EventSub subscription timeouts [Landie]
+- Experimental fix to socket connections causing crashes on disconnect [Landie]
+- Fixed "Edit Commands" Appearing on Global Variables Menu [Digi]

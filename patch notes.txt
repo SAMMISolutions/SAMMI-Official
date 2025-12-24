@@ -1,5 +1,5 @@
 ====================================
-   SAMMI 2025.3.0 (November 2025)
+   SAMMI 2025.3.1 (November 2025)
 ====================================
 
 [SAMMI Core]
@@ -24,9 +24,6 @@ UI Changes:
   - Moved cyanidesugar, Landie and Digi_Bunny to the Former Team section
   - Moved Chrizzz to the Developer section
 
-Removed Features:
-
-
 Bug Fixes:
 
 - Fixed a bug where it would display a "channel points not found" message when linking your Twitch account
@@ -34,3 +31,12 @@ Bug Fixes:
 - Fixed a bug where SAMMI would crash when trying to save a button with unloaded extension commands while the bridge is open
 - Fixed a bug where the Patron list wasn't updated correctly
 - Fixed a bug where all extension commands would be forced to become purple
+- Fixed a bug where patch notes would not display correctly
+
+Known Issues:
+
+- Wrong Icon for Ko-Fi in the About Page
+- Button border sliders not working as intended
+- Language keys missing for some languages
+- Twitch Connection window UI not displaying more than 3 accounts
+- Gamepad Trigger can't trigger right analog stick

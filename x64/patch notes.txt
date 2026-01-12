@@ -1,5 +1,5 @@
 ====================================
-   SAMMI 2025.4.0 (December 2025)
+   SAMMI 2026.1.0 (January 2026)
 ====================================
 
 [SAMMI Core]
@@ -7,20 +7,31 @@
 
 New Features:
 
-- New possibility to have a Twitch Chat Message trigger for "Lead Moderators" only
-- New Trigger Pull value "is_lead_moderator" for Twitch Chat Messages to see if a user is a "Lead Moderator"
-- Reworked the Twitch: Create Clip command (you now can set the clip title and duration)
+- Moved Hype Train Event Subscriptions to V2 (this change heavily effects the available payload and was necessary due to the deprecation of the old version on the 15th january. Please check out the removed and new values below:
+   
+  Hype Train Begin:
+  =================
+  Removed: Current Goal, Current Level, From Channel Id, Goal Progress, Is Golden Kappa Train, Last Contribution, Top Bits Contribution, Top Other Contribution, Top Subscription Contribution, Total Progress
+  
+  Added: All Time High Level, All Time High Total, Broadcaster Display Name, Broadcaster User ID, Broadcaster User Login, Goal, Is Shared Train, Level, Progress, Shared Train Participants, Top Contributions, Total
+  
+  Hype Train Progressed:
+  ======================
+  Removed: Current Goal, Current Level, From Channel Id, Goal Progress, Is Golden Kappa Train, Last Contribution, Top Bits Contribution, Top Other Contribution, Top Subscription Contribution, Total Progress
 
+  Added: Broadcaster Display Name, Broadcaster User ID, Broadcaster User Login, Goal, Is Shared Train, Level, Progress, Shared Train Participants, Top Contributions, Total
+  
+  Hype Train Ended:
+  =================
+  Removed: Current Level, From Channel Id, Is Golden Kappa Train, Last Contribution, Top Bits Contribution, Top Other Contribution, Top Subscription Contribution, Total Progress
+  
+  Added: Broadcaster Display Name, Broadcaster User ID, Broadcaster User Login, Is Shared Train, Level, Shared Train Participants, Top Contributions, Total
+  
 Improvements:
 
 UI Changes:
 
-- Reorganized the boxes in the Twitch Chat Message trigger
-
 Bug Fixes:
-
-- Fixed an issue where Moderators would no longer be able to trigger buttons when they only have the "Lead Moderator" role
-- Fixed the wrong Icon for Ko-Fi in the About Page
 
 Known Issues:
 

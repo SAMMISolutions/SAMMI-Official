@@ -1,5 +1,5 @@
 ====================================
-   SAMMI 2025.3.1 (November 2025)
+   SAMMI 2025.4.0 (December 2025)
 ====================================
 
 [SAMMI Core]
@@ -7,35 +7,23 @@
 
 New Features:
 
-- New Sort Decks function in the deck context menu to sort the decks
-- New "Twitch Combo" Trigger
-- New Trigger Pull Values for the "Twitch Combo" Trigger
-- Added the new "Manage Clips" scope which is required for some API calls (this will require you to relink your Twitch account)
-- Added Support for "Twitch Onboarded" / "Day One Monetized" Streamers by making SAMMI now listen to all EventSub topics by default (this can be turned off in the settings button)
+- New possibility to have a Twitch Chat Message trigger for "Lead Moderators" only
+- New Trigger Pull value "is_lead_moderator" for Twitch Chat Messages to see if a user is a "Lead Moderator"
+- Reworked the Twitch: Create Clip command (you now can set the clip title and duration)
 
 Improvements:
 
-- Added the new trigger types in the global variables
-- Renamed "Twitch Watch Steak" to "Twitch Watch Streak"
-
 UI Changes:
 
-- Reworked the about page to reflect the change from having a developer team to a solo developer (Chrizzz):
-  - Moved cyanidesugar, Landie and Digi_Bunny to the Former Team section
-  - Moved Chrizzz to the Developer section
+- Reorganized the boxes in the Twitch Chat Message trigger
 
 Bug Fixes:
 
-- Fixed a bug where it would display a "channel points not found" message when linking your Twitch account
-- Fixed a bug where Twitch combos would crash SAMMI
-- Fixed a bug where SAMMI would crash when trying to save a button with unloaded extension commands while the bridge is open
-- Fixed a bug where the Patron list wasn't updated correctly
-- Fixed a bug where all extension commands would be forced to become purple
-- Fixed a bug where patch notes would not display correctly
+- Fixed an issue where Moderators would no longer be able to trigger buttons when they only have the "Lead Moderator" role
+- Fixed the wrong Icon for Ko-Fi in the About Page
 
 Known Issues:
 
-- Wrong Icon for Ko-Fi in the About Page
 - Button border sliders not working as intended
 - Language keys missing for some languages
 - Twitch Connection window UI not displaying more than 3 accounts

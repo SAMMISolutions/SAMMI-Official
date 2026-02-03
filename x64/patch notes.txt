@@ -1,5 +1,5 @@
 ====================================
-   SAMMI 2026.1.0 (January 2026)
+   SAMMI 2026.2.0 (January 2026)
 ====================================
 
 [SAMMI Core]
@@ -7,35 +7,34 @@
 
 New Features:
 
-- Moved Hype Train Event Subscriptions to V2 (this change heavily effects the available payload and was necessary due to the deprecation of the old version on the 15th january. Please check out the removed and new values below:
-   
-  Hype Train Begin:
-  =================
-  Removed: Current Goal, Current Level, From Channel Id, Goal Progress, Is Golden Kappa Train, Last Contribution, Top Bits Contribution, Top Other Contribution, Top Subscription Contribution, Total Progress
-  
-  Added: All Time High Level, All Time High Total, Broadcaster Display Name, Broadcaster User ID, Broadcaster User Login, Goal, Is Shared Train, Level, Progress, Shared Train Participants, Top Contributions, Total
-  
-  Hype Train Progressed:
-  ======================
-  Removed: Current Goal, Current Level, From Channel Id, Goal Progress, Is Golden Kappa Train, Last Contribution, Top Bits Contribution, Top Other Contribution, Top Subscription Contribution, Total Progress
-
-  Added: Broadcaster Display Name, Broadcaster User ID, Broadcaster User Login, Goal, Is Shared Train, Level, Progress, Shared Train Participants, Top Contributions, Total
-  
-  Hype Train Ended:
-  =================
-  Removed: Current Level, From Channel Id, Is Golden Kappa Train, Last Contribution, Top Bits Contribution, Top Other Contribution, Top Subscription Contribution, Total Progress
-  
-  Added: Broadcaster Display Name, Broadcaster User ID, Broadcaster User Login, Is Shared Train, Level, Shared Train Participants, Top Contributions, Total
+- Added a new "Stop" button that stops the current execution of the button as well as all queued up instances of it
+- Added a new command "Twitch: Get Hype Train Status" which provides information about the broadcasters Hype Train
+- Added a new command "Twitch: Add Suspicious Users" which lets you flag users with the "Active Monitoring" or "Restricted" flag
+- Added a new command "Twitch: Remove Suspicious Users" which lets you remove the suspicious flag from users
+- Added Twitch Combo and Powerup Test Triggers to the bridge
+- Added more people to the test payloads in the bridge
+- Added the new "moderator:manage:suspicious_users" scope
   
 Improvements:
 
+- Reworked the Hype Train Test Triggers in the bridge to reflect the new Payload
+
 UI Changes:
 
+- Reworked the Button Editor to have the same horizontal distance between the buttons
+
 Bug Fixes:
+
+- Fixed the Trigger Pull Values for "Hype Train - Ended" and "Hype Train - Progressed"
+- Fixed the Hype Train Test Menu in the Bridge ("Progressed" now fires "Progressed" correctly instead of "End" and "End" fires "End" instead of "Progressed")
+- Fixed a bug where Hype Train Progressed Events couldn't be processed correctly in 2026.1.0
+- Fixed a bug where Gamepad Trigger couldn't trigger with the right analog stick
+- Added a lot of the missing language keys with the help of the translators:
+  DE - Chrizzz
+  EN - Chrizzz
+  SP - KevinPorKevin
 
 Known Issues:
 
 - Button border sliders not working as intended
-- Language keys missing for some languages
 - Twitch Connection window UI not displaying more than 3 accounts
-- Gamepad Trigger can't trigger right analog stick

@@ -487,8 +487,8 @@
           "sum": null
         },
         "SAMMI Updater": {
-          "version": "1.0.1.0",
-          "sum": "41e231029bf42c82270f145ddca76dee",
+          "version": "1.0.2.0",
+          "sum": "f5ad532a3beabeb118c13b267552484b",
           "path": "SAMMI Updater",
           "file": "SAMMI Updater.exe"
         }
@@ -496,3 +496,4 @@
     }
   ]
 }
+

@@ -1,26 +1,170 @@
 ====================================
-   SAMMI 2026.3.0 (March 2026)
+   SAMMI 2026.4.0 (May 2026)
 ====================================
+
 
 [SAMMI Core]
 -------------------------------------
 
 New Features:
 
-- Added a new command "Send Aitum Request" that allows you to control the Aitum plugin with 31 different premade request templates (huge shoutout to TheBurge for providing and testing the requests)
-- Added the option "Only Trigger in own chat" to the "Twitch Chat Messages" trigger
-  This checkbox is automatically enabled for all triggers and will automatically ignore chat messages received from other chats in a Shared Chat session
-- Added a new setting in the settings menu to disable the new "Only Trigger in own chat" option
-- Added a new global variable "twitch_default_channel_id" which will contain the channel id of the channel that is listening to events
-- Added a mandatory version check after beeing contacted by Twitch about users still running the deprecated V1 Hype Train EventSub endpoint
-  This was added to help keep SAMMI compatible with future Twitch EventSub updates and avoid disruptions for the users and will only used when major changes need to be applied to SAMMI.  
-  
+- Added a new Event Log window to SAMMI
+  - You can open it from the main screen using the new Log button, or from anywhere with CTRL + E
+  - The Event Log shows all events that triggered SAMMI, including their full payload data
+  - Users can copy the full payload directly from the Event Log
+  - This feature can be turned off in the settings menu
+- Added support for the upcoming official SAMMI Twitch Extension:
+  - Enables viewers to trigger SAMMI buttons directly from a Twitch overlay
+  - Extension buttons are configurable by the broadcaster
+  - SAMMI connects to a new backend via WebSocket, integrated into SAMMI Bridge, to listen for channel events
+  - Supports manual and automatic connection via the new settings option
+  - Requires restarting SAMMI and SAMMI Bridge after changing the automatic connection setting
+  - Includes a Power system where viewers can unlock predefined amounts of Power with Bits
+  - Bits-based Power unlocks follow the Twitch Extension Guidelines
+- Added a new option to the settings menu that lets you automatically connect to the Twitch Extension (Only enable this if you are actively using the feature to avoid unnecessary WebSocket connections)
+- Added the new SAMMI_V2.dll file to support upcoming and newly introduced features
+- Added a startup notification that warns users when their Twitch token is about to expire
+
+
+New Commands:
+
+- "Try Block" - Allows commands inside the block to fail without stopping the entire button execution
+- "Wait For Dialog" - Creates a popup with any number of buttons and saves the selected response
+- "File: Create Folder" - Creates a folder directly from SAMMI
+- "JSON: Get Value" - Extracts values from JSON using paths such as user.name or items[0].name
+- "Twitch: Get Custom Power-Ups" - Fetches available custom Power-Ups for a Twitch channel
+- "Open Folder" - Opens a folder in Windows Explorer
+- "Twitch: Get Pinned Chat Message" - Retrieves the pinned chat message of a Twitch channel
+- "Twitch: Pin Chat Message" - Pins a chat message in Twitch chat
+- "Twitch: Update Pinned Chat Message" - Updates the pinned chat message in Twitch chat
+- "Twitch: Unpin Chat Message" - Removes the pinned chat message from Twitch chat
+
+
+New Triggers:
+
+- "Twitch Extension" triggers for the official SAMMI Twitch Extension
+- "Twitch Custom Power-Ups" trigger for the new Twitch Custom Power-Ups (the old "Power-Ups" trigger has been renamed to "Default Power-Ups" because default and custom Power-Ups behave differently)
+
+
 Improvements:
 
-- Added the "followed_at" to the Trigger Pull values for the Twitch Follow Trigger
-- Added the "is_own_chat" to the Trigger Pull values for the Twitch Chat Message Trigger
-- Prepared the Source Code to swap Twitch Chat messages from IRC to EventSub if necessary (applying this change will be postponed due to a lot of missing values in the EventSub endpoint until it is necessary)
+- Reworked several popup and input commands with the new SAMMI_V2.dll file, adding Enter / Escape / Up / Down / Left / Right support and the new design:
+  - "Wait For User Input"
+  - "Wait For User Choice"
+  - "Popup Message"
+- Reworked the "Play Sound Effect" command:
+  - Now supports various audio files, including .mp3, .wav, .m4a, .ogg, and .mp4 (audio only)
+  - Added a new optional "Audio Device" dropdown
+    - Leave it empty to play sounds on your active default audio device
+    - Select a specific audio device from the dropdown to always play sounds through that device instead
+    - You can still enter a custom device name manually if needed
+  - When using the default audio device, SAMMI now automatically follows changes to your Windows default device
+  - SAMMI no longer needs to be restarted after changing your default audio device
+- Added a checkbox to allow case-insensitive comparison for multiple statement commands:
+  - "If Statement"
+  - "Switch Statement"
+  - "Exit"
+  - "Break"
+- Improved the update check so SAMMI can still run offline when no internet connection is available, as long as you've been online in the last 7 days
+- Turned the message box in the "Discord: Send Message" command into a multiline box, allowing line breaks
+- Copying a variable value from the Variable Viewer now includes the Button ID
+- Updated the SAMMI Panel URL: http://panel.sammi.solutions/
+- Reworked the save logic:
+  - SAMMI now only saves the affected deck instead of all decks every time you change something
+  - This makes the save process up to 10 times faster in tests when saving or running buttons from SAMMI Core directly
+- Improved the "Reveal in File Explorer" option in the side menu to be much faster
+- Added a new checkbox to "Twitch: Send API Chat Message" to pin the message after sending
+- Added validation for malformed Bridge extension trigger payloads, preventing invalid extension data from crashing SAMMI
+
+
+New Global Variables:
+
+- "auto_connect_twitch_extension" - Indicates whether SAMMI Bridge should automatically connect to the SAMMI Twitch Extension backend
+- "twitch_default_chat_id" - Indicates the ID of the default Twitch account used for chat
+
 
 UI Changes:
 
+- Reworked many system messages to use the new SAMMI_V2.dll design
+- Reworked the patch notes page
+
+
 Bug Fixes:
+
+- Fixed a bug where "Twitch Chat Message" triggers from old decks sometimes would fail in combination with bot accounts
+- Fixed a bug where the global variable "twitch_default_channel_id" would be populated with the chatter ID
+- Fixed a bug where extension commands would completely change their color when selected
+- Fixed a bug in the "Stringify Object" command
+
+
+Removed Features:
+
+- Removed Twitch Combo support because Twitch deprecated the feature
+
+
+
+[SAMMI Pro]
+-------------------------------------
+
+Introduction:
+
+SAMMI Pro has been introduced as an optional way to support ongoing SAMMI development, server infrastructure, maintenance, and long-term sustainability.
+It is available to all active Patreon supporters pledging at least 1 Euro per month after linking their Twitch and Patreon accounts at https://api.sammi.solutions/.
+SAMMI itself remains free, and SAMMI Pro only adds optional extra features, quality-of-life improvements, extra commands, and extended functionality.
+
+
+New Features:
+
+- SAMMI Pro users can now replay logged events directly from the Event Log
+- SAMMI Pro users can create unlimited viewer buttons without Power requirements in the official SAMMI Twitch Extension
+
+
+New Commands:
+
+- "Regex: Is Match" - Checks whether a string matches a regular expression
+- "Regex: Replace String" - Replaces text using a regular expression
+- "Regex: Get Captures" - Extracts regex capture groups into an array
+- "File: Folder Get Files" - Reads files from a folder into an array, with optional file extension filtering and subfolder support
+- "File: Get Information" - Retrieves file name, file extension, folder path, file size, created date, file duration (s), or modified date
+- "Discord: Send File" - Uploads a file to a Discord webhook
+- "Source Save Screenshot" - Saves a screenshot of an OBS source or scene locally
+- "Source Get Settings" - Retrieves OBS source settings and saves them as an object
+- "Source Get Transform" - Retrieves OBS source transform data and saves it as an object
+- "Filter Get Settings" - Retrieves OBS filter settings and saves them as an object
+- "OBS Get Scene List" - Retrieves the current OBS scene list and saves it as an array
+- "OBS Get Source List" - Retrieves OBS sources and saves them as an array, optionally limited to a specific scene
+- "Get Random Color" - Generates a random color value
+- "INI: Create Leaderboard" - Generates a leaderboard from an INI file section, either as a string or as an array in a format of your choice
+
+
+New Global Variables:
+
+- "sammi_pro" - Indicates whether the user has SAMMI Pro
+
+
+UI Changes:
+
+- Added a SAMMI Pro indicator lamp and a context menu for quick access to SAMMI Pro information and upgrades
+- Added visual SAMMI Pro indicators for Pro-only commands
+
+
+
+[SAMMI Bridge]
+-------------------------------------
+
+New Test Triggers:
+
+- "Watch Streaks"
+- "Twitch Extension"
+- "Custom Power-Up"
+- "Whisper" test trigger
+- "Automatic Reward Redemption"
+- "Extension Trigger"
+- "Prediction Canceled"
+
+
+Improvements:
+
+- Improved the "Community Gift" test trigger in SAMMI Bridge
+- Reworked the "Twitch Chat Message" test trigger to send the newest payload
+- Updated the complete SAMMI Bridge design to be more user-friendly and modern

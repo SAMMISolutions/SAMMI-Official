@@ -1,5 +1,5 @@
 ====================================
-   SAMMI 2026.4.0 (May 2026)
+   SAMMI 2026.5.0 (July 2026)
 ====================================
 
 
@@ -8,163 +8,317 @@
 
 New Features:
 
-- Added a new Event Log window to SAMMI
-  - You can open it from the main screen using the new Log button, or from anywhere with CTRL + E
-  - The Event Log shows all events that triggered SAMMI, including their full payload data
-  - Users can copy the full payload directly from the Event Log
-  - This feature can be turned off in the settings menu
-- Added support for the upcoming official SAMMI Twitch Extension:
-  - Enables viewers to trigger SAMMI buttons directly from a Twitch overlay
-  - Extension buttons are configurable by the broadcaster
-  - SAMMI connects to a new backend via WebSocket, integrated into SAMMI Bridge, to listen for channel events
-  - Supports manual and automatic connection via the new settings option
-  - Requires restarting SAMMI and SAMMI Bridge after changing the automatic connection setting
-  - Includes a Power system where viewers can unlock predefined amounts of Power with Bits
-  - Bits-based Power unlocks follow the Twitch Extension Guidelines
-- Added a new option to the settings menu that lets you automatically connect to the Twitch Extension (Only enable this if you are actively using the feature to avoid unnecessary WebSocket connections)
-- Added the new SAMMI_V2.dll file to support upcoming and newly introduced features
-- Added a startup notification that warns users when their Twitch token is about to expire
+- Added folders to SAMMI, allowing you to group your decks
+  - Folders can be reordered with decks and can use custom folder images
+  - Folder data is stored separately from deck JSON data
+  - You can leave a folder with the Back tile or "ESC" on the main screen
+- Meld support has been officially added to SAMMI
+- The button settings now have a new option called "Expose Payload".
+  This is turned on by default for all new buttons (and disabled for all old ones for compatibility reasons).
+  While this feature is on, on the button execution, the trigger payload is always saved as "payload" object, allowing you to use variables like "/$payload.user_name$/" without having to use a trigger pull value first
+- Added a new option to the settings menu to turn on button borders in SAMMI itself
+- Added multi-button selection in the Deck Editor
+  - Hold "CTRL" and click buttons to build a selection
+  - "CTRL" + click again to deselect individual buttons
+  - Clicking an already-selected button without "CTRL" keeps the full selection and starts a drag from that button
+  - All selected buttons can be dragged and moved together while respecting grid boundaries and collision rules
+  - "CTRL + C" copies all selected buttons, pasting via right-click preserves their relative positions
+  - "DELETE" removes all selected buttons at once
+  - Undo and Redo work correctly with all multi-button operations
+- Added a dedicated "SAMMI Supporters" page showing everyone supporting SAMMI on Patreon, grouped by their Patreon tiers instead of listing them on the about page
 
 
 New Commands:
 
-- "Try Block" - Allows commands inside the block to fail without stopping the entire button execution
-- "Wait For Dialog" - Creates a popup with any number of buttons and saves the selected response
-- "File: Create Folder" - Creates a folder directly from SAMMI
-- "JSON: Get Value" - Extracts values from JSON using paths such as user.name or items[0].name
-- "Twitch: Get Custom Power-Ups" - Fetches available custom Power-Ups for a Twitch channel
-- "Open Folder" - Opens a folder in Windows Explorer
-- "Twitch: Get Pinned Chat Message" - Retrieves the pinned chat message of a Twitch channel
-- "Twitch: Pin Chat Message" - Pins a chat message in Twitch chat
-- "Twitch: Update Pinned Chat Message" - Updates the pinned chat message in Twitch chat
-- "Twitch: Unpin Chat Message" - Removes the pinned chat message from Twitch chat
+- "Twitch: Edit Reward" - New combined command replacing the old "Twitch: Edit Reward" and "Twitch: Extra Edit Reward", with an optional "Save Variable As" output for the updated reward object
+- "Zip Folder" - Compresses a folder into a ZIP archive, with support for relative and dynamic file paths
+- "Unzip Files" - Extracts a ZIP archive into a target folder, with support for relative and dynamic file paths
+- "Control Replay Buffer" - Controls the OBS Replay Buffer with a Start / Stop / Toggle dropdown
+- "Save Replay Buffer" - Saves the current Replay Buffer contents to a file
+- "Get Replay Buffer Status" - Checks whether the OBS Replay Buffer is currently active
+- "Get Last Replay Buffer" - Retrieves the file path of the last saved Replay Buffer recording
+- "Control Virtual Camera" - Controls the OBS Virtual Camera with a Start / Stop / Toggle dropdown
+- "Get Virtual Camera Status" - Checks whether the OBS Virtual Camera is currently active 
+- "Set Studio Mode Scene" - Sets the Preview scene in OBS Studio Mode without changing the Program output
+- "Activate Studio Mode Scene" - Triggers the Studio Mode transition, moving the Preview scene to Program
+- "Get Studio Mode Scene" - Retrieves the name of the current Preview scene in OBS Studio Mode
+- "Get Stream Status" - Retrieves the current OBS stream status including uptime, congestion, and bytes sent
+- "Get Recording Status" - Retrieves the current OBS recording status including timecode, pause state, and file size
+- "Get Stats" - Retrieves OBS performance statistics: CPU usage, RAM, FPS, disk space, and frame data
+- "Meld: Connect" - Connects SAMMI to Meld Studio's WebChannel API
+- "Meld: Disconnect" - Disconnects SAMMI from Meld Studio
+- "Meld: Send Command" - Sends a raw Meld command, such as screenshot, streaming, recording, replay, or virtual camera actions
+- "Meld: Streaming" - Starts, stops, or toggles streaming in Meld Studio
+- "Meld: Recording" - Starts, stops, or toggles recording in Meld Studio
+- "Meld: Show Scene" - Switches Meld Studio to the selected scene
+- "Meld: Set Staged Scene" - Sets the selected scene as the staged scene in Meld Studio
+- "Meld: Show Staged Scene" - Shows the currently staged scene in Meld Studio
+- "Meld: Change Track Mute" - Toggles, mutes, or unmutes a selected track in a selected scene
+- "Meld: Change Track Monitoring" - Toggles, enables, or disables monitoring for a selected track in a selected scene
+- "Meld: Set Track Volume" - Sets the volume of a selected track in a selected scene
+- "Meld: Layer Toggle Visibility" - Toggles visibility for a selected layer in a selected scene
+- "Meld: Toggle Effect" - Toggles a selected effect on a selected layer
+- "Meld: Set Properties" - Sets a custom Meld layer property value, such as visible, width, height, text, url, source, or rotation
+- "Meld: Control Widget" - Sends a Meld widget event with an optional JSON payload
+- "Meld: Call Function" - Calls a function on a selected Meld layer, with optional JSON arguments
+- "Meld: Get Status" - Saves the current Meld connection and session status as an object
+- "Meld: Set Track Position" - Sets the playback position of a selected track in a selected scene
+- "Meld: Take Screenshot" - Takes a normal or vertical screenshot in Meld Studio
+- "Meld: Layer Change Visibility" - Sets a selected layer to visible or hidden
+- "Meld: Event Pull" - Pulls values from a Meld trigger payload into a variable
+- "Meld: Replay" - Shows or dismisses Meld Replay
+- "Meld: Record Clip" - Records a clip in Meld Studio
+- "Meld: Toggle Virtual Camera" - Toggles the Meld Studio virtual camera
+- "Meld: Control Media" - Plays or pauses a selected media layer
+- "Meld: Set Size" - Sets the width and height of a selected layer
+- "Meld: Set Position" - Sets the X and Y position of a selected layer
+- "Meld: Set Visibility" - Sets a selected layer to visible or hidden
+- "Meld: Set Rotation" - Sets the rotation of a selected layer
+- "Meld: Set Text" - Sets the text value of a selected text layer
+- "Meld: Set URL" - Sets the URL of a selected browser layer
+- "Meld: Set Source" - Sets the file source of a selected layer
+- "Meld: Set Media Source" - Sets the media file source of a selected layer
+- "Meld: Set Layer Name" - Renames a selected layer
 
 
 New Triggers:
 
-- "Twitch Extension" triggers for the official SAMMI Twitch Extension
-- "Twitch Custom Power-Ups" trigger for the new Twitch Custom Power-Ups (the old "Power-Ups" trigger has been renamed to "Default Power-Ups" because default and custom Power-Ups behave differently)
+- "Meld Trigger: Connected" triggers when SAMMI connects to Meld Studio
+- "Meld Trigger: Disconnected" triggers when SAMMI disconnects from Meld Studio
+- "Meld Trigger: Session Changed" triggers when Meld Studio reports a session update
+- "Meld Trigger: Scene Changed" triggers when the current Meld scene changes
+- "Meld Trigger: Layer Created" triggers when a new layer is created in Meld Studio
+- "Meld Trigger: Layer Removed" triggers when a layer is removed in Meld Studio
+- "Meld Trigger: Scene Created" triggers when a new scene is created in Meld Studio
+- "Meld Trigger: Scene Removed" triggers when a scene is removed in Meld Studio
+- "Meld Trigger: Streaming Changed" triggers when Meld Studio's streaming state changes
+- "Meld Trigger: Stream Started" triggers when streaming starts in Meld Studio
+- "Meld Trigger: Stream Stopped" triggers when streaming stops in Meld Studio
+- "Meld Trigger: Recording Changed" triggers when Meld Studio's recording state changes
+- "Meld Trigger: Recording Started" triggers when recording starts in Meld Studio
+- "Meld Trigger: Recording Stopped" triggers when recording stops in Meld Studio
 
 
 Improvements:
 
-- Reworked several popup and input commands with the new SAMMI_V2.dll file, adding Enter / Escape / Up / Down / Left / Right support and the new design:
-  - "Wait For User Input"
-  - "Wait For User Choice"
-  - "Popup Message"
-- Reworked the "Play Sound Effect" command:
-  - Now supports various audio files, including .mp3, .wav, .m4a, .ogg, and .mp4 (audio only)
-  - Added a new optional "Audio Device" dropdown
-    - Leave it empty to play sounds on your active default audio device
-    - Select a specific audio device from the dropdown to always play sounds through that device instead
-    - You can still enter a custom device name manually if needed
-  - When using the default audio device, SAMMI now automatically follows changes to your Windows default device
-  - SAMMI no longer needs to be restarted after changing your default audio device
-- Added a checkbox to allow case-insensitive comparison for multiple statement commands:
-  - "If Statement"
-  - "Switch Statement"
-  - "Exit"
-  - "Break"
-- Improved the update check so SAMMI can still run offline when no internet connection is available, as long as you've been online in the last 7 days
-- Turned the message box in the "Discord: Send Message" command into a multiline box, allowing line breaks
-- Copying a variable value from the Variable Viewer now includes the Button ID
-- Updated the SAMMI Panel URL: http://panel.sammi.solutions/
-- Reworked the save logic:
-  - SAMMI now only saves the affected deck instead of all decks every time you change something
-  - This makes the save process up to 10 times faster in tests when saving or running buttons from SAMMI Core directly
-- Improved the "Reveal in File Explorer" option in the side menu to be much faster
-- Added a new checkbox to "Twitch: Send API Chat Message" to pin the message after sending
-- Added validation for malformed Bridge extension trigger payloads, preventing invalid extension data from crashing SAMMI
+- "Wait For User Choice", "Wait For User Input", "Wait For Dialog" and "Popup Message" no longer freeze all running buttons
+  - Only the current button is paused while the dialog is open
+  - All other buttons continue running normally in the background
+  - The old behavior (freezing all buttons) can be restored individually per command in "SAMMI Settings"
+- Reworked the Button appearance menu, allowing you to now configure even more options, for example:
+  - Text Font Color
+  - Border Color
+  - Font Shadow
+- Updated the "Modify Button / Group" command to support the new parameters (Deck Apps will need to be updated to support this)
+- Added support for multiline commands, allowing command boxes to take more than 1 line
+- Added support for command row width arrays and row height arrays
+- Added a new "Save as number" checkbox to the "CSV: Get Box" command that allows you to directly save the value as a number
+- "Play Sound Effect" now has full OGG support, on par with MP3 and WAV
+  - Added playback support for OGG Opus files (previously only OGG Vorbis could be played)
+  - OGG files now play on any selected output device
+  - OGG files now fully support stop, volume (including fades) and playback speed
+- The Variable Viewer now lets you select text directly with the mouse, in addition to the existing copy buttons
+  - Left-click and drag to highlight any text, then press "CTRL + C" to copy it
+  - Double-click selects a word, triple-click selects the whole line
+- OBS and Meld scene dropdowns now support "Current Scene" and "Previous Scene" aliases
+- "Twitch: Edit Reward" (old, cmd 186) and "Twitch: Extra Edit Reward" (cmd 231) are now deprecated — replaced by the new combined "Twitch: Edit Reward" command
+- Twitch commands now validate string field lengths against Twitch API limits before sending the request. If a value is too long, a warning alert is shown and the string is automatically truncated so the command does not fail silently. Affected commands and limits:
+  - "Twitch: Create Poll" — title: 60 characters, each choice: 25 characters
+  - "Twitch: Modify Channel Info" — stream title: 140 characters, each tag: 25 characters
+  - "Twitch: Send Announcement" — message: 500 characters
+  - "Twitch: Ban User" / "Twitch: Timeout User" — reason: 500 characters
+  - "Twitch: Edit Reward" — title: 45 characters, description: 200 characters
+- Added a "Sidebar Min Columns" setting under "Interface" in "SAMMI Settings", allowing you to control at what window width the sidebar expands (default: 3 columns).
+- Added a "Verify Commands on Save" setting under "General" in "SAMMI Settings" (default: enabled). When disabled, SAMMI skips checks for empty Save Variable boxes and duplicate Case statements when saving a button
+- Deck App button payloads now include "border", "border_color", "font_color", and "font_shadow"
+- Added a new "message_no_emotes" trigger pull value to the following triggers, containing the message text with all emotes (including bits) removed:
+  - "Twitch Chat Message"
+  - "Twitch Announcement"
+  - "Twitch Bits"
+  - "Twitch Default Power-Ups"
+  - "Twitch Automatic Reward Redemption"
+- Added a "Mod Anniversary" event to the Twitch Moderation trigger, fired when a moderator celebrates their mod anniversary in chat, with its own trigger pull values
+- Added subcategories to the Twitch, YouTube, and SAMMI Pro categories in the "Button Command Editor" for faster navigation
+- Extension commands are now sorted alphabetically in the command search and Extension Commands menu, while favorite commands remain prioritized in search
 
 
 New Global Variables:
 
-- "auto_connect_twitch_extension" - Indicates whether SAMMI Bridge should automatically connect to the SAMMI Twitch Extension backend
-- "twitch_default_chat_id" - Indicates the ID of the default Twitch account used for chat
+- New "Meld" variable that contains various information about your meld connection as well as Meld studio
 
 
 UI Changes:
 
-- Reworked many system messages to use the new SAMMI_V2.dll design
-- Reworked the patch notes page
+- Updated the design of the following menus
+   - "Color Picker"
+   - "Button Appearance"
+   - "Trigger" menu
+   - "Deck Editor"
+   - "Button Editor"
+- The Twitch, OBS, YouTube and Meld Studio buttons have been replaced by a shared connection button
+- Added Button Icons in many buttons for easier navigation
+- Updated many menu buttons to grow and position themselves depending on the text content
+- Standardized button placement across all menus: Save/Confirm is always on the right, Cancel/Close is always on the left
+- Reworked the about page to use the remaining space more efficiently
+- Updated the default popup color preset for better contrast and readability
 
 
 Bug Fixes:
 
-- Fixed a bug where "Twitch Chat Message" triggers from old decks sometimes would fail in combination with bot accounts
-- Fixed a bug where the global variable "twitch_default_channel_id" would be populated with the chatter ID
-- Fixed a bug where extension commands would completely change their color when selected
-- Fixed a bug in the "Stringify Object" command
-
-
-Removed Features:
-
-- Removed Twitch Combo support because Twitch deprecated the feature
-
+- Fixed missing translations in several places across the UI
+- Fixed "Play Sound Effect" silently not playing certain files (such as some MP3s) when no audio device was selected, by switching to a more compatible audio output and falling back automatically when a device or driver rejects playback
+- Fixed a bug where the Button Editor scrollbar could be scrolled past the bottom of the content using the mouse wheel
+- Fixed a bug where the Variable Viewer scrollbar could be scrolled past the bottom of the content using the mouse wheel
+- Fixed a bug where long string values in the Variable Viewer (such as minified JSON without spaces) ran off the side of the window instead of wrapping; long values now wrap to the window width
+- Fixed a bug where the Trigger window could be scrolled when its content already fit or past the bottom of the content using the mouse wheel
+- Fixed a bug where Trigger window dropdown fields could keep a stale text cursor or selection overlay after choosing another dropdown option
+- Fixed a bug where the About window would immediately close itself before the page had finished loading
+- Fixed a bug where button borders were not working correctly
+- Fixed a bug where Twitch accounts wouldn't display correctly, when there were linked more than 2
+- Fixed a crash in Twitch Connections after removing the selected Twitch EventSub account. SAMMI now automatically selects another linked account as the default EventSub/chat account when needed
+- Fixed a bug where clicking "Enable Persistent Variables" in the Default Variable Window would not make the button persistent if the init variable text had not been changed
+- Fixed a crash in the Open URL command when the URL was empty
+- Fixed a crash in Deck App "Wait For Input", "Wait For Choice", and "Wait For Multi Choice" commands when "Timeout After" was empty. Empty timeouts now default to 30 seconds
+- Fixed a crash in "Mouse Simulate Click" when "Duration" was empty. Empty durations now default to 200 ms
+- Fixed a bug where saving a Twitch reward with cooldown enabled could set disabled redemption limit options to 1
+- Fixed a bug in the following commands, where it would delete all button variables when the Save Variable as box was empty and async behaviour was turned off:
+   - "Twitch: Create Clip"
+   - "Twitch: Run Ad (Commercial)"
+   - "Commandline"
+   - "HTTP Upload File"
 
 
 [SAMMI Pro]
 -------------------------------------
 
-Introduction:
-
-SAMMI Pro has been introduced as an optional way to support ongoing SAMMI development, server infrastructure, maintenance, and long-term sustainability.
-It is available to all active Patreon supporters pledging at least 1 Euro per month after linking their Twitch and Patreon accounts at https://api.sammi.solutions/.
-SAMMI itself remains free, and SAMMI Pro only adds optional extra features, quality-of-life improvements, extra commands, and extended functionality.
-
-
 New Features:
 
-- SAMMI Pro users can now replay logged events directly from the Event Log
-- SAMMI Pro users can create unlimited viewer buttons without Power requirements in the official SAMMI Twitch Extension
+- Added a new "UI Color Menu" accessible from the "SAMMI Pro Features" menu
+  - Allows you to fully customize the colors of every window and UI element in SAMMI
+  - 22 separate categories, one per window (Main Screen, Search Bar, Deck Editor, Button Command Editor, Button Trigger Editor, Button Appearance Editor, OBS, Twitch, YouTube, Meld, Popups, and more)
+  - Colors are saved to json/ui.json and only applied when SAMMI Pro is active — defaults are restored when Pro is inactive
+  - Supports Export and Import of your full color configuration as a JSON file
+  - The UI Color Menu can be moved by dragging its title bar and freely resized
+  - Can be opened from anywhere with "CTRL + U"; the UI Color Menu, Variable Viewer, and Event Log cannot be open at the same time
+  - Includes a transparency preview toggle in the top-left corner; click the eye icon or press "T" to see the underlying UI while editing colors
+  - Closing the menu with Cancel, the window close button, "ESC", or "CTRL + U" asks for confirmation when there are unsaved changes
+- Added a new "Command Editor" accessible from the "SAMMI Pro Features" menu
+  - Allows you to enable or disable individual commands or entire command categories
+  - Disabled commands are hidden from the command list to keep it clean and focused
+  - Commands can be marked as favorites and will appear at the top of the command list for quick access
+  - Supports subcategory-level filtering for fine-grained control
+- Added the ability to save multiple selected command blocks permanently and insert them from the "Quickbar" at the selected command position
+- Added a Pro search bar to the main screen for searching across all your decks and folders
+  - Six search modes selectable via dropdown:
+    - "Decks & Folders": searches deck names and folder names (default)
+    - "Button Labels": searches the display text of every button across all decks
+    - "Button IDs": searches button IDs across all decks
+    - "Trigger Names": searches the trigger types attached to buttons (e.g. "Twitch Chat", "Hotkey", "Timer")
+    - "Commands": searches the command names used inside buttons (e.g. "Set Local Variable", "Switch Scene")
+    - "Text": searches variable names, values, and other text fields stored inside commands
+  - Results update as you type and are cached so repeat searches are instant
+  - Note: Trigger Names, Commands, and Text scan button data across all decks and may take a moment longer depending on the number of decks and buttons in your project
+- SAMMI Pro can now be unlocked through a linked YouTube channel
+  - Link your YouTube channel and Patreon account on the SAMMI account linking page
+  - SAMMI verifies your Pro status when a YouTube channel is connected
+  - Pro status is re-verified when a YouTube channel is removed from YouTube Connections
 
 
 New Commands:
 
-- "Regex: Is Match" - Checks whether a string matches a regular expression
-- "Regex: Replace String" - Replaces text using a regular expression
-- "Regex: Get Captures" - Extracts regex capture groups into an array
-- "File: Folder Get Files" - Reads files from a folder into an array, with optional file extension filtering and subfolder support
-- "File: Get Information" - Retrieves file name, file extension, folder path, file size, created date, file duration (s), or modified date
-- "Discord: Send File" - Uploads a file to a Discord webhook
-- "Source Save Screenshot" - Saves a screenshot of an OBS source or scene locally
-- "Source Get Settings" - Retrieves OBS source settings and saves them as an object
-- "Source Get Transform" - Retrieves OBS source transform data and saves it as an object
-- "Filter Get Settings" - Retrieves OBS filter settings and saves them as an object
-- "OBS Get Scene List" - Retrieves the current OBS scene list and saves it as an array
-- "OBS Get Source List" - Retrieves OBS sources and saves them as an array, optionally limited to a specific scene
-- "Get Random Color" - Generates a random color value
-- "INI: Create Leaderboard" - Generates a leaderboard from an INI file section, either as a string or as an array in a format of your choice
+- "File: JSON to Object" - Reads a JSON file and converts it into a SAMMI object / array
+- "Convert Time" - Converts time into a different format, for example 100 seconds into 1:40
+- "Set Stream Caption" - Sends a text caption to the current OBS stream output
+- "Window: Find" - Finds a window by title or process name and returns its handle
+- "Window: Minimize" - Minimizes a window by title or handle
+- "Window: Maximize" - Maximizes a window by title or handle
+- "Window: Restore" - Restores a minimized or maximized window to its normal state
+- "Window: Close" - Closes a window by title or handle
+- "Window: Focus" - Brings a window to the foreground and gives it focus
+- "Window: Hide" - Hides a window from the taskbar and screen
+- "Window: Show" - Makes a previously hidden window visible
+- "Window: Set Position" - Moves a window to a specified X/Y position on screen
+- "Window: Set Size" - Resizes a window to a specified width and height
+- "Window: Get Info" - Retrieves the title, position, and size of a window as an object
+- "Window: Set Always On Top" - Enables, disables, or toggles the always-on-top state of a window
+- "Window: Get Active" - Returns the title of the currently focused window
+- "Process: Is Running" - Checks whether a process with the given name is currently running
+- "Process: Kill" - Terminates a process by name or PID
+- "Process: Get List" - Returns an array of all currently running processes
+- "System: Get Master Volume" - Returns the current Windows master volume level (0-100)
+- "System: Set Master Volume" - Sets the Windows master volume level (0-100)
+- "System: Get Master Mute" - Returns the current Windows master mute state
+- "System: Set Master Mute" - Enables, disables, or toggles the Windows master mute
+- "System: Get Audio Devices" - Returns an array of available audio output device names
+- "System: Set Application Audio Level" - Sets the volume (0-100) of a specific running application's audio session
 
 
-New Global Variables:
+Improvements:
 
-- "sammi_pro" - Indicates whether the user has SAMMI Pro
-
-
-UI Changes:
-
-- Added a SAMMI Pro indicator lamp and a context menu for quick access to SAMMI Pro information and upgrades
-- Added visual SAMMI Pro indicators for Pro-only commands
-
+- SAMMI Pro status is always checked again when the Twitch EventSub account is switched
 
 
 [SAMMI Bridge]
 -------------------------------------
 
-New Test Triggers:
+Improvements:
 
-- "Watch Streaks"
-- "Twitch Extension"
-- "Custom Power-Up"
-- "Whisper" test trigger
-- "Automatic Reward Redemption"
-- "Extension Trigger"
-- "Prediction Canceled"
+- Extension commands now support optional row unit and row height arrays as the last two arguments, for example `[1,3]` and `[50,50]`
+- Updated "SAMMI.modifyButton" to support "font_color", "border_color", and "font_shadow"
+- Added a "Twitch Announcement" test trigger to the Twitch Triggers tab
+- Test triggers now include the new "message_no_emotes" pull value ("Twitch Chat Message", "Twitch Announcement", "Twitch Bits", "Twitch Default Power-Ups", "Twitch Automatic Reward Redemption")
+
+
+Bug Fixes:
+
+- Fixed a bug with the shoutout test trigger
+- Fixed the SubGift checkbox in the Sub test trigger getting re-enabled after using the Community Gift test trigger
+- Fixed the Community Gift test trigger changing the Sub test trigger's tier and other form values
+
+
+[SAMMI Panel]
+-------------------------------------
+
+New Features:
+
+- Added support for the "Wait For Input" command — the panel now shows a modal dialog with a text field, allowing users to respond to input requests from buttons
+- Added support for the "Wait For Choice" command — the panel shows a modal with clickable option buttons for each available choice
+- Added support for the "Wait For Multi Choice" command — the panel shows a modal with checkboxes for selecting multiple options
+- Added a "← Back" button overlay on the deck view for quickly returning to the deck selection screen without navigating via browser history
 
 
 Improvements:
 
-- Improved the "Community Gift" test trigger in SAMMI Bridge
-- Reworked the "Twitch Chat Message" test trigger to send the newest payload
-- Updated the complete SAMMI Bridge design to be more user-friendly and modern
+- Reworked the connection screen layout: IP address and port are now combined on a single row, the layout is cleaner and more compact
+- The connection card now displays a subtle status accent on its top edge to indicate the current connection state (green = connected, red = error, amber = reconnecting)
+- Deck navigation now supports "Next Deck" and "Previous Deck" as switch deck destinations, cycling through all enabled decks
+- Button payload from SAMMI Core now includes "border_color" and "font_shadow", which the panel respects when rendering buttons
+- Border color is now correctly applied to image buttons as a visible color ring around the image
+
+
+Bug Fixes:
+
+- Fixed ghost buttons remaining visible when a deck is reloaded or the window is resized
+- Fixed a crash when navigating to a deck that has not fully loaded yet
+- Fixed a crash when a pointer-up event fires without a matching pointer-down (e.g. during rapid gestures)
+- Fixed placeholder images causing an uncaught error when the image data was an object instead of a string
+
+
+[Special Thanks]
+-------------------------------------
+
+Legendary Supporter:
+
+- Zen Sherpa
+- Anonymous Supporter
+
+
+Prime Supporter:
+
+- Bruce Szego
+- LosPigeon
+- Youji
+- buckaroobrogan
+- peacedubz
+- pepewuhu
+- pumpkinpetty

@@ -1,5 +1,5 @@
 ====================================
-   SAMMI 2026.5.0 (July 2026)
+   SAMMI 2026.5.1 (July 2026)
 ====================================
 
 
@@ -186,6 +186,8 @@ Bug Fixes:
    - "Twitch: Run Ad (Commercial)"
    - "Commandline"
    - "HTTP Upload File"
+- Fixed a bug with "Regex: Get Captures" only returning 1 result
+- Fixed a bug with "Wait for Dialog" where it would cut of the text in some buttons when the text was too long
 
 
 [SAMMI Pro]

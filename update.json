@@ -667,6 +667,35 @@
           "file": "SAMMI Updater.exe"
         }
       }
+    },
+    {
+      "version": "2026.5.1",
+      "components": {
+        "SAMMI Core": {
+          "version": "2026.5.1.0",
+          "sum": "d4efc29a83176546ccd87ab7feef1adc9978c7ea530332ec3d51ab8e3f38c203",
+          "path": "",
+          "file": "SAMMI Core.exe"
+        },
+        "SAMMI Voice": {
+          "version": "1.0.1.0",
+          "sum": "30d9ac69f3daa5cdd96246790965c5162160ee4a6e98ef2b4f4da132c50c39e5",
+          "path": "SAMMI Voice",
+          "file": "SAMMI Voice.exe"
+        },
+        "SAMMI Bridge": {
+          "version": "9.01",
+          "path": "bridge",
+          "file": "default.txt",
+          "sum": null
+        },
+        "SAMMI Updater": {
+          "version": "1.0.2.0",
+          "sum": "f5ad532a3beabeb118c13b267552484b",
+          "path": "SAMMI Updater",
+          "file": "SAMMI Updater.exe"
+        }
+      }
     }
   ]
 }
